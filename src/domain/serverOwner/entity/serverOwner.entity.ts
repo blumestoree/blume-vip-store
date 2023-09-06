@@ -1,5 +1,5 @@
 import ServerOwnerValidatorFactory from '../factory/serverOwner.factory.validator';
-
+import ServerOwnerCrypterFactory from '../factory/serverOwner.factory.crypter';
 export default class ServerOwner {
   private _serverOwnerId: string;
   private _name: string;
@@ -11,7 +11,7 @@ export default class ServerOwner {
     (this._serverOwnerId = serverOwnerId),
       (this._name = name),
       (this._email = email),
-      (this._password = password);
+      (this._password = ServerOwnerCrypterFactory.create().crypter(password));
     this.validate();
   }
 
