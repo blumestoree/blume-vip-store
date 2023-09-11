@@ -49,7 +49,7 @@ export default class ServerOwnerRepository implements ServerOwnerRepositoryInter
         where: { serverOwnerId },
       });
     } catch (error) {
-      throw new Error('Owner not found');
+      throw new Error('ServerOwner not found');
     }
 
     return new ServerOwner(owner.serverOwnerId, owner.name, owner.email, owner.password);

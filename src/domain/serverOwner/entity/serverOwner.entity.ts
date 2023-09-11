@@ -35,6 +35,10 @@ export default class ServerOwner {
     return this._password;
   }
 
+  changeName(name: string) {
+    this._name = name;
+  }
+
   validate() {
     ServerOwnerValidatorFactory.create().validate(this);
   }
