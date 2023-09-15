@@ -27,10 +27,11 @@ model Server {
 }
 
 model Product {
-  id     Int      @id @default(autoincrement())
-  name   String   @unique
-  price  Float
-  Server Server[]
+  id        Int      @id @default(autoincrement())
+  productId String   @unique
+  name      String   @unique
+  price     Float
+  Server    Server[]
 }
 
 // model Category {
