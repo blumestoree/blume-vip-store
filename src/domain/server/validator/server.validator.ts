@@ -9,12 +9,12 @@ interface ValidationError {
 
 export default class ServerValidator implements ValidatorInterface<Server> {
   validate(entity: Server): ValidationError[] | void {
-    const serverOwnerSchema = z.object({
+    const serverSchema = z.object({
       _serverId: z.string(),
       _name: z.string().min(2, 'Nome inválido'),
     });
     try {
-      serverOwnerSchema.parse(entity);
+      serverSchema.parse(entity);
     } catch (error) {
       const zodError = error as z.ZodError;
       const errorMessages = zodError.errors.map((issue) => ({
