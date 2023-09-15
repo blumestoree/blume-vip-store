@@ -31,23 +31,23 @@ export default class ServerRepository implements ServerRepositoryInterface {
   }
 
   async findAll(): Promise<Server[]> {
-    const owners = await this.prisma.server.findMany();
-    return owners.map((owner) => {
-      return new Server(owner.serverId, owner.name);
+    const servers = await this.prisma.server.findMany();
+    return servers.map((server) => {
+      return new Server(server.serverId, server.name);
     });
   }
 
   async find(serverId: string): Promise<Server> {
-    let owner;
+    let server;
 
     try {
-      owner = await this.prisma.server.findUniqueOrThrow({
+      server = await this.prisma.server.findUniqueOrThrow({
         where: { serverId },
       });
     } catch (error) {
-      throw new Error('Owner not found');
+      throw new Error('Server not found');
     }
 
-    return new Server(owner.serverId, owner.name);
+    return new Server(server.serverId, server.name);
   }
 }

@@ -1,4 +1,4 @@
-import ServerOwnerValidatorFactory from '../factory/server.factory.validator';
+import ServerValidatorFactory from '../factory/server.factory.validator';
 export default class Server {
   private _serverId: string;
   private _name: string;
@@ -16,7 +16,7 @@ export default class Server {
   }
 
   validate() {
-    ServerOwnerValidatorFactory.create().validate(this);
+    ServerValidatorFactory.create().validate(this);
   }
 
   changeName(name: string) {

@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import serverOwnerRoute from './app/routes/serverOwner.route';
+import serverRoute from './app/routes/server.route';
 
 interface IServer {
   app: express.Application;
@@ -28,6 +29,7 @@ class Server implements IServer {
 
   routes() {
     this.app.use(serverOwnerRoute);
+    this.app.use(serverRoute);
   }
 
   middlewares() {
