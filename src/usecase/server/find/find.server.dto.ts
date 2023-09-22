@@ -4,4 +4,5 @@ export interface InputFindServerDto {
 export interface OutputFindServerDto {
   serverId: string;
   name: string;
+  serverOwnerId: number;
 }

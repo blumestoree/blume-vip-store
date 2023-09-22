@@ -10,12 +10,13 @@ export default class CreateServerUseCase {
   }
 
   async execute(input: InputCreateServerDto): Promise<OutputCreateServerDto> {
-    const server = ServerFacture.create(input.name);
+    const server = ServerFacture.create(input.name, input.serverOwnerId);
     await this.ServerRepository.create(server);
 
     return {
       serverId: server.serverId,
       name: server.name,
+      serverOwnerId: server.serverOwnerId,
     };
   }
 }

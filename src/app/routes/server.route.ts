@@ -25,13 +25,11 @@ class ServerRoute {
     });
     this.router.post('/createServer', async (req: Request, res: Response) => {
       const useCase = new CreateServerUseCase(new ServerRepository());
-      const { name, email, password, serverId } = req.body;
+      const { name, serverOwnerId } = req.body;
       try {
         const serverDto = {
           name,
-          email,
-          password,
-          serverId,
+          serverOwnerId,
         };
         const output = await useCase.execute(serverDto);
         res.send(output);
@@ -41,14 +39,13 @@ class ServerRoute {
     });
     this.router.put('/updateServer/:id', async (req: Request, res: Response) => {
       const useCase = new UpdateServerUseCase(new ServerRepository());
-      const { name, email, password } = req.body;
+      const { name, serverOwnerId } = req.body;
       const { id } = req.params;
       try {
         const serverDto = {
           serverId: id,
           name,
-          email,
-          password,
+          serverOwnerId,
         };
         const output = await useCase.execute(serverDto);
         res.send(output);

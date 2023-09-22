@@ -2,21 +2,22 @@ import ServerRepositoryInterface from '../../../domain/server/repositories/serve
 import { InputUpdateServerDto, InputCreateServerDto } from './update.server.dto';
 
 export default class UpdateServerUseCase {
-  private ServerRepository: ServerRepositoryInterface;
+  private serverRepository: ServerRepositoryInterface;
 
   constructor(ServerRepository: ServerRepositoryInterface) {
-    this.ServerRepository = ServerRepository;
+    this.serverRepository = ServerRepository;
   }
 
   async execute(input: InputUpdateServerDto): Promise<InputCreateServerDto> {
-    const server = await this.ServerRepository.find(input.serverId);
+    const server = await this.serverRepository.find(input.serverId);
     server.changeName(input.name);
 
-    await this.ServerRepository.update(server);
+    await this.serverRepository.update(server);
 
     return {
       serverId: server.serverId,
       name: server.name,
+      serverOwnerId: server.serverOwnerId,
     };
   }
 }

@@ -15,6 +15,7 @@ export default class FindAllServerUseCase {
         return {
           serverId: server.serverId,
           name: server.name,
+          serverOwnerId: server.serverOwnerId,
         };
       }),
     };

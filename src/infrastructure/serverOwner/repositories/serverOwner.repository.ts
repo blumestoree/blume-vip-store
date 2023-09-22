@@ -29,15 +29,30 @@ export default class ServerOwnerRepository implements ServerOwnerRepositoryInter
         name: entity.name,
         email: entity.email,
         password: entity.password,
-        serverId: entity.serverId,
       },
     });
   }
 
   async findAll(): Promise<ServerOwner[]> {
-    const owners = await this.prisma.serverOwner.findMany();
+    const owners = await this.prisma.serverOwner.findMany({
+      include: {
+        serverId: true,
+      },
+    });
+
     return owners.map((owner) => {
-      return new ServerOwner(owner.serverOwnerId, owner.name, owner.email, owner.password);
+      const serverOwner = new ServerOwner(
+        owner.serverOwnerId,
+        owner.name,
+        owner.email,
+        owner.password,
+      );
+
+      if (owner.serverId !== null) {
+        serverOwner.changeServer(owner.serverId?.id);
+      }
+
+      return serverOwner;
     });
   }
 
@@ -47,11 +62,25 @@ export default class ServerOwnerRepository implements ServerOwnerRepositoryInter
     try {
       owner = await this.prisma.serverOwner.findUniqueOrThrow({
         where: { serverOwnerId },
+        include: {
+          serverId: true,
+        },
       });
     } catch (error) {
       throw new Error('ServerOwner not found');
     }
 
-    return new ServerOwner(owner.serverOwnerId, owner.name, owner.email, owner.password);
+    const serverOwner = new ServerOwner(
+      owner.serverOwnerId,
+      owner.name,
+      owner.email,
+      owner.password,
+    );
+
+    if (owner.serverId !== null) {
+      serverOwner.changeServer(owner.serverId?.id);
+    }
+
+    return serverOwner;
   }
 }

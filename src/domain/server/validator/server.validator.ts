@@ -12,6 +12,7 @@ export default class ServerValidator implements ValidatorInterface<Server> {
     const serverSchema = z.object({
       _serverId: z.string(),
       _name: z.string().min(1, 'Nome inválido'),
+      _serverOwnerId: z.number(),
     });
     try {
       serverSchema.parse(entity);
