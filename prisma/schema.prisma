@@ -30,8 +30,8 @@ model Product {
   productId String  @unique
   name      String  @unique
   price     Float
-  Server    Server? @relation(fields: [serverId], references: [id])
-  serverId  Int?
+  Server    Server  @relation(fields: [serverId], references: [id])
+  serverId  Int 
 }
 
 // model Category {
