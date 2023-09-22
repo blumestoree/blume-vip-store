@@ -30,7 +30,7 @@ model Product {
   productId String  @unique
   name      String  @unique
   price     Float
-  Server    Server  @relation(fields: [serverId], references: [id])
+  server    Server  @relation(fields: [serverId], references: [id])
   serverId  Int 
 }
 
