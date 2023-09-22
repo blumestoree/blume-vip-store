@@ -13,6 +13,7 @@ export default class ProductValidator implements ValidatorInterface<Product> {
       _productId: z.string(),
       _name: z.string().min(1, 'Nome inválido'),
       _price: z.number(),
+      _serverId: z.number(),
     });
     try {
       productSchema.parse(entity);

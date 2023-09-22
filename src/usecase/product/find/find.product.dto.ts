@@ -5,4 +5,5 @@ export interface OutputFindProductDto {
   productId: string;
   name: string;
   price: number;
+  serverId: number;
 }

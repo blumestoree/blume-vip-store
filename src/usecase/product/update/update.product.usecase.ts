@@ -18,6 +18,7 @@ export default class UpdateproductUseCase {
       productId: product.productId,
       name: product.name,
       price: product.price,
+      serverId: product.serverId,
     };
   }
 }

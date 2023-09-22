@@ -3,13 +3,22 @@ export default class Product {
   private _productId: string;
   private _price: number;
   private _name: string;
+  private _serverId: number;
 
-  constructor(productId: string, name: string, price: number) {
-    (this._productId = productId), (this._name = name), (this._price = price), this.validate();
+  constructor(productId: string, name: string, price: number, serverId: number) {
+    (this._productId = productId),
+      (this._name = name),
+      (this._price = price),
+      (this._serverId = serverId),
+      this.validate();
   }
 
   get productId(): string {
     return this._productId;
+  }
+
+  get serverId(): number {
+    return this._serverId;
   }
 
   get name(): string {

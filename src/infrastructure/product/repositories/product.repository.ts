@@ -15,6 +15,7 @@ export default class productRepository implements ProductRepositoryInterface {
         productId: entity.productId,
         name: entity.name,
         price: entity.price,
+        serverId: entity.serverId,
       },
     });
   }
@@ -28,6 +29,7 @@ export default class productRepository implements ProductRepositoryInterface {
         name: entity.name,
         price: entity.price,
         productId: entity.productId,
+        serverId: entity.serverId,
       },
     });
   }
@@ -35,7 +37,7 @@ export default class productRepository implements ProductRepositoryInterface {
   async findAll(): Promise<Product[]> {
     const products = await this.prisma.product.findMany();
     return products.map((product) => {
-      return new Product(product.productId, product.name, product.price);
+      return new Product(product.productId, product.name, product.price, product.serverId);
     });
   }
 
@@ -50,6 +52,6 @@ export default class productRepository implements ProductRepositoryInterface {
       throw new Error('product not found');
     }
 
-    return new Product(product.productId, product.name, product.price);
+    return new Product(product.productId, product.name, product.price, product.serverId);
   }
 }
