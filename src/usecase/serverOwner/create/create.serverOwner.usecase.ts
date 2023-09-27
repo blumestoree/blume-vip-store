@@ -17,7 +17,6 @@ export default class CreateServerOwnerUseCase {
       serverOwnerId: serverOwner.serverOwnerId,
       name: serverOwner.name,
       email: serverOwner.email,
-      serverId: serverOwner.serverId,
     };
   }
 }

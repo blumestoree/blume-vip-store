@@ -1,4 +1,4 @@
-import ServerFacture from '../../../domain/server/factory/server.factory';
+import ServerFactory from '../../../domain/server/factory/server.factory';
 import ServerRepositoryInterface from '../../../domain/server/repositories/server.repository.interface';
 import { InputCreateServerDto, OutputCreateServerDto } from './create.server.dto';
 
@@ -10,7 +10,7 @@ export default class CreateServerUseCase {
   }
 
   async execute(input: InputCreateServerDto): Promise<OutputCreateServerDto> {
-    const server = ServerFacture.create(input.name, input.serverOwnerId);
+    const server = ServerFactory.create(input.name, input.serverOwnerId);
     await this.ServerRepository.create(server);
 
     return {

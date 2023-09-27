@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import ProductRepositoryInterface from '../../../domain/product/repositories/product.repository.interface';
 import Product from '../../../domain/product/entity/product.entity';
+import ProductFacture from '../../../domain/product/factory/product.factory';
 
 export default class productRepository implements ProductRepositoryInterface {
   prisma: PrismaClient;
@@ -37,7 +38,12 @@ export default class productRepository implements ProductRepositoryInterface {
   async findAll(): Promise<Product[]> {
     const products = await this.prisma.product.findMany();
     return products.map((product) => {
-      return new Product(product.productId, product.name, product.price, product.serverId);
+      return ProductFacture.create(
+        product.name,
+        product.price,
+        product.serverId,
+        product.productId,
+      );
     });
   }
 
@@ -52,6 +58,6 @@ export default class productRepository implements ProductRepositoryInterface {
       throw new Error('product not found');
     }
 
-    return new Product(product.productId, product.name, product.price, product.serverId);
+    return ProductFacture.create(product.name, product.price, product.serverId, product.productId);
   }
 }

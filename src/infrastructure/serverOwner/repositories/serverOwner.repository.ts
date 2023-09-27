@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import ServerOwnerRepositoryInterface from '../../../domain/serverOwner/repositories/serverOwner.repository.interface';
 import ServerOwner from '../../../domain/serverOwner/entity/serverOwner.entity';
+import ServerOwnerFacture from '../../../domain/serverOwner/factory/serverOwner.factory';
 
 export default class ServerOwnerRepository implements ServerOwnerRepositoryInterface {
   prisma: PrismaClient;
@@ -41,17 +42,13 @@ export default class ServerOwnerRepository implements ServerOwnerRepositoryInter
     });
 
     return owners.map((owner) => {
-      const serverOwner = new ServerOwner(
-        owner.serverOwnerId,
+      const serverOwner = ServerOwnerFacture.create(
         owner.name,
         owner.email,
         owner.password,
+        owner.serverOwnerId,
+        owner.serverId?.id,
       );
-
-      if (owner.serverId !== null) {
-        serverOwner.changeServer(owner.serverId?.id);
-      }
-
       return serverOwner;
     });
   }
@@ -70,17 +67,13 @@ export default class ServerOwnerRepository implements ServerOwnerRepositoryInter
       throw new Error('ServerOwner not found');
     }
 
-    const serverOwner = new ServerOwner(
-      owner.serverOwnerId,
+    const serverOwner = ServerOwnerFacture.create(
       owner.name,
       owner.email,
       owner.password,
+      owner.serverOwnerId,
+      owner.serverId?.id,
     );
-
-    if (owner.serverId !== null) {
-      serverOwner.changeServer(owner.serverId?.id);
-    }
-
     return serverOwner;
   }
 }

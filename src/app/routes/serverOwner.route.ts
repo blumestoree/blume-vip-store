@@ -25,13 +25,12 @@ class ServerOwnerRoute {
     });
     this.router.post('/createServerOwner', async (req: Request, res: Response) => {
       const useCase = new CreateServerOwnerUseCase(new ServerOwnerRepository());
-      const { name, email, password, serverId } = req.body;
+      const { name, email, password } = req.body;
       try {
         const serverOwnerDto = {
           name,
           email,
           password,
-          serverId,
         };
         const output = await useCase.execute(serverOwnerDto);
         res.send(output);

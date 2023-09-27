@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import ServerRepositoryInterface from '../../../domain/server/repositories/server.repository.interface';
 import Server from '../../../domain/server/entity/server.entity';
+import ServerFactory from '../../../domain/server/factory/server.factory';
 
 export default class ServerRepository implements ServerRepositoryInterface {
   prisma: PrismaClient;
@@ -35,7 +36,7 @@ export default class ServerRepository implements ServerRepositoryInterface {
   async findAll(): Promise<Server[]> {
     const servers = await this.prisma.server.findMany();
     return servers.map((server) => {
-      return new Server(server.serverId, server.name, server.serverOwnerId);
+      return ServerFactory.create(server.name, server.serverOwnerId, server.serverId);
     });
   }
 
@@ -50,6 +51,6 @@ export default class ServerRepository implements ServerRepositoryInterface {
       throw new Error('Server not found');
     }
 
-    return new Server(server.serverId, server.name, server.serverOwnerId);
+    return ServerFactory.create(server.name, server.serverOwnerId, server.serverId);
   }
 }

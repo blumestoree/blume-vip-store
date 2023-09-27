@@ -5,12 +5,19 @@ export default class ServerOwner {
   private _name: string;
   private _email: string;
   private _password: string;
-  private _serverId!: number;
+  private _serverId?: number;
 
-  constructor(serverOwnerId: string, name: string, email: string, password: string) {
+  constructor(
+    serverOwnerId: string,
+    name: string,
+    email: string,
+    password: string,
+    serverId?: number,
+  ) {
     (this._serverOwnerId = serverOwnerId),
       (this._name = name),
       (this._email = email),
+      (this._serverId = serverId),
       (this._password = ServerOwnerCrypterFactory.create().crypter(password));
     this.validate();
   }
@@ -19,7 +26,7 @@ export default class ServerOwner {
     return this._serverOwnerId;
   }
 
-  get serverId(): number {
+  get serverId(): number | undefined {
     return this._serverId;
   }
 
@@ -43,7 +50,7 @@ export default class ServerOwner {
     ServerOwnerValidatorFactory.create().validate(this);
   }
 
-  changeServer(serverId: number) {
+  addServer(serverId: number) {
     this._serverId = serverId;
   }
 }
