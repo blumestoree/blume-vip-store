@@ -6,11 +6,7 @@ import { InputCreateProductDto, OutputCreateProductDto } from './create.product.
 export default class CreateProductUseCase
   implements UseCaseInterface<InputCreateProductDto, OutputCreateProductDto>
 {
-  private productRepository: ProductRepositoryInterface;
-
-  constructor(productRepository: ProductRepositoryInterface) {
-    this.productRepository = productRepository;
-  }
+  constructor(private productRepository: ProductRepositoryInterface) {}
 
   async execute(input: InputCreateProductDto): Promise<OutputCreateProductDto> {
     const product = ProductFacture.create(input.name, input.price, input.serverId);

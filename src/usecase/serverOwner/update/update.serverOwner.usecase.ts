@@ -5,17 +5,13 @@ import { InputUpdateServerOwnerDto, OutputCreateServerOwnerDto } from './update.
 export default class UpdateServerOwnerUseCase
   implements UseCaseInterface<InputUpdateServerOwnerDto, OutputCreateServerOwnerDto>
 {
-  private ServerOwnerRepository: ServerOwnerRepositoryInterface;
-
-  constructor(ServerOwnerRepository: ServerOwnerRepositoryInterface) {
-    this.ServerOwnerRepository = ServerOwnerRepository;
-  }
+  constructor(private serverOwnerRepository: ServerOwnerRepositoryInterface) {}
 
   async execute(input: InputUpdateServerOwnerDto): Promise<OutputCreateServerOwnerDto> {
-    const serverOwner = await this.ServerOwnerRepository.find(input.serverOwnerId);
+    const serverOwner = await this.serverOwnerRepository.find(input.serverOwnerId);
     serverOwner.changeName(input.name);
 
-    await this.ServerOwnerRepository.update(serverOwner);
+    await this.serverOwnerRepository.update(serverOwner);
 
     return {
       serverOwnerId: serverOwner.serverOwnerId,

@@ -6,15 +6,11 @@ import { InputCreateServerOwnerDto, OutputCreateServerOwnerDto } from './create.
 export default class CreateServerOwnerUseCase
   implements UseCaseInterface<InputCreateServerOwnerDto, OutputCreateServerOwnerDto>
 {
-  private ServerOwnerRepository: ServerOwnerRepositoryInterface;
-
-  constructor(ServerOwnerRepository: ServerOwnerRepositoryInterface) {
-    this.ServerOwnerRepository = ServerOwnerRepository;
-  }
+  constructor(private serverOwnerRepository: ServerOwnerRepositoryInterface) {}
 
   async execute(input: InputCreateServerOwnerDto): Promise<OutputCreateServerOwnerDto> {
     const serverOwner = ServerOwnerFacture.create(input.name, input.email, input.password);
-    await this.ServerOwnerRepository.create(serverOwner);
+    await this.serverOwnerRepository.create(serverOwner);
 
     return {
       serverOwnerId: serverOwner.serverOwnerId,

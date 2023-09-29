@@ -5,11 +5,7 @@ import { OutputFindAllProductDto } from './findAll.product.dto';
 export default class FindAllProductUseCase
   implements UseCaseInterface<undefined, OutputFindAllProductDto>
 {
-  private productRepository: ProductRepositoryInterface;
-
-  constructor(productRepository: ProductRepositoryInterface) {
-    this.productRepository = productRepository;
-  }
+  constructor(private productRepository: ProductRepositoryInterface) {}
 
   async execute(): Promise<OutputFindAllProductDto> {
     const allProducts = await this.productRepository.findAll();

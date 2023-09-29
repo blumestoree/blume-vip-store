@@ -5,11 +5,7 @@ import { InputUpdateServerDto, OutputCreateServerDto } from './update.server.dto
 export default class UpdateServerUseCase
   implements UseCaseInterface<InputUpdateServerDto, OutputCreateServerDto>
 {
-  private serverRepository: ServerRepositoryInterface;
-
-  constructor(ServerRepository: ServerRepositoryInterface) {
-    this.serverRepository = ServerRepository;
-  }
+  constructor(private serverRepository: ServerRepositoryInterface) {}
 
   async execute(input: InputUpdateServerDto): Promise<OutputCreateServerDto> {
     const server = await this.serverRepository.find(input.serverId);

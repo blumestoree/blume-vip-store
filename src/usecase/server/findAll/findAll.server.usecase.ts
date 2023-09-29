@@ -5,14 +5,10 @@ import { OutputFindAllServerDto } from './findAll.server.dto';
 export default class FindAllServerUseCase
   implements UseCaseInterface<undefined, OutputFindAllServerDto>
 {
-  private ServerRepository: ServerRepositoryInterface;
-
-  constructor(ServerRepository: ServerRepositoryInterface) {
-    this.ServerRepository = ServerRepository;
-  }
+  constructor(private serverRepository: ServerRepositoryInterface) {}
 
   async execute(): Promise<OutputFindAllServerDto> {
-    const allServers = await this.ServerRepository.findAll();
+    const allServers = await this.serverRepository.findAll();
     return {
       servers: allServers.map((server) => {
         return {

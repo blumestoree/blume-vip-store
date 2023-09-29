@@ -5,14 +5,10 @@ import { OutputFindAllServerOwnerDto } from './findAll.serverOwner.dto';
 export default class FindAllServerOwnerUseCase
   implements UseCaseInterface<undefined, OutputFindAllServerOwnerDto>
 {
-  private ServerOwnerRepository: ServerOwnerRepositoryInterface;
-
-  constructor(ServerOwnerRepository: ServerOwnerRepositoryInterface) {
-    this.ServerOwnerRepository = ServerOwnerRepository;
-  }
+  constructor(private serverOwnerRepository: ServerOwnerRepositoryInterface) {}
 
   async execute(): Promise<OutputFindAllServerOwnerDto> {
-    const allServerOwners = await this.ServerOwnerRepository.findAll();
+    const allServerOwners = await this.serverOwnerRepository.findAll();
     return {
       serverOwners: allServerOwners.map((serverOwner) => {
         return {

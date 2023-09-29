@@ -5,11 +5,7 @@ import { InputUpdateServerDto, OutputCreateServerDto } from './update.product.dt
 export default class UpdateproductUseCase
   implements UseCaseInterface<InputUpdateServerDto, OutputCreateServerDto>
 {
-  private productRepository: ProductRepositoryInterface;
-
-  constructor(productRepository: ProductRepositoryInterface) {
-    this.productRepository = productRepository;
-  }
+  constructor(private productRepository: ProductRepositoryInterface) {}
 
   async execute(input: InputUpdateServerDto): Promise<OutputCreateServerDto> {
     const product = await this.productRepository.find(input.productId);

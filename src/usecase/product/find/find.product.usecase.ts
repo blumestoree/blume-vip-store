@@ -5,11 +5,7 @@ import { InputFindProductDto, OutputFindProductDto } from './find.product.dto';
 export default class FindProductUseCase
   implements UseCaseInterface<InputFindProductDto, OutputFindProductDto>
 {
-  private productRepository: ProductRepositoryInterface;
-
-  constructor(productRepository: ProductRepositoryInterface) {
-    this.productRepository = productRepository;
-  }
+  constructor(private productRepository: ProductRepositoryInterface) {}
 
   async execute(input: InputFindProductDto): Promise<OutputFindProductDto> {
     const product = await this.productRepository.find(input.productId);

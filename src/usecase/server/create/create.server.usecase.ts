@@ -6,15 +6,11 @@ import { InputCreateServerDto, OutputCreateServerDto } from './create.server.dto
 export default class CreateServerUseCase
   implements UseCaseInterface<InputCreateServerDto, OutputCreateServerDto>
 {
-  private ServerRepository: ServerRepositoryInterface;
-
-  constructor(ServerRepository: ServerRepositoryInterface) {
-    this.ServerRepository = ServerRepository;
-  }
+  constructor(private serverRepository: ServerRepositoryInterface) {}
 
   async execute(input: InputCreateServerDto): Promise<OutputCreateServerDto> {
     const server = ServerFactory.create(input.name, input.serverOwnerId);
-    await this.ServerRepository.create(server);
+    await this.serverRepository.create(server);
 
     return {
       serverId: server.serverId,
