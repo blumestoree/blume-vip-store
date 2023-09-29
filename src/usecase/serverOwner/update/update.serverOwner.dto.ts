@@ -5,7 +5,7 @@ export interface InputUpdateServerOwnerDto {
   password: string;
   serverId?: number;
 }
-export interface InputCreateServerOwnerDto {
+export interface OutputCreateServerOwnerDto {
   serverOwnerId: string;
   name: string;
   email: string;

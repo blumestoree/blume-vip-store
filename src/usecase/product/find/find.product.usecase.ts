@@ -1,7 +1,10 @@
 import ProductRepositoryInterface from '../../../domain/product/repositories/product.repository.interface';
+import UseCaseInterface from '../../../shared/usecase.interface';
 import { InputFindProductDto, OutputFindProductDto } from './find.product.dto';
 
-export default class FindProductUseCase {
+export default class FindProductUseCase
+  implements UseCaseInterface<InputFindProductDto, OutputFindProductDto>
+{
   private productRepository: ProductRepositoryInterface;
 
   constructor(productRepository: ProductRepositoryInterface) {

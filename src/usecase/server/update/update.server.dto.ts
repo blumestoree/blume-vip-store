@@ -3,7 +3,7 @@ export interface InputUpdateServerDto {
   name: string;
   serverOwnerId: number;
 }
-export interface InputCreateServerDto {
+export interface OutputCreateServerDto {
   serverId: string;
   name: string;
   serverOwnerId: number;

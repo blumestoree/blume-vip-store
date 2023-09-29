@@ -4,7 +4,7 @@ export interface InputUpdateServerDto {
   price: number;
   serverId: number;
 }
-export interface InputCreateServerDto {
+export interface OutputCreateServerDto {
   productId: string;
   name: string;
   price: number;

@@ -1,7 +1,10 @@
 import ServerOwnerRepositoryInterface from '../../../domain/serverOwner/repositories/serverOwner.repository.interface';
+import UseCaseInterface from '../../../shared/usecase.interface';
 import { InputFindServerOwnerDto, OutputFindServerOwnerDto } from './find.serverOwner.dto';
 
-export default class FindServerOwnerUseCase {
+export default class FindServerOwnerUseCase
+  implements UseCaseInterface<InputFindServerOwnerDto, OutputFindServerOwnerDto>
+{
   private ServerOwnerRepository: ServerOwnerRepositoryInterface;
 
   constructor(ServerOwnerRepository: ServerOwnerRepositoryInterface) {

@@ -1,8 +1,11 @@
 import ProductFacture from '../../../domain/product/factory/product.factory';
 import ProductRepositoryInterface from '../../../domain/product/repositories/product.repository.interface';
+import UseCaseInterface from '../../../shared/usecase.interface';
 import { InputCreateProductDto, OutputCreateProductDto } from './create.product.dto';
 
-export default class CreateproductUseCase {
+export default class CreateProductUseCase
+  implements UseCaseInterface<InputCreateProductDto, OutputCreateProductDto>
+{
   private productRepository: ProductRepositoryInterface;
 
   constructor(productRepository: ProductRepositoryInterface) {

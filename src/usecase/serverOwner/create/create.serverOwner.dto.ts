@@ -7,4 +7,5 @@ export interface OutputCreateServerOwnerDto {
   serverOwnerId: string;
   name: string;
   email: string;
+  serverId?: number;
 }

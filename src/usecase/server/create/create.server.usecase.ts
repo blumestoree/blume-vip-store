@@ -1,8 +1,11 @@
 import ServerFactory from '../../../domain/server/factory/server.factory';
 import ServerRepositoryInterface from '../../../domain/server/repositories/server.repository.interface';
+import UseCaseInterface from '../../../shared/usecase.interface';
 import { InputCreateServerDto, OutputCreateServerDto } from './create.server.dto';
 
-export default class CreateServerUseCase {
+export default class CreateServerUseCase
+  implements UseCaseInterface<InputCreateServerDto, OutputCreateServerDto>
+{
   private ServerRepository: ServerRepositoryInterface;
 
   constructor(ServerRepository: ServerRepositoryInterface) {

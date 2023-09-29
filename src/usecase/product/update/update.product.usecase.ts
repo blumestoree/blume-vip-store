@@ -1,14 +1,17 @@
 import ProductRepositoryInterface from '../../../domain/product/repositories/product.repository.interface';
-import { InputUpdateServerDto, InputCreateServerDto } from './update.product.dto';
+import UseCaseInterface from '../../../shared/usecase.interface';
+import { InputUpdateServerDto, OutputCreateServerDto } from './update.product.dto';
 
-export default class UpdateproductUseCase {
+export default class UpdateproductUseCase
+  implements UseCaseInterface<InputUpdateServerDto, OutputCreateServerDto>
+{
   private productRepository: ProductRepositoryInterface;
 
   constructor(productRepository: ProductRepositoryInterface) {
     this.productRepository = productRepository;
   }
 
-  async execute(input: InputUpdateServerDto): Promise<InputCreateServerDto> {
+  async execute(input: InputUpdateServerDto): Promise<OutputCreateServerDto> {
     const product = await this.productRepository.find(input.productId);
     product.changeName(input.name);
 

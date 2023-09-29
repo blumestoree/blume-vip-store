@@ -1,8 +1,11 @@
 import ServerOwnerFacture from '../../../domain/serverOwner/factory/serverOwner.factory';
 import ServerOwnerRepositoryInterface from '../../../domain/serverOwner/repositories/serverOwner.repository.interface';
+import UseCaseInterface from '../../../shared/usecase.interface';
 import { InputCreateServerOwnerDto, OutputCreateServerOwnerDto } from './create.serverOwner.dto';
 
-export default class CreateServerOwnerUseCase {
+export default class CreateServerOwnerUseCase
+  implements UseCaseInterface<InputCreateServerOwnerDto, OutputCreateServerOwnerDto>
+{
   private ServerOwnerRepository: ServerOwnerRepositoryInterface;
 
   constructor(ServerOwnerRepository: ServerOwnerRepositoryInterface) {

@@ -1,7 +1,10 @@
 import ServerRepositoryInterface from '../../../domain/server/repositories/server.repository.interface';
+import UseCaseInterface from '../../../shared/usecase.interface';
 import { OutputFindAllServerDto } from './findAll.server.dto';
 
-export default class FindAllServerUseCase {
+export default class FindAllServerUseCase
+  implements UseCaseInterface<undefined, OutputFindAllServerDto>
+{
   private ServerRepository: ServerRepositoryInterface;
 
   constructor(ServerRepository: ServerRepositoryInterface) {

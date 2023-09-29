@@ -1,14 +1,17 @@
 import ServerOwnerRepositoryInterface from '../../../domain/serverOwner/repositories/serverOwner.repository.interface';
-import { InputUpdateServerOwnerDto, InputCreateServerOwnerDto } from './update.serverOwner.dto';
+import UseCaseInterface from '../../../shared/usecase.interface';
+import { InputUpdateServerOwnerDto, OutputCreateServerOwnerDto } from './update.serverOwner.dto';
 
-export default class UpdateServerOwnerUseCase {
+export default class UpdateServerOwnerUseCase
+  implements UseCaseInterface<InputUpdateServerOwnerDto, OutputCreateServerOwnerDto>
+{
   private ServerOwnerRepository: ServerOwnerRepositoryInterface;
 
   constructor(ServerOwnerRepository: ServerOwnerRepositoryInterface) {
     this.ServerOwnerRepository = ServerOwnerRepository;
   }
 
-  async execute(input: InputUpdateServerOwnerDto): Promise<InputCreateServerOwnerDto> {
+  async execute(input: InputUpdateServerOwnerDto): Promise<OutputCreateServerOwnerDto> {
     const serverOwner = await this.ServerOwnerRepository.find(input.serverOwnerId);
     serverOwner.changeName(input.name);
 
