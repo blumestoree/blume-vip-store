@@ -8,6 +8,7 @@ ALTER TABLE "Server" ADD COLUMN     "userId" INTEGER;
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
     "userId" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
 
