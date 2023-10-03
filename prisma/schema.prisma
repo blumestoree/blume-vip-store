@@ -8,8 +8,8 @@ datasource db {
 }
 
 model ServerOwner {
-  id            Int     @id @default(autoincrement())
-  serverOwnerId String  @unique
+  id            Int     @default(autoincrement())
+  serverOwnerId String  @id @unique
   name          String
   email         String  @unique
   password      String
@@ -17,31 +17,31 @@ model ServerOwner {
 }
 
 model Server {
-  id            Int         @id @default(autoincrement())
-  serverId      String      @unique
+  id            Int         @default(autoincrement())
+  serverId      String      @id @unique
   name          String      @unique
-  serverOwner   ServerOwner @relation(fields: [serverOwnerId], references: [id])
-  serverOwnerId Int         @unique
+  serverOwner   ServerOwner @relation(fields: [serverOwnerId], references: [serverOwnerId])
+  serverOwnerId String      @unique
   product       Product[]
-  user          User?       @relation(fields: [userId], references: [id])
-  userId        Int?
+  user          User?       @relation(fields: [userId], references: [userId])
+  userId        String?
 }
 
 model Product {
-  id        Int       @id @default(autoincrement())
-  productId String    @unique
+  id        Int       @default(autoincrement())
+  productId String    @id @unique
   name      String    @unique
   price     Float
-  server    Server    @relation(fields: [serverId], references: [id])
-  serverId  Int
-  user      User?     @relation(fields: [userId], references: [id])
-  userId    Int?
+  server    Server    @relation(fields: [serverId], references: [serverId])
+  serverId  String
+  user      User?     @relation(fields: [userId], references: [userId])
+  userId    String?
   payment   Payment[]
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  userId   String    @unique
+  id       Int       @default(autoincrement())
+  userId   String    @id @unique
   name     String
   email    String    @unique
   password String
@@ -51,12 +51,13 @@ model User {
 }
 
 model Payment {
-  id        Int     @id @default(autoincrement())
-  paymentId String  @unique
-  user      User    @relation(fields: [userId], references: [id])
-  userId    Int
-  product   Product @relation(fields: [productId], references: [id])
-  productId Int
+  id        Int     @default(autoincrement())
+  paymentId String  @id @unique
+  amount    Int
+  user      User    @relation(fields: [userId], references: [userId])
+  userId    String
+  product   Product @relation(fields: [productId], references: [productId])
+  productId String
 }
 
 // model Category {
