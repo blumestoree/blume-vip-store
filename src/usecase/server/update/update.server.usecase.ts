@@ -8,13 +8,13 @@ export default class UpdateServerUseCase
   constructor(private serverRepository: ServerRepositoryInterface) {}
 
   async execute(input: InputUpdateServerDto): Promise<OutputCreateServerDto> {
-    const server = await this.serverRepository.find(input.serverId);
+    const server = await this.serverRepository.find(input.id);
     server.changeName(input.name);
 
     await this.serverRepository.update(server);
 
     return {
-      serverId: server.serverId,
+      id: server.id,
       name: server.name,
       serverOwnerId: server.serverOwnerId,
     };

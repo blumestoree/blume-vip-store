@@ -43,7 +43,7 @@ class ServerRoute {
       const { id } = req.params;
       try {
         const serverDto = {
-          serverId: id,
+          id,
           name,
           serverOwnerId,
         };
@@ -57,9 +57,7 @@ class ServerRoute {
       const useCase = new FindServerUseCase(new ServerRepository());
       const { id } = req.params;
       try {
-        const serverDto = {
-          serverId: id,
-        };
+        const serverDto = { id };
         const output = await useCase.execute(serverDto);
         res.send(output);
       } catch (error) {

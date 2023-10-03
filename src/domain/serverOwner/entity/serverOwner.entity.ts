@@ -1,20 +1,14 @@
 import ServerOwnerValidatorFactory from '../factory/serverOwner.factory.validator';
 import ServerOwnerCrypterFactory from '../factory/serverOwner.factory.crypter';
 export default class ServerOwner {
-  private _serverOwnerId: string;
+  private _id: string;
   private _name: string;
   private _email: string;
   private _password: string;
-  private _serverId?: number;
+  private _serverId?: string;
 
-  constructor(
-    serverOwnerId: string,
-    name: string,
-    email: string,
-    password: string,
-    serverId?: number,
-  ) {
-    (this._serverOwnerId = serverOwnerId),
+  constructor(id: string, name: string, email: string, password: string, serverId?: string) {
+    (this._id = id),
       (this._name = name),
       (this._email = email),
       (this._serverId = serverId),
@@ -22,11 +16,11 @@ export default class ServerOwner {
     this.validate();
   }
 
-  get serverOwnerId(): string {
-    return this._serverOwnerId;
+  get id(): string {
+    return this._id;
   }
 
-  get serverId(): number | undefined {
+  get serverId(): string | undefined {
     return this._serverId;
   }
 
@@ -50,7 +44,7 @@ export default class ServerOwner {
     ServerOwnerValidatorFactory.create().validate(this);
   }
 
-  addServer(serverId: number) {
+  addServer(serverId: string) {
     this._serverId = serverId;
   }
 }

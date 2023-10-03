@@ -12,7 +12,7 @@ export default class FindAllServerUseCase
     return {
       servers: allServers.map((server) => {
         return {
-          serverId: server.serverId,
+          id: server.id,
           name: server.name,
           serverOwnerId: server.serverOwnerId,
         };

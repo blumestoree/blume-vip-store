@@ -3,7 +3,7 @@
 // import PaymentFacade from '../facade/payment.facade';
 // import PaymentFacadeInterface from '../facade/payment.facade.interface';
 
-// export default class PaymentFacadeFactory{
+// export default class PaymentFacadeFactory {
 //   static create(): PaymentFacadeInterface {
 //     const repository = new PaymentRepository();
 //     const usecase = new PaymentProcessUseCase(repository);

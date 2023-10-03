@@ -44,7 +44,7 @@ class ServerOwnerRoute {
       const { id } = req.params;
       try {
         const serverOwnerDto = {
-          serverOwnerId: id,
+          id,
           name,
           email,
           password,
@@ -60,9 +60,7 @@ class ServerOwnerRoute {
       const useCase = new FindServerOwnerUseCase(new ServerOwnerRepository());
       const { id } = req.params;
       try {
-        const serverOwnerDto = {
-          serverOwnerId: id,
-        };
+        const serverOwnerDto = { id };
         const output = await useCase.execute(serverOwnerDto);
         res.send(output);
       } catch (error) {

@@ -8,9 +8,9 @@ export default class FindUserUseCase
   constructor(private userRepository: UserRepositoryInterface) {}
 
   async execute(input: InputFindUserDto): Promise<OutputFindUserDto> {
-    const server = await this.userRepository.find(input.userId);
+    const server = await this.userRepository.find(input.id);
     return {
-      userId: server.userId,
+      id: server.id,
       name: server.name,
       email: server.email,
     };

@@ -1,13 +1,16 @@
-export interface InputPaymentFacadeDto {
-  id?: string;
+export interface InputCreatePaymentFacadeDto {
   amount: number;
+  userId: string;
+  productId: string;
 }
 
-export interface OutputPaymentFacadeDto {
+export interface OutputCreatePaymentFacadeDto {
   id: string;
   amount: number;
+  userId: string;
+  productId: string;
 }
 
 export default interface PaymentFacadeInterface {
-  process(input: InputPaymentFacadeDto): Promise<OutputPaymentFacadeDto>;
+  createPayment(input: InputCreatePaymentFacadeDto): Promise<OutputCreatePaymentFacadeDto>;
 }

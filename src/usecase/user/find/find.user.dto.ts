@@ -1,8 +1,8 @@
 export interface InputFindUserDto {
-  userId: string;
+  id: string;
 }
 export interface OutputFindUserDto {
-  userId: string;
+  id: string;
   name: string;
   email: string;
 }

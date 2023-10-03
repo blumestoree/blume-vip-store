@@ -1,5 +1,6 @@
 export interface InputCreatePaymentDto {
-  amount: number;
+  id: string;
+  price: number;
   userId: string;
   productId: string;
 }

@@ -13,7 +13,7 @@ export default class ServerRepository implements ServerRepositoryInterface {
   async create(entity: Server): Promise<void> {
     await this.prisma.server.create({
       data: {
-        serverId: entity.serverId,
+        serverId: entity.id,
         name: entity.name,
         serverOwnerId: entity.serverOwnerId,
       },
@@ -22,12 +22,10 @@ export default class ServerRepository implements ServerRepositoryInterface {
 
   async update(entity: Server): Promise<void> {
     await this.prisma.server.update({
-      where: {
-        serverId: entity.serverId,
-      },
+      where: { serverId: entity.id },
       data: {
+        serverId: entity.id,
         name: entity.name,
-        serverId: entity.serverId,
         serverOwnerId: entity.serverOwnerId,
       },
     });

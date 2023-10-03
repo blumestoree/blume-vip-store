@@ -10,10 +10,9 @@ interface ValidationError {
 export default class ProductValidator implements ValidatorInterface<Product> {
   validate(entity: Product): ValidationError[] | void {
     const productSchema = z.object({
-      _productId: z.string(),
       _name: z.string().min(1, 'Nome inválido'),
       _price: z.number(),
-      _serverId: z.number(),
+      _serverId: z.string(),
     });
     try {
       productSchema.parse(entity);

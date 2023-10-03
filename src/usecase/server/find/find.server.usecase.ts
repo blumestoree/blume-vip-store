@@ -8,9 +8,9 @@ export default class FindServerUseCase
   constructor(private serverRepository: ServerRepositoryInterface) {}
 
   async execute(input: InputFindServerDto): Promise<OutputFindServerDto> {
-    const server = await this.serverRepository.find(input.serverId);
+    const server = await this.serverRepository.find(input.id);
     return {
-      serverId: server.serverId,
+      id: server.id,
       name: server.name,
       serverOwnerId: server.serverOwnerId,
     };

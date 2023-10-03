@@ -4,6 +4,14 @@ import UserRepository from '../../infrastructure/user/repositories/user.reposito
 import CreateUserUseCase from '../../usecase/user/create/create.user.usecase';
 import FindUserUseCase from '../../usecase/user/find/find.user.usecase';
 import UpdateUserUseCase from '../../usecase/user/update/update.user.usecase';
+import UserBuyProductUseCase from '../../usecase/user/buy/buy.user.usecase';
+import PaymentFacade from '../../domain/payment/facade/payment.facade';
+import ProductFacade from '../../domain/product/facade/product.facade';
+import UserFacade from '../../domain/user/facade/user.facade';
+import productRepository from '../../infrastructure/product/repositories/product.repository';
+import FindProductUseCase from '../../usecase/product/find/find.product.usecase';
+import PaymentRepository from '../../infrastructure/payment/repositories/payment.repository';
+import PaymentProcessUseCase from '../../usecase/payment/create/create.payment.usecase';
 
 class UserRoute {
   router: Router;
@@ -44,7 +52,7 @@ class UserRoute {
       const { id } = req.params;
       try {
         const userDto = {
-          userId: id,
+          id,
           name,
           password,
           email,
@@ -59,8 +67,34 @@ class UserRoute {
       const useCase = new FindUserUseCase(new UserRepository());
       const { id } = req.params;
       try {
+        const userDto = { id };
+        const output = await useCase.execute(userDto);
+        res.send(output);
+      } catch (error) {
+        res.status(500).send(error);
+      }
+    });
+    this.router.post('/buyProduct/:id', async (req: Request, res: Response) => {
+      const userUseCase = new FindUserUseCase(new UserRepository());
+      const productUseCase = new FindProductUseCase(new productRepository());
+
+      const paymentUseCase = new PaymentProcessUseCase(new PaymentRepository());
+
+      const facadePayment = new PaymentFacade(paymentUseCase);
+      const facadeProduct = new ProductFacade(productUseCase);
+      const facadeUser = new UserFacade(userUseCase);
+
+      const useCase = new UserBuyProductUseCase(facadePayment, facadeProduct, facadeUser);
+
+      const { id } = req.params;
+      const { price, userId, productId } = req.body;
+
+      try {
         const userDto = {
-          userId: id,
+          id,
+          price: price,
+          userId: userId,
+          productId: productId,
         };
         const output = await useCase.execute(userDto);
         res.send(output);

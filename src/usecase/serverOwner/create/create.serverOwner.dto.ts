@@ -4,7 +4,7 @@ export interface InputCreateServerOwnerDto {
   password: string;
 }
 export interface OutputCreateServerOwnerDto {
-  serverOwnerId: string;
+  id: string;
   name: string;
   email: string;
   serverId?: number;

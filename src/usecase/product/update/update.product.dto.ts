@@ -1,12 +1,12 @@
-export interface InputUpdateServerDto {
-  productId: string;
+export interface InputUpdateProductDto {
+  id: string;
+  serverId: string;
   name: string;
   price: number;
-  serverId: number;
 }
-export interface OutputCreateServerDto {
-  productId: string;
+export interface OutputCreateProductDto {
+  id: string;
+  serverId: string;
   name: string;
   price: number;
-  serverId: number;
 }

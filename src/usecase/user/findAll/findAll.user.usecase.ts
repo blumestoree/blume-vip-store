@@ -12,7 +12,7 @@ export default class FindAllUserUseCase
     return {
       users: allUsers.map((user) => {
         return {
-          userId: user.userId,
+          id: user.id,
           name: user.name,
           email: user.email,
         };

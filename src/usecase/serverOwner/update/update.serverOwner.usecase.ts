@@ -8,13 +8,13 @@ export default class UpdateServerOwnerUseCase
   constructor(private serverOwnerRepository: ServerOwnerRepositoryInterface) {}
 
   async execute(input: InputUpdateServerOwnerDto): Promise<OutputCreateServerOwnerDto> {
-    const serverOwner = await this.serverOwnerRepository.find(input.serverOwnerId);
+    const serverOwner = await this.serverOwnerRepository.find(input.id);
     serverOwner.changeName(input.name);
 
     await this.serverOwnerRepository.update(serverOwner);
 
     return {
-      serverOwnerId: serverOwner.serverOwnerId,
+      id: serverOwner.id,
       name: serverOwner.name,
       email: serverOwner.email,
       serverId: serverOwner.serverId,

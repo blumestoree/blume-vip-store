@@ -1,7 +1,7 @@
 export interface OutputFindAllServerDto {
   servers: {
-    serverId: string;
+    id: string;
     name: string;
-    serverOwnerId: number;
+    serverOwnerId: string;
   }[];
 }

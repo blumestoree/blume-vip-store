@@ -1,8 +1,8 @@
 export interface InputFindServerDto {
-  serverId: string;
+  id: string;
 }
 export interface OutputFindServerDto {
-  serverId: string;
+  id: string;
   name: string;
-  serverOwnerId: number;
+  serverOwnerId: string;
 }

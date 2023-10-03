@@ -1,6 +1,6 @@
 export interface OutputFindAllUserDto {
   users: {
-    userId: string;
+    id: string;
     name: string;
     email: string;
   }[];

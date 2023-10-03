@@ -1,13 +1,13 @@
 export interface InputUpdateServerOwnerDto {
-  serverOwnerId: string;
+  id: string;
   name: string;
   email: string;
   password: string;
-  serverId?: number;
+  serverId?: string;
 }
 export interface OutputCreateServerOwnerDto {
-  serverOwnerId: string;
+  id: string;
   name: string;
   email: string;
-  serverId?: number;
+  serverId?: string;
 }

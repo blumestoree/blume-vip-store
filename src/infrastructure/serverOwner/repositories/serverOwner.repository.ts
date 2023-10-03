@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import ServerOwnerRepositoryInterface from '../../../domain/serverOwner/repositories/serverOwner.repository.interface';
 import ServerOwner from '../../../domain/serverOwner/entity/serverOwner.entity';
-import ServerOwnerFacture from '../../../domain/serverOwner/factory/serverOwner.factory';
+import ServerOwnerFactory from '../../../domain/serverOwner/factory/serverOwner.factory';
 
 export default class ServerOwnerRepository implements ServerOwnerRepositoryInterface {
   prisma: PrismaClient;
@@ -13,7 +13,7 @@ export default class ServerOwnerRepository implements ServerOwnerRepositoryInter
   async create(entity: ServerOwner): Promise<void> {
     await this.prisma.serverOwner.create({
       data: {
-        serverOwnerId: entity.serverOwnerId,
+        serverOwnerId: entity.id,
         name: entity.name,
         email: entity.email,
         password: entity.password,
@@ -23,10 +23,9 @@ export default class ServerOwnerRepository implements ServerOwnerRepositoryInter
 
   async update(entity: ServerOwner): Promise<void> {
     await this.prisma.serverOwner.update({
-      where: {
-        serverOwnerId: entity.serverOwnerId,
-      },
+      where: { serverOwnerId: entity.id },
       data: {
+        serverOwnerId: entity.id,
         name: entity.name,
         email: entity.email,
         password: entity.password,
@@ -35,29 +34,28 @@ export default class ServerOwnerRepository implements ServerOwnerRepositoryInter
   }
 
   async findAll(): Promise<ServerOwner[]> {
-    const owners = await this.prisma.serverOwner.findMany({
+    const serverOwners = await this.prisma.serverOwner.findMany({
       include: {
         serverId: true,
       },
     });
 
-    return owners.map((owner) => {
-      const serverOwner = ServerOwnerFacture.create(
-        owner.name,
-        owner.email,
-        owner.password,
-        owner.serverOwnerId,
-        owner.serverId?.id,
+    return serverOwners.map((serverOwner) => {
+      return ServerOwnerFactory.create(
+        serverOwner.name,
+        serverOwner.email,
+        serverOwner.password,
+        serverOwner.serverOwnerId,
+        serverOwner.serverId?.serverId,
       );
-      return serverOwner;
     });
   }
 
   async find(serverOwnerId: string): Promise<ServerOwner> {
-    let owner;
+    let serverOwner;
 
     try {
-      owner = await this.prisma.serverOwner.findUniqueOrThrow({
+      serverOwner = await this.prisma.serverOwner.findUniqueOrThrow({
         where: { serverOwnerId },
         include: {
           serverId: true,
@@ -67,13 +65,12 @@ export default class ServerOwnerRepository implements ServerOwnerRepositoryInter
       throw new Error('ServerOwner not found');
     }
 
-    const serverOwner = ServerOwnerFacture.create(
-      owner.name,
-      owner.email,
-      owner.password,
-      owner.serverOwnerId,
-      owner.serverId?.id,
+    return ServerOwnerFactory.create(
+      serverOwner.name,
+      serverOwner.email,
+      serverOwner.password,
+      serverOwner.serverOwnerId,
+      serverOwner.serverId?.serverId,
     );
-    return serverOwner;
   }
 }

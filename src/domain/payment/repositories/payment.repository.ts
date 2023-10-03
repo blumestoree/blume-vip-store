@@ -1,5 +1,6 @@
 import Payment from '../entity/payment.entity';
 
 export default interface PaymentRepositoryInterface {
-  save(input: Payment): Promise<void>;
+  create(input: Payment): Promise<void>;
+  find(id: string): Promise<Payment>;
 }

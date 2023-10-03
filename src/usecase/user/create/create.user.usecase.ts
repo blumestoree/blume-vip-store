@@ -13,7 +13,7 @@ export default class CreateUserUseCase
     await this.userRepository.create(server);
 
     return {
-      userId: server.userId,
+      id: server.id,
       name: server.name,
       email: server.email,
     };

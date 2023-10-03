@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import ProductRepositoryInterface from '../../../domain/product/repositories/product.repository.interface';
 import Product from '../../../domain/product/entity/product.entity';
-import ProductFacture from '../../../domain/product/factory/product.factory';
+import ProductFactory from '../../../domain/product/factory/product.factory';
 
 export default class productRepository implements ProductRepositoryInterface {
   prisma: PrismaClient;
@@ -13,7 +13,7 @@ export default class productRepository implements ProductRepositoryInterface {
   async create(entity: Product): Promise<void> {
     await this.prisma.product.create({
       data: {
-        productId: entity.productId,
+        productId: entity.id,
         name: entity.name,
         price: entity.price,
         serverId: entity.serverId,
@@ -23,13 +23,11 @@ export default class productRepository implements ProductRepositoryInterface {
 
   async update(entity: Product): Promise<void> {
     await this.prisma.product.update({
-      where: {
-        productId: entity.productId,
-      },
+      where: { productId: entity.id },
       data: {
+        productId: entity.id,
         name: entity.name,
         price: entity.price,
-        productId: entity.productId,
         serverId: entity.serverId,
       },
     });
@@ -38,7 +36,7 @@ export default class productRepository implements ProductRepositoryInterface {
   async findAll(): Promise<Product[]> {
     const products = await this.prisma.product.findMany();
     return products.map((product) => {
-      return ProductFacture.create(
+      return ProductFactory.create(
         product.name,
         product.price,
         product.serverId,
@@ -55,9 +53,9 @@ export default class productRepository implements ProductRepositoryInterface {
         where: { productId },
       });
     } catch (error) {
-      throw new Error('product not found');
+      throw new Error('Product not found');
     }
 
-    return ProductFacture.create(product.name, product.price, product.serverId, product.productId);
+    return ProductFactory.create(product.name, product.price, product.serverId, product.productId);
   }
 }

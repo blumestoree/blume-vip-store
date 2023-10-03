@@ -13,7 +13,7 @@ export default class CreateServerUseCase
     await this.serverRepository.create(server);
 
     return {
-      serverId: server.serverId,
+      id: server.id,
       name: server.name,
       serverOwnerId: server.serverOwnerId,
     };

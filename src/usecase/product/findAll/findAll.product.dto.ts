@@ -1,8 +1,8 @@
 export interface OutputFindAllProductDto {
   products: {
-    productId: string;
+    id: string;
     name: string;
     price: number;
-    serverId: number;
+    serverId: string;
   }[];
 }

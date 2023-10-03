@@ -8,9 +8,9 @@ export default class FindServerOwnerUseCase
   constructor(private serverOwnerRepository: ServerOwnerRepositoryInterface) {}
 
   async execute(input: InputFindServerOwnerDto): Promise<OutputFindServerOwnerDto> {
-    const serverOwner = await this.serverOwnerRepository.find(input.serverOwnerId);
+    const serverOwner = await this.serverOwnerRepository.find(input.id);
     return {
-      serverOwnerId: serverOwner.serverOwnerId,
+      id: serverOwner.id,
       name: serverOwner.name,
       email: serverOwner.email,
       serverId: serverOwner.serverId,

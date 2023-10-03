@@ -13,7 +13,7 @@ export default class UserRepository implements UserRepositoryInterface {
   async create(entity: User): Promise<void> {
     await this.prisma.user.create({
       data: {
-        userId: entity.userId,
+        userId: entity.id,
         name: entity.name,
         email: entity.email,
         password: entity.password,
@@ -23,10 +23,9 @@ export default class UserRepository implements UserRepositoryInterface {
 
   async update(entity: User): Promise<void> {
     await this.prisma.user.update({
-      where: {
-        userId: entity.userId,
-      },
+      where: { userId: entity.id },
       data: {
+        userId: entity.id,
         name: entity.name,
         email: entity.email,
         password: entity.password,

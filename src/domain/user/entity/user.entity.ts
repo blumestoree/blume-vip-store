@@ -1,18 +1,18 @@
 export default class User {
-  private _userId: string;
+  private _id: string;
   private _name: string;
   private _password: string;
   private _email: string;
 
-  constructor(userId: string, name: string, password: string, email: string) {
-    this._userId = userId;
+  constructor(id: string, name: string, password: string, email: string) {
+    this._id = id;
     this._name = name;
     this._password = password;
     this._email = email;
   }
 
-  get userId(): string {
-    return this._userId;
+  get id(): string {
+    return this._id;
   }
 
   get name(): string {

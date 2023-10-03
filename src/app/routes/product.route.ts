@@ -44,7 +44,7 @@ class ProductRoute {
       const { id } = req.params;
       try {
         const productDto = {
-          productId: id,
+          id,
           name,
           price,
           serverId,
@@ -59,9 +59,7 @@ class ProductRoute {
       const useCase = new FindProductUseCase(new ProductRepository());
       const { id } = req.params;
       try {
-        const productDto = {
-          productId: id,
-        };
+        const productDto = { id };
         const output = await useCase.execute(productDto);
         res.send(output);
       } catch (error) {

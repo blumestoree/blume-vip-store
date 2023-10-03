@@ -8,13 +8,13 @@ export default class UpdateUserUseCase
   constructor(private userRepository: UserRepositoryInterface) {}
 
   async execute(input: InputUpdateUserDto): Promise<OutputCreateUserDto> {
-    const user = await this.userRepository.find(input.userId);
+    const user = await this.userRepository.find(input.id);
     user.changeName(input.name);
 
     await this.userRepository.update(user);
 
     return {
-      userId: user.userId,
+      id: user.id,
       name: user.name,
       email: user.email,
     };

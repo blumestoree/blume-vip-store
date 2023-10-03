@@ -4,7 +4,7 @@ export interface InputCreateUserDto {
   email: string;
 }
 export interface OutputCreateUserDto {
-  userId: string;
+  id: string;
   name: string;
   email: string;
 }

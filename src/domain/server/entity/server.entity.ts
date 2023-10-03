@@ -1,21 +1,18 @@
 import ServerValidatorFactory from '../factory/server.factory.validator';
 export default class Server {
-  private _serverId: string;
+  private _id: string;
   private _name: string;
-  private _serverOwnerId: number;
+  private _serverOwnerId: string;
 
-  constructor(serverId: string, name: string, serverOwnerId: number) {
-    (this._serverId = serverId),
-      (this._name = name),
-      (this._serverOwnerId = serverOwnerId),
-      this.validate();
+  constructor(id: string, name: string, serverOwnerId: string) {
+    (this._name = name), (this._serverOwnerId = serverOwnerId), (this._id = id), this.validate();
   }
 
-  get serverId(): string {
-    return this._serverId;
+  get id(): string {
+    return this._id;
   }
 
-  get serverOwnerId(): number {
+  get serverOwnerId(): string {
     return this._serverOwnerId;
   }
 

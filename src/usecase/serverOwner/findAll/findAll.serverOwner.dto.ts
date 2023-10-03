@@ -1,8 +1,8 @@
 export interface OutputFindAllServerOwnerDto {
   serverOwners: {
-    serverOwnerId: string;
+    id: string;
     name: string;
     email: string;
-    serverId?: number;
+    serverId?: string;
   }[];
 }

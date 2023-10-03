@@ -1,23 +1,23 @@
 import ProductValidatorFactory from '../factory/product.factory.validator';
 export default class Product {
-  private _productId: string;
+  private _id: string;
   private _price: number;
   private _name: string;
-  private _serverId: number;
+  private _serverId: string;
 
-  constructor(productId: string, name: string, price: number, serverId: number) {
-    (this._productId = productId),
-      (this._name = name),
+  constructor(id: string, name: string, price: number, serverId: string) {
+    (this._name = name),
       (this._price = price),
       (this._serverId = serverId),
+      (this._id = id),
       this.validate();
   }
 
-  get productId(): string {
-    return this._productId;
+  get id(): string {
+    return this._id;
   }
 
-  get serverId(): number {
+  get serverId(): string {
     return this._serverId;
   }
 

@@ -8,9 +8,9 @@ export default class FindProductUseCase
   constructor(private productRepository: ProductRepositoryInterface) {}
 
   async execute(input: InputFindProductDto): Promise<OutputFindProductDto> {
-    const product = await this.productRepository.find(input.productId);
+    const product = await this.productRepository.find(input.id);
     return {
-      productId: product.productId,
+      id: product.id,
       name: product.name,
       price: product.price,
       serverId: product.serverId,
