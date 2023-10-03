@@ -74,7 +74,7 @@ class UserRoute {
         res.status(500).send(error);
       }
     });
-    this.router.post('/buyProduct/:id', async (req: Request, res: Response) => {
+    this.router.post('/buyProduct/:productId', async (req: Request, res: Response) => {
       const userUseCase = new FindUserUseCase(new UserRepository());
       const productUseCase = new FindProductUseCase(new productRepository());
 
@@ -86,13 +86,11 @@ class UserRoute {
 
       const useCase = new UserBuyProductUseCase(facadePayment, facadeProduct, facadeUser);
 
-      const { id } = req.params;
-      const { price, userId, productId } = req.body;
+      const { productId } = req.params;
+      const { userId } = req.body;
 
       try {
         const userDto = {
-          id,
-          price: price,
           userId: userId,
           productId: productId,
         };
