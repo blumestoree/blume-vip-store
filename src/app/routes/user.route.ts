@@ -12,6 +12,7 @@ import productRepository from '../../infrastructure/product/repositories/product
 import FindProductUseCase from '../../usecase/product/find/find.product.usecase';
 import PaymentRepository from '../../infrastructure/payment/repositories/payment.repository';
 import PaymentProcessUseCase from '../../usecase/payment/create/create.payment.usecase';
+import UserService from '../../domain/user/service/user.service';
 
 class UserRoute {
   router: Router;
@@ -84,7 +85,14 @@ class UserRoute {
       const facadeProduct = new ProductFacade(productUseCase);
       const facadeUser = new UserFacade(userUseCase);
 
-      const useCase = new UserBuyProductUseCase(facadePayment, facadeProduct, facadeUser);
+      const userService = new UserService();
+
+      const useCase = new UserBuyProductUseCase(
+        facadePayment,
+        facadeProduct,
+        facadeUser,
+        userService,
+      );
 
       const { productId } = req.params;
       const { userId } = req.body;
