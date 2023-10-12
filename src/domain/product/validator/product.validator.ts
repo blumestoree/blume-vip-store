@@ -1,11 +1,7 @@
+import { ValidationError } from '../../../shared/types/IValidationError';
 import ValidatorInterface from '../../../shared/validator.interface';
 import Product from '../entity/product.entity';
 import * as z from 'zod';
-
-interface ValidationError {
-  message: string;
-  path: (string | number)[];
-}
 
 export default class ProductValidator implements ValidatorInterface<Product> {
   validate(entity: Product): ValidationError[] | void {

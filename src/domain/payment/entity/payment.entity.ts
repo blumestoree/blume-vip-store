@@ -1,3 +1,5 @@
+import PaymentValidatorFactory from '../factory/payment.factory.validator';
+
 export default class Payment {
   private _id: string;
   private _amount: number;
@@ -9,6 +11,7 @@ export default class Payment {
     this._amount = amount;
     this._userId = userId;
     this._productId = productId;
+    this._validate();
   }
 
   get id(): string {
@@ -25,5 +28,9 @@ export default class Payment {
 
   get productId(): string {
     return this._productId;
+  }
+
+  private _validate() {
+    PaymentValidatorFactory.create().validate(this);
   }
 }

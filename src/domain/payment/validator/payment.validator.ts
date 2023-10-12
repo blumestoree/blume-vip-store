@@ -1,16 +1,17 @@
 import { ValidationError } from '../../../shared/types/IValidationError';
 import ValidatorInterface from '../../../shared/validator.interface';
-import Server from '../entity/server.entity';
 import * as z from 'zod';
+import Payment from '../entity/payment.entity';
 
-export default class ServerValidator implements ValidatorInterface<Server> {
-  validate(entity: Server): ValidationError[] | void {
-    const serverSchema = z.object({
-      _name: z.string().min(1, 'Nome inválido'),
-      _serverOwnerId: z.string(),
+export default class PaymentValidator implements ValidatorInterface<Payment> {
+  validate(entity: Payment): ValidationError[] | void {
+    const productSchema = z.object({
+      _amount: z.number(),
+      _userId: z.string(),
+      _productId: z.string(),
     });
     try {
-      serverSchema.parse(entity);
+      productSchema.parse(entity);
     } catch (error) {
       const zodError = error as z.ZodError;
       const errorMessages = zodError.errors.map((issue) => ({

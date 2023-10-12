@@ -13,7 +13,7 @@ export default class ServerOwner {
       (this._email = email),
       (this._serverId = serverId),
       (this._password = ServerOwnerCrypterFactory.create().crypter(password));
-    this.validate();
+    this._validate();
   }
 
   get id(): string {
@@ -40,7 +40,7 @@ export default class ServerOwner {
     this._name = name;
   }
 
-  validate() {
+  private _validate() {
     ServerOwnerValidatorFactory.create().validate(this);
   }
 

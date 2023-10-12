@@ -1,3 +1,6 @@
+import UserCrypterFactory from '../factory/user.factory.crypter';
+import UserValidatorFactory from '../factory/user.factory.validator';
+
 export default class User {
   private _id: string;
   private _name: string;
@@ -7,8 +10,9 @@ export default class User {
   constructor(id: string, name: string, password: string, email: string) {
     this._id = id;
     this._name = name;
-    this._password = password;
+    this._password = UserCrypterFactory.create().crypter(password);
     this._email = email;
+    this._validate();
   }
 
   get id(): string {
@@ -29,5 +33,9 @@ export default class User {
 
   changeName(name: string) {
     this._name = name;
+  }
+
+  private _validate() {
+    UserValidatorFactory.create().validate(this);
   }
 }
