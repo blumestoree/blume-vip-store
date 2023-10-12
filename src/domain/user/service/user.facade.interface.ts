@@ -8,24 +8,13 @@ export interface InputUserPurchaseDto {
 
   customer: {
     name: string;
-    type: string;
     email: string;
-    document: string;
-    document_type: string;
-    phones: {
-      mobile_phone: {
-        country_code: string;
-        area_code: string;
-        number: string;
-      };
-    };
   };
   payments: {
-    payment_method: string;
+    payment_method: 'credit_card' | 'debit_card';
     credit_card: {
       recurrence: boolean;
       installments: number;
-      statement_descriptor: string;
       card: {
         number: string;
         holder_name: string;
@@ -34,7 +23,6 @@ export interface InputUserPurchaseDto {
         cvv: string;
       };
     };
-    capture: boolean;
   }[];
 }
 

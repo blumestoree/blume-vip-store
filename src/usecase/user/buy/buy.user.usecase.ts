@@ -6,6 +6,11 @@ import UserFacadeInterface from '../../../domain/user/facade/user.facade.interfa
 import PaymentFacadeInterface from '../../../domain/payment/facade/payment.facade.interface';
 import UserServiceInterface from '../../../domain/user/service/user.facade.interface';
 
+enum PaymentMethod {
+  credit_card = 'credit_card',
+  debit_card = 'debit_card',
+}
+
 export default class UserBuyProductUseCase
   implements UseCaseInterface<InputCreatePaymentDto, OutputCreatePaymentDto>
 {
@@ -29,6 +34,8 @@ export default class UserBuyProductUseCase
 
     const payment = PaymentFactory.create(input.userId, input.productId, product.price);
 
+    const paymentMethod = 'credit_card';
+
     const paymentDto = {
       items: [
         {
@@ -40,25 +47,14 @@ export default class UserBuyProductUseCase
       ],
       customer: {
         name: user.name,
-        type: 'individual',
         email: 'avengerstark@ligadajustica.com.br',
-        document: '03154435026',
-        document_type: 'CPF',
-        phones: {
-          mobile_phone: {
-            country_code: '23',
-            area_code: '23',
-            number: '999293823',
-          },
-        },
       },
       payments: [
         {
-          payment_method: 'credit_card',
+          payment_method: PaymentMethod[paymentMethod],
           credit_card: {
             recurrence: false,
             installments: 1,
-            statement_descriptor: 'AVENGERS',
             card: {
               number: '4000000000000010',
               holder_name: user.name,
@@ -67,7 +63,6 @@ export default class UserBuyProductUseCase
               cvv: '3531',
             },
           },
-          capture: true,
         },
       ],
     };
