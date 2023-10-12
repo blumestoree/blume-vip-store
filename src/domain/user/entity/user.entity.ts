@@ -7,7 +7,7 @@ export default class User {
   private _password: string;
   private _email: string;
 
-  constructor(id: string, name: string, password: string, email: string) {
+  constructor(id: string, name: string, email: string, password: string) {
     this._id = id;
     this._name = name;
     this._password = UserCrypterFactory.create().crypter(password);
