@@ -3,7 +3,7 @@ import ProductRepositoryInterface from '../../../domain/product/repositories/pro
 import Product from '../../../domain/product/entity/product.entity';
 import ProductFactory from '../../../domain/product/factory/product.factory';
 
-export default class productRepository implements ProductRepositoryInterface {
+export default class ProductRepository implements ProductRepositoryInterface {
   prisma: PrismaClient;
 
   constructor() {

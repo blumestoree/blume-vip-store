@@ -3,7 +3,7 @@ import { InputCreatePaymentDto, OutputCreatePaymentDto } from './create.payment.
 import PaymentRepositoryInterface from '../../../domain/payment/repositories/payment.repository';
 import PaymentFactory from '../../../domain/payment/factory/payment.factory';
 
-export default class PaymentProcessUseCase
+export default class PaymentUseCase
   implements UseCaseInterface<InputCreatePaymentDto, OutputCreatePaymentDto>
 {
   constructor(private paymentRepository: PaymentRepositoryInterface) {}
