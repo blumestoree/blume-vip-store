@@ -40,14 +40,15 @@ model Product {
 }
 
 model User {
-  id       Int       @default(autoincrement())
-  userId   String    @id @unique
-  name     String
-  email    String    @unique
-  password String
-  product  Product[]
-  server   Server[]
-  payment  Payment[]
+  id           Int           @default(autoincrement())
+  userId       String        @id @unique
+  name         String
+  email        String        @unique
+  password     String
+  product      Product[]
+  server       Server[]
+  payment      Payment[]
+  RefreshToken RefreshToken?
 }
 
 model Payment {
@@ -58,6 +59,13 @@ model Payment {
   userId    String
   product   Product @relation(fields: [productId], references: [productId])
   productId String
+}
+
+model RefreshToken {
+  id        String @id @default(uuid())
+  expiresIn Int
+  user      User   @relation(fields: [userId], references: [userId])
+  userId    String @unique
 }
 
 // model Category {
