@@ -4,7 +4,8 @@ import cors from 'cors';
 import ServerOwnerRoute from './routes/serverOwner.route';
 import ServerRoute from './routes/server.route';
 import ProductRoute from './routes/product.route';
-import userRoute from './routes/user.route';
+import UserRoute from './routes/user.route';
+import RefreshTokenRoute from './routes/refreshToken.route';
 
 interface IServer {
   app: express.Application;
@@ -33,7 +34,8 @@ class Server implements IServer {
     this.app.use(ServerOwnerRoute);
     this.app.use(ServerRoute);
     this.app.use(ProductRoute);
-    this.app.use(userRoute);
+    this.app.use(UserRoute);
+    this.app.use(RefreshTokenRoute);
   }
 
   middlewares() {

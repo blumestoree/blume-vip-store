@@ -7,4 +7,9 @@ export interface OutputCreateUserDto {
   id: string;
   name: string;
   email: string;
+  token: string;
+  refreshToken: {
+    id: string;
+    expiresIn: number;
+  };
 }
