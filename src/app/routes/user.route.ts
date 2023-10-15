@@ -14,6 +14,7 @@ import PaymentRepository from '../../infrastructure/payment/repositories/payment
 import PaymentProcessUseCase from '../../usecase/payment/create/create.payment.usecase';
 import UserService from '../../domain/user/service/user.service';
 import auth from '../middleware/auth';
+import LoginUserUseCase from '../../usecase/user/login/login.user.usecase';
 
 class UserRoute {
   router: Router;
@@ -43,6 +44,22 @@ class UserRoute {
           email,
         };
         const output = await useCase.execute(userDto);
+        res.send(output);
+      } catch (error) {
+        res.status(500).send(error);
+      }
+    });
+    this.router.post('/loginUser', async (req: Request, res: Response) => {
+      const userUseCase = new LoginUserUseCase(new UserRepository());
+
+      const { password, email } = req.body;
+      try {
+        const userDto = {
+          password,
+          email,
+        };
+
+        const output = await userUseCase.execute(userDto);
         res.send(output);
       } catch (error) {
         res.status(500).send(error);

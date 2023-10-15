@@ -41,4 +41,18 @@ export default class AuthTokenRepository {
 
     return new AuthToken(token.id, token.expiresIn, token.userId);
   }
+
+  async findByUser(userId: string): Promise<AuthToken> {
+    let token;
+
+    try {
+      token = await this.prisma.refreshToken.findUniqueOrThrow({
+        where: { userId },
+      });
+    } catch (error) {
+      throw new Error('Token not found');
+    }
+
+    return new AuthToken(token.id, token.expiresIn, token.userId);
+  }
 }

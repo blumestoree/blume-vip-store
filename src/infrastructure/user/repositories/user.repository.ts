@@ -53,4 +53,18 @@ export default class UserRepository implements UserRepositoryInterface {
 
     return UserFactory.create(user.name, user.email, user.password, user.userId);
   }
+
+  async findUserByEmail(email: string): Promise<User> {
+    let user;
+
+    try {
+      user = await this.prisma.user.findUniqueOrThrow({
+        where: { email },
+      });
+    } catch (error) {
+      throw new Error('User not found');
+    }
+
+    return UserFactory.create(user.name, user.email, user.password, user.userId);
+  }
 }

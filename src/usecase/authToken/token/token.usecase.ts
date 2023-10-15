@@ -14,6 +14,22 @@ export default class UserAuthTokenUsecase implements AuthInterface<JwtPayload> {
     return jwt.verify(token, process.env.JWT_TOKEN as string) as JwtPayload;
   }
 
+  async updateToken(
+    userId: string,
+  ): Promise<{ authToken: string; refreshTokenInfo: { id: string; expiresIn: number } }> {
+    const existingRefreshToken = await this.authTokenRepository.findByUser(userId);
+    if (existingRefreshToken) {
+      await this.authTokenRepository.delete(existingRefreshToken.userId);
+    }
+    const refreshTokenInfo = await this.createRefreshToken(userId);
+    const authToken = this.createToken(userId);
+
+    return {
+      authToken,
+      refreshTokenInfo,
+    };
+  }
+
   async createRefreshToken(userId: string): Promise<{ id: string; expiresIn: number }> {
     const refreshToken = await this.authTokenRepository.create(userId);
     return {

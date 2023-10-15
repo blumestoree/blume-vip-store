@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import UserAuthTokenUsecase from '../../usecase/authToken/token/create.token.usecase';
+import UserAuthTokenUsecase from '../../usecase/authToken/token/token.usecase';
 import AuthTokenRepository from '../../infrastructure/authToken/repositories/authToken.repository';
 
 export default class Auth {
