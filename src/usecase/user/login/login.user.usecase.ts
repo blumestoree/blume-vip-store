@@ -1,10 +1,9 @@
 import UserFactory from '../../../domain/user/factory/user.factory';
-import UserAuthTokenUsecase from '../../authToken/token/token.usecase';
 import UseCaseInterface from '../../../shared/usecase.interface';
 import { InputLoginUserDto, OutputLoginUserDto } from './login.user.dto';
-import AuthTokenRepository from '../../../infrastructure/authToken/repositories/authToken.repository';
 import UserOwnerCrypter from '../../../domain/user/crypter/user.crypter';
 import UserRepositoryInterface from '../../../domain/user/repositories/user.repository';
+import AuthTokenFactory from '../../authToken/factory/authtoken.factory';
 
 export default class LoginUserUseCase
   implements UseCaseInterface<InputLoginUserDto, OutputLoginUserDto>
@@ -23,10 +22,8 @@ export default class LoginUserUseCase
       //verify password
       throw new Error('Wrong password');
     }
-    const token = new UserAuthTokenUsecase(new AuthTokenRepository()).createToken(user.name);
-    const refreshToken = await new UserAuthTokenUsecase(new AuthTokenRepository()).updateToken(
-      user.id,
-    );
+    const token = AuthTokenFactory.create().createToken(user.name);
+    const refreshToken = await AuthTokenFactory.create().updateRefreshToken(user.id);
 
     return {
       id: user.id,

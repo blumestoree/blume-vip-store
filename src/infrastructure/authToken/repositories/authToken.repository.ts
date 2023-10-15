@@ -10,7 +10,7 @@ export default class AuthTokenRepository {
   }
 
   async create(userId: string): Promise<AuthToken> {
-    const expiresIn = dayjs().add(5, 'second').unix();
+    const expiresIn = dayjs().add(5, 'minutes').unix();
 
     const token = await this.prisma.refreshToken.create({
       data: {

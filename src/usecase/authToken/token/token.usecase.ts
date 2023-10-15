@@ -7,27 +7,23 @@ export default class UserAuthTokenUsecase implements AuthInterface<JwtPayload> {
   constructor(private authTokenRepository: AuthTokenRepository) {}
 
   createToken(text: string): string {
-    return jwt.sign({ data: text }, process.env.JWT_TOKEN as string, { expiresIn: '20s' });
+    return jwt.sign({ data: text }, process.env.JWT_TOKEN as string, {
+      expiresIn: process.env.TOKEN_EXPIRE_TIME,
+    });
   }
 
   verifyToken(token: string): JwtPayload {
     return jwt.verify(token, process.env.JWT_TOKEN as string) as JwtPayload;
   }
 
-  async updateToken(
-    userId: string,
-  ): Promise<{ authToken: string; refreshTokenInfo: { id: string; expiresIn: number } }> {
+  async updateRefreshToken(userId: string): Promise<{ id: string; expiresIn: number }> {
     const existingRefreshToken = await this.authTokenRepository.findByUser(userId);
     if (existingRefreshToken) {
       await this.authTokenRepository.delete(existingRefreshToken.userId);
     }
     const refreshTokenInfo = await this.createRefreshToken(userId);
-    const authToken = this.createToken(userId);
 
-    return {
-      authToken,
-      refreshTokenInfo,
-    };
+    return refreshTokenInfo;
   }
 
   async createRefreshToken(userId: string): Promise<{ id: string; expiresIn: number }> {
@@ -35,21 +31,20 @@ export default class UserAuthTokenUsecase implements AuthInterface<JwtPayload> {
     return {
       id: refreshToken.id,
       expiresIn: refreshToken.expiresIn,
-      // userId: refreshToken.userId,
     };
   }
 
   async verifyRefreshToken(refreshToken: string): Promise<string> {
-    const teste = await this.authTokenRepository.find(refreshToken);
+    const token = await this.authTokenRepository.find(refreshToken);
 
-    const refreshTokenExpired = dayjs().isAfter(dayjs.unix(teste.expiresIn));
+    const refreshTokenExpired = dayjs().isAfter(dayjs.unix(token.expiresIn));
 
     if (refreshTokenExpired) {
-      await this.authTokenRepository.delete(teste.userId);
+      await this.authTokenRepository.delete(token.userId);
       throw new Error('Refresh token expired');
     }
 
-    const newToken = this.createToken(teste.userId);
+    const newToken = this.createToken(token.userId);
 
     return newToken;
   }

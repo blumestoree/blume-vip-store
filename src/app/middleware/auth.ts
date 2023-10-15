@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import UserAuthTokenUsecase from '../../usecase/authToken/token/token.usecase';
-import AuthTokenRepository from '../../infrastructure/authToken/repositories/authToken.repository';
+import AuthTokenFactory from '../../usecase/authToken/factory/authtoken.factory';
 
 export default class Auth {
   static verifyToken(req: Request, res: Response, next: NextFunction) {
@@ -13,7 +12,7 @@ export default class Auth {
     const token = (tokenHeader && tokenHeader.split(' ')[1]) || '';
 
     try {
-      new UserAuthTokenUsecase(new AuthTokenRepository()).verifyToken(token);
+      AuthTokenFactory.create().verifyToken(token);
       next();
     } catch (error) {
       res.status(500).send('Token not valid');

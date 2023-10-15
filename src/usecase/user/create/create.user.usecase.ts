@@ -1,9 +1,8 @@
 import UserFactory from '../../../domain/user/factory/user.factory';
 import UserRepositoryInterface from '../../../domain/user/repositories/user.repository';
-import UserAuthTokenUsecase from '../../authToken/token/token.usecase';
 import UseCaseInterface from '../../../shared/usecase.interface';
 import { InputCreateUserDto, OutputCreateUserDto } from './create.user.dto';
-import AuthTokenRepository from '../../../infrastructure/authToken/repositories/authToken.repository';
+import AuthTokenFactory from '../../authToken/factory/authtoken.factory';
 
 export default class CreateUserUseCase
   implements UseCaseInterface<InputCreateUserDto, OutputCreateUserDto>
@@ -14,10 +13,8 @@ export default class CreateUserUseCase
     const user = UserFactory.create(input.name, input.email, input.password);
     await this.userRepository.create(user);
 
-    const token = new UserAuthTokenUsecase(new AuthTokenRepository()).createToken(user.name);
-    const refreshToken = await new UserAuthTokenUsecase(
-      new AuthTokenRepository(),
-    ).createRefreshToken(user.id);
+    const token = AuthTokenFactory.create().createToken(user.name);
+    const refreshToken = await AuthTokenFactory.create().createRefreshToken(user.id);
 
     return {
       id: user.id,
