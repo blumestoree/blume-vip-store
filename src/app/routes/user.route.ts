@@ -7,7 +7,6 @@ import UpdateUserUseCase from '../../usecase/user/update/update.user.usecase';
 import UserBuyProductUseCase from '../../usecase/user/buy/buy.user.usecase';
 import PaymentFacade from '../../domain/payment/facade/payment.facade';
 import ProductFacade from '../../domain/product/facade/product.facade';
-import UserFacade from '../../domain/user/facade/user.facade';
 import productRepository from '../../infrastructure/product/repositories/product.repository';
 import FindProductUseCase from '../../usecase/product/find/find.product.usecase';
 import PaymentRepository from '../../infrastructure/payment/repositories/payment.repository';
@@ -94,21 +93,20 @@ class UserRoute {
       }
     });
     this.router.post('/buyProduct/:productId', async (req: Request, res: Response) => {
-      const userUseCase = new FindUserUseCase(new UserRepository());
+      const userRepository = new UserRepository();
       const productUseCase = new FindProductUseCase(new productRepository());
 
       const paymentUseCase = new PaymentProcessUseCase(new PaymentRepository());
 
       const facadePayment = new PaymentFacade(paymentUseCase);
       const facadeProduct = new ProductFacade(productUseCase);
-      const facadeUser = new UserFacade(userUseCase);
 
       const userService = new UserService();
 
       const useCase = new UserBuyProductUseCase(
         facadePayment,
         facadeProduct,
-        facadeUser,
+        userRepository,
         userService,
       );
 
