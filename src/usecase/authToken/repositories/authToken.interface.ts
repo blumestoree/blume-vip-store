@@ -1,4 +1,4 @@
-export default interface AuthInterface<T> {
+export default interface AuthTokenInterface<T> {
   createToken(data: string): string;
   verifyToken(token: string): T;
   updateRefreshToken(id: string): Promise<{ id: string; expiresIn: number }>;

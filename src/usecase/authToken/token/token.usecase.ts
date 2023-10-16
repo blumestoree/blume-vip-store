@@ -1,10 +1,11 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import AuthInterface from '../../../shared/auth.interface';
 import dayjs from 'dayjs';
-import AuthTokenRepository from '../../../infrastructure/authToken/repositories/authToken.repository';
+import AuthTokenInterface from '../repositories/authToken.interface';
+import AuthToken from '../entity/authToken.entity';
+import AuthTokenRepositoryInterface from '../repositories/authToken.repository.interface';
 
-export default class UserAuthTokenUsecase implements AuthInterface<JwtPayload> {
-  constructor(private authTokenRepository: AuthTokenRepository) {}
+export default class UserAuthTokenUsecase implements AuthTokenInterface<JwtPayload> {
+  constructor(private authTokenRepository: AuthTokenRepositoryInterface<AuthToken>) {}
 
   createToken(text: string): string {
     return jwt.sign({ data: text }, process.env.JWT_TOKEN as string, {
@@ -25,9 +26,10 @@ export default class UserAuthTokenUsecase implements AuthInterface<JwtPayload> {
 
     return refreshTokenInfo;
   }
-
   async createRefreshToken(userId: string): Promise<{ id: string; expiresIn: number }> {
-    const refreshToken = await this.authTokenRepository.create(userId);
+    const expiresIn = dayjs().add(5, 'minutes').unix();
+
+    const refreshToken = await this.authTokenRepository.create(userId, expiresIn);
     return {
       id: refreshToken.id,
       expiresIn: refreshToken.expiresIn,

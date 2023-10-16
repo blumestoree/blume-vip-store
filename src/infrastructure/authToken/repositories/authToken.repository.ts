@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client';
-import dayjs from 'dayjs';
 import AuthToken from '../../../usecase/authToken/entity/authToken.entity';
 
 export default class AuthTokenRepository {
@@ -9,9 +8,7 @@ export default class AuthTokenRepository {
     this.prisma = new PrismaClient();
   }
 
-  async create(userId: string): Promise<AuthToken> {
-    const expiresIn = dayjs().add(5, 'minutes').unix();
-
+  async create(userId: string, expiresIn: number): Promise<AuthToken> {
     const token = await this.prisma.refreshToken.create({
       data: {
         userId,
