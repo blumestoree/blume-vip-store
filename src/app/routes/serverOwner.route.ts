@@ -20,7 +20,9 @@ class ServerOwnerRoute {
         const output = await useCase.execute();
         res.send(output);
       } catch (error) {
-        res.status(500).send(error);
+        if (error instanceof Error) {
+          res.status(500).send({ error: error.message });
+        }
       }
     });
     this.router.post('/createServerOwner', async (req: Request, res: Response) => {
@@ -35,7 +37,9 @@ class ServerOwnerRoute {
         const output = await useCase.execute(serverOwnerDto);
         res.send(output);
       } catch (error) {
-        res.status(500).send(error);
+        if (error instanceof Error) {
+          res.status(500).send({ error: error.message });
+        }
       }
     });
     this.router.put('/updateServerOwner/:id', async (req: Request, res: Response) => {
@@ -53,7 +57,9 @@ class ServerOwnerRoute {
         const output = await useCase.execute(serverOwnerDto);
         res.send(output);
       } catch (error) {
-        res.status(500).send(error);
+        if (error instanceof Error) {
+          res.status(500).send({ error: error.message });
+        }
       }
     });
     this.router.get('/findServerOwner/:id', async (req: Request, res: Response) => {
@@ -64,7 +70,9 @@ class ServerOwnerRoute {
         const output = await useCase.execute(serverOwnerDto);
         res.send(output);
       } catch (error) {
-        res.status(500).send(error);
+        if (error instanceof Error) {
+          res.status(500).send({ error: error.message });
+        }
       }
     });
   }

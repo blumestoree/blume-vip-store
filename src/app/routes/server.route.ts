@@ -20,7 +20,9 @@ class ServerRoute {
         const output = await useCase.execute();
         res.send(output);
       } catch (error) {
-        res.status(500).send(error);
+        if (error instanceof Error) {
+          res.status(500).send({ error: error.message });
+        }
       }
     });
     this.router.post('/createServer', async (req: Request, res: Response) => {
@@ -34,7 +36,9 @@ class ServerRoute {
         const output = await useCase.execute(serverDto);
         res.send(output);
       } catch (error) {
-        res.status(500).send(error);
+        if (error instanceof Error) {
+          res.status(500).send({ error: error.message });
+        }
       }
     });
     this.router.put('/updateServer/:id', async (req: Request, res: Response) => {
@@ -50,7 +54,9 @@ class ServerRoute {
         const output = await useCase.execute(serverDto);
         res.send(output);
       } catch (error) {
-        res.status(500).send(error);
+        if (error instanceof Error) {
+          res.status(500).send({ error: error.message });
+        }
       }
     });
     this.router.get('/findServer/:id', async (req: Request, res: Response) => {
@@ -61,7 +67,9 @@ class ServerRoute {
         const output = await useCase.execute(serverDto);
         res.send(output);
       } catch (error) {
-        res.status(500).send(error);
+        if (error instanceof Error) {
+          res.status(500).send({ error: error.message });
+        }
       }
     });
   }

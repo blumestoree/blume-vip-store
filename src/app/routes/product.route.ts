@@ -20,7 +20,9 @@ class ProductRoute {
         const output = await useCase.execute();
         res.send(output);
       } catch (error) {
-        res.status(500).send(error);
+        if (error instanceof Error) {
+          res.status(500).send({ error: error.message });
+        }
       }
     });
     this.router.post('/createProduct', async (req: Request, res: Response) => {
@@ -35,7 +37,9 @@ class ProductRoute {
         const output = await useCase.execute(productDto);
         res.send(output);
       } catch (error) {
-        res.status(500).send(error);
+        if (error instanceof Error) {
+          res.status(500).send({ error: error.message });
+        }
       }
     });
     this.router.put('/updateProduct/:id', async (req: Request, res: Response) => {
@@ -52,7 +56,9 @@ class ProductRoute {
         const output = await useCase.execute(productDto);
         res.send(output);
       } catch (error) {
-        res.status(500).send(error);
+        if (error instanceof Error) {
+          res.status(500).send({ error: error.message });
+        }
       }
     });
     this.router.get('/findProduct/:id', async (req: Request, res: Response) => {
@@ -63,7 +69,9 @@ class ProductRoute {
         const output = await useCase.execute(productDto);
         res.send(output);
       } catch (error) {
-        res.status(500).send(error);
+        if (error instanceof Error) {
+          res.status(500).send({ error: error.message });
+        }
       }
     });
   }

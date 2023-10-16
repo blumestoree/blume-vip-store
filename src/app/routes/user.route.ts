@@ -29,7 +29,9 @@ class UserRoute {
         const output = await useCase.execute();
         res.send(output);
       } catch (error) {
-        res.status(500).send(error);
+        if (error instanceof Error) {
+          res.status(500).send({ error: error.message });
+        }
       }
     });
     this.router.post('/createUser', async (req: Request, res: Response) => {
@@ -44,7 +46,9 @@ class UserRoute {
         const output = await useCase.execute(userDto);
         res.send(output);
       } catch (error) {
-        res.status(500).send(error);
+        if (error instanceof Error) {
+          res.status(500).send({ error: error.message });
+        }
       }
     });
     this.router.post('/loginUser', async (req: Request, res: Response) => {
@@ -60,7 +64,9 @@ class UserRoute {
         const output = await userUseCase.execute(userDto);
         res.send(output);
       } catch (error) {
-        res.status(500).send(error);
+        if (error instanceof Error) {
+          res.status(500).send({ error: error.message });
+        }
       }
     });
     this.router.put('/updateUser/:id', async (req: Request, res: Response) => {
@@ -77,7 +83,9 @@ class UserRoute {
         const output = await useCase.execute(userDto);
         res.send(output);
       } catch (error) {
-        res.status(500).send(error);
+        if (error instanceof Error) {
+          res.status(500).send({ error: error.message });
+        }
       }
     });
     this.router.get('/findUser/:id', async (req: Request, res: Response) => {
@@ -88,7 +96,9 @@ class UserRoute {
         const output = await useCase.execute(userDto);
         res.send(output);
       } catch (error) {
-        res.status(500).send(error);
+        if (error instanceof Error) {
+          res.status(500).send({ error: error.message });
+        }
       }
     });
     this.router.post('/buyProduct/:productId', async (req: Request, res: Response) => {
@@ -120,7 +130,9 @@ class UserRoute {
         const output = await useCase.execute(userDto);
         res.send(output);
       } catch (error) {
-        res.status(500).send(error);
+        if (error instanceof Error) {
+          res.status(500).send({ error: error.message });
+        }
       }
     });
   }
