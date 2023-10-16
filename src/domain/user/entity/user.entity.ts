@@ -10,7 +10,7 @@ export default class User {
   constructor(id: string, name: string, email: string, password: string) {
     this._id = id;
     this._name = name;
-    this._password = UserCrypterFactory.create().crypter(password);
+    this._password = password;
     this._email = email;
     this._validate();
   }
@@ -33,6 +33,10 @@ export default class User {
 
   changeName(name: string) {
     this._name = name;
+  }
+
+  encryptPassword(password: string) {
+    this._password = UserCrypterFactory.create().crypter(password);
   }
 
   private _validate() {

@@ -1,4 +1,3 @@
-import UserFactory from '../../../domain/user/factory/user.factory';
 import UseCaseInterface from '../../../shared/usecase.interface';
 import { InputLoginUserDto, OutputLoginUserDto } from './login.user.dto';
 import UserOwnerCrypter from '../../../domain/user/crypter/user.crypter';
@@ -12,23 +11,20 @@ export default class LoginUserUseCase
 
   async execute(input: InputLoginUserDto): Promise<OutputLoginUserDto> {
     const findUser = await this.userRepository.findUserByEmail(input.email);
-
     if (!findUser) {
       throw new Error('User not found');
     }
 
-    const user = UserFactory.create(findUser.name, findUser.email, input.password, findUser.id);
-    if (!new UserOwnerCrypter().compare(input.password, user.password)) {
-      //verify password
+    if (!new UserOwnerCrypter().compare(input.password, findUser.password)) {
       throw new Error('Wrong password');
     }
-    const token = AuthTokenFactory.create().createToken(user.name);
-    const refreshToken = await AuthTokenFactory.create().updateRefreshToken(user.id);
+    const token = AuthTokenFactory.create().createToken(findUser.name);
+    const refreshToken = await AuthTokenFactory.create().updateRefreshToken(findUser.id);
 
     return {
-      id: user.id,
-      name: user.name,
-      email: user.email,
+      id: findUser.id,
+      name: findUser.name,
+      email: findUser.email,
       token,
       refreshToken,
     };

@@ -11,6 +11,7 @@ export default class CreateUserUseCase
 
   async execute(input: InputCreateUserDto): Promise<OutputCreateUserDto> {
     const user = UserFactory.create(input.name, input.email, input.password);
+    user.encryptPassword(input.password);
     await this.userRepository.create(user);
 
     const token = AuthTokenFactory.create().createToken(user.name);

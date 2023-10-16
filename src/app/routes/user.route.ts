@@ -12,7 +12,6 @@ import FindProductUseCase from '../../usecase/product/find/find.product.usecase'
 import PaymentRepository from '../../infrastructure/payment/repositories/payment.repository';
 import PaymentProcessUseCase from '../../usecase/payment/create/create.payment.usecase';
 import UserService from '../../domain/user/service/user.service';
-import auth from '../middleware/auth';
 import LoginUserUseCase from '../../usecase/user/login/login.user.usecase';
 
 class UserRoute {
@@ -24,7 +23,7 @@ class UserRoute {
   }
 
   private setupRoutes() {
-    this.router.get('/findAllUser', auth.verifyToken, async (req: Request, res: Response) => {
+    this.router.get('/findAllUser', async (req: Request, res: Response) => {
       const useCase = new FindAllUserUseCase(new UserRepository());
       try {
         const output = await useCase.execute();
