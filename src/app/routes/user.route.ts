@@ -13,6 +13,7 @@ import PaymentRepository from '../../infrastructure/payment/repositories/payment
 import PaymentProcessUseCase from '../../usecase/payment/create/create.payment.usecase';
 import UserService from '../../domain/user/service/user.service';
 import LoginUserUseCase from '../../usecase/user/login/login.user.usecase';
+import Auth from '../middleware/auth';
 
 class UserRoute {
   router: Router;
@@ -101,40 +102,44 @@ class UserRoute {
         }
       }
     });
-    this.router.post('/buyProduct/:productId', async (req: Request, res: Response) => {
-      const userRepository = new UserRepository();
-      const productUseCase = new FindProductUseCase(new productRepository());
+    this.router.post(
+      '/buyProduct/:productId',
+      Auth.verifyToken,
+      async (req: Request, res: Response) => {
+        const userRepository = new UserRepository();
+        const productUseCase = new FindProductUseCase(new productRepository());
 
-      const paymentUseCase = new PaymentProcessUseCase(new PaymentRepository());
+        const paymentUseCase = new PaymentProcessUseCase(new PaymentRepository());
 
-      const facadePayment = new PaymentFacade(paymentUseCase);
-      const facadeProduct = new ProductFacade(productUseCase);
+        const facadePayment = new PaymentFacade(paymentUseCase);
+        const facadeProduct = new ProductFacade(productUseCase);
 
-      const userService = new UserService();
+        const userService = new UserService();
 
-      const useCase = new UserBuyProductUseCase(
-        facadePayment,
-        facadeProduct,
-        userRepository,
-        userService,
-      );
+        const useCase = new UserBuyProductUseCase(
+          facadePayment,
+          facadeProduct,
+          userRepository,
+          userService,
+        );
 
-      const { productId } = req.params;
-      const { userId } = req.body;
+        const { productId } = req.params;
+        const { userId } = req.body;
 
-      try {
-        const userDto = {
-          userId: userId,
-          productId: productId,
-        };
-        const output = await useCase.execute(userDto);
-        res.send(output);
-      } catch (error) {
-        if (error instanceof Error) {
-          res.status(500).send({ error: error.message });
+        try {
+          const userDto = {
+            userId: userId,
+            productId: productId,
+          };
+          const output = await useCase.execute(userDto);
+          res.send(output);
+        } catch (error) {
+          if (error instanceof Error) {
+            res.status(500).send({ error: error.message });
+          }
         }
-      }
-    });
+      },
+    );
   }
 }
 
