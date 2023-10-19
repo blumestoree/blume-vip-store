@@ -19,11 +19,8 @@ export default class ServerOwnerValidator implements ValidatorInterface<ServerOw
       serverOwnerSchema.parse(entity);
     } catch (error) {
       const zodError = error as z.ZodError;
-      const errorMessages = zodError.errors.map((issue) => ({
-        message: issue.message,
-        path: issue.path,
-      }));
-      throw errorMessages;
+      const errorMessages = zodError.errors.map((issue) => issue.message);
+      throw new Error(errorMessages.map((issue) => issue).join(', '));
     }
   }
 }
