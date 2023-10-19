@@ -6,7 +6,7 @@ export default class Auth {
     const tokenHeader = req.headers.authorization;
 
     if (!tokenHeader) {
-      res.status(401).send('Not authorized');
+      res.status(400).send('Token missing');
     }
 
     const token = (tokenHeader && tokenHeader.split(' ')[1]) || '';
@@ -15,7 +15,7 @@ export default class Auth {
       AuthTokenFactory.create().verifyToken(token);
       next();
     } catch (error) {
-      res.status(500).send('Token not valid');
+      res.status(401).send('Invalid token');
     }
   }
 }

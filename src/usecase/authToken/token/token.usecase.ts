@@ -42,7 +42,6 @@ export default class UserAuthTokenUsecase implements AuthTokenInterface<JwtPaylo
     const refreshTokenExpired = dayjs().isAfter(dayjs.unix(token.expiresIn));
 
     if (refreshTokenExpired) {
-      await this.authTokenRepository.delete(token.userId);
       throw new Error('Refresh token expired');
     }
 
