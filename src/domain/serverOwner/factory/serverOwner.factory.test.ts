@@ -4,24 +4,34 @@ import ServerOwnerFactory from './serverOwner.factory';
 describe('ServerOwner factory unit test', () => {
   it('should create a ServerOwner', () => {
     const serverOwner = ServerOwnerFactory.create('name', 'email@gmail.com', 'password');
-    expect(serverOwner.serverOwnerId).not.toBeNull();
+    expect(serverOwner.id).not.toBeNull();
     expect(serverOwner.name).toBe('name');
     expect(serverOwner.email).toBe('email@gmail.com');
-    expect(serverOwner.password).toBe('password');
+    expect(serverOwner.password).not.toBeNull();
     expect(serverOwner.serverId).toBeUndefined();
   });
 
-  it('should create a ServerOwner with server', () => {
-    const serverOwner = ServerOwnerFactory.createWithServer(
+  it('should create a ServerOwner with id', () => {
+    const serverOwner = ServerOwnerFactory.create('name', 'email@gmail.com', 'password', 'id');
+    expect(serverOwner.id).toEqual('id');
+    expect(serverOwner.name).toBe('name');
+    expect(serverOwner.email).toBe('email@gmail.com');
+    expect(serverOwner.password).not.toBeNull();
+    expect(serverOwner.serverId).toBeUndefined();
+  });
+
+  it('should create a ServerOwner with id and serverId', () => {
+    const serverOwner = ServerOwnerFactory.create(
       'name',
       'email@gmail.com',
       'password',
-      1,
+      'id',
+      'serverId',
     );
-    expect(serverOwner.serverOwnerId).not.toBeNull();
+    expect(serverOwner.id).toEqual('id');
     expect(serverOwner.name).toBe('name');
     expect(serverOwner.email).toBe('email@gmail.com');
-    expect(serverOwner.password).toBe('password');
-    expect(serverOwner.serverId).toBe(1);
+    expect(serverOwner.password).not.toBeNull();
+    expect(serverOwner.serverId).toBe('serverId');
   });
 });

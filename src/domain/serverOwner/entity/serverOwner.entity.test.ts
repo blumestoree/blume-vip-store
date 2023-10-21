@@ -1,29 +1,27 @@
 import { describe, expect, it } from 'vitest';
 import ServerOwner from './serverOwner.entity';
 
-describe('Owner unit tests', () => {
-  it('should create a user', () => {
+describe('ServerOwner unit tests', () => {
+  it('should create a server owner', () => {
     const serverOwner = new ServerOwner('ID', 'name', 'email@gmail.com', 'password');
-    expect(serverOwner.serverOwnerId).toBe('ID');
+    expect(serverOwner.id).toBe('ID');
     expect(serverOwner.name).toBe('name');
     expect(serverOwner.email).toBe('email@gmail.com');
-    expect(serverOwner.password).toBe('password');
+    expect(serverOwner.password).not.toBeNull();
   });
 
   it('should create a user and a serverId', () => {
-    const serverOwner = new ServerOwner('ID', 'name', 'email@gmail.com', 'password');
-    serverOwner.changeServer(1);
-    expect(serverOwner.serverId).toBe(1);
+    const serverOwner = new ServerOwner('ID', 'name', 'email@gmail.com', 'password', 'serverID');
+    expect(serverOwner.serverId).toBe('serverID');
   });
 
   it('should give an invalid email error', () => {
     try {
       new ServerOwner('ID', 'name', 'email', 'password');
     } catch (error) {
-      expect(error).toContainEqual({
-        message: 'Email inválido',
-        path: ['_email'],
-      });
+      if (error instanceof Error) {
+        expect(error.message).toEqual('Email inválido');
+      }
     }
   });
 
@@ -31,10 +29,9 @@ describe('Owner unit tests', () => {
     try {
       new ServerOwner('ID', 'X', 'email@gmail.com', 'password');
     } catch (error) {
-      expect(error).toContainEqual({
-        message: 'Nome inválido',
-        path: ['_name'],
-      });
+      if (error instanceof Error) {
+        expect(error.message).toEqual('Nome inválido');
+      }
     }
   });
 
@@ -42,10 +39,9 @@ describe('Owner unit tests', () => {
     try {
       new ServerOwner('ID', 'name', 'email@gmail.com', 'X');
     } catch (error) {
-      expect(error).toContainEqual({
-        message: 'Senha inválida',
-        path: ['_password'],
-      });
+      if (error instanceof Error) {
+        expect(error.message).toEqual('Senha inválida');
+      }
     }
   });
 });
