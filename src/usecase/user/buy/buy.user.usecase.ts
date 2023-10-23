@@ -3,7 +3,7 @@ import { InputCreatePaymentDto, OutputCreatePaymentDto } from './buy.user.dto';
 import PaymentFactory from '../../../domain/payment/factory/payment.factory';
 import ProductFacadeInterface from '../../../domain/product/facade/product.facade.interface';
 import PaymentFacadeInterface from '../../../domain/payment/facade/payment.facade.interface';
-import UserServiceInterface from '../../../domain/user/service/user.facade.interface';
+import ProcessPaymentInterface from './processPayment/processPayment.interface';
 import UserRepositoryInterface from '../../../domain/user/repositories/user.repository';
 
 enum PaymentMethod {
@@ -18,20 +18,12 @@ export default class UserBuyProductUseCase
     private paymentFacade: PaymentFacadeInterface,
     private productFacade: ProductFacadeInterface,
     private userRepository: UserRepositoryInterface,
-    private userService: UserServiceInterface,
+    private processPayment: ProcessPaymentInterface,
   ) {}
 
   async execute(input: InputCreatePaymentDto): Promise<OutputCreatePaymentDto> {
     const user = await this.userRepository.find(input.userId);
-
-    if (!user) {
-      throw new Error('User not found');
-    }
-
     const product = await this.productFacade.findProduct({ id: input.productId });
-    if (!product) {
-      throw new Error('Product not found');
-    }
 
     const payment = PaymentFactory.create(input.userId, input.productId, product.price);
 
@@ -68,7 +60,7 @@ export default class UserBuyProductUseCase
       ],
     };
 
-    await this.userService.userPurchase(paymentDto);
+    await this.processPayment.userPurchase(paymentDto);
 
     await this.paymentFacade.createPayment(payment);
 

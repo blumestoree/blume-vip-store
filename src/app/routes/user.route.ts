@@ -11,7 +11,7 @@ import productRepository from '../../infrastructure/product/repositories/product
 import FindProductUseCase from '../../usecase/product/find/find.product.usecase';
 import PaymentRepository from '../../infrastructure/payment/repositories/payment.repository';
 import PaymentProcessUseCase from '../../usecase/payment/create/create.payment.usecase';
-import UserService from '../../domain/user/service/user.service';
+import ProcessPayment from '../../usecase/user/buy/processPayment/processPayment.service';
 import LoginUserUseCase from '../../usecase/user/login/login.user.usecase';
 import Auth from '../middleware/auth';
 import ForgotPasswordUseCase from '../../usecase/user/forgotPassword/forgotPassword.user.usecase';
@@ -129,13 +129,13 @@ class UserRoute {
         const facadePayment = new PaymentFacade(paymentUseCase);
         const facadeProduct = new ProductFacade(productUseCase);
 
-        const userService = new UserService();
+        const processPayment = new ProcessPayment();
 
         const useCase = new UserBuyProductUseCase(
           facadePayment,
           facadeProduct,
           userRepository,
-          userService,
+          processPayment,
         );
 
         const { productId } = req.params;

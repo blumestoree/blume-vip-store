@@ -1,4 +1,4 @@
-export interface InputUserPurchaseDto {
+export interface InputProcessPaymentDto {
   items: {
     amount: number;
     description: string;
@@ -26,6 +26,6 @@ export interface InputUserPurchaseDto {
   }[];
 }
 
-export default interface UserServiceInterface {
-  userPurchase(input: InputUserPurchaseDto): Promise<void>;
+export default interface ProcessPaymentInterface {
+  userPurchase(input: InputProcessPaymentDto): Promise<void>;
 }

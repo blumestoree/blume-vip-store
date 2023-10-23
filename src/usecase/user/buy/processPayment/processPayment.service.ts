@@ -1,8 +1,8 @@
 import axios from 'axios';
-import UserServiceInterface, { InputUserPurchaseDto } from './user.facade.interface';
+import ProcessPaymentInterface, { InputProcessPaymentDto } from './processPayment.interface';
 
-export default class UserService implements UserServiceInterface {
-  async userPurchase(paymentData: InputUserPurchaseDto) {
+export default class ProcessPayment implements ProcessPaymentInterface {
+  async userPurchase(paymentData: InputProcessPaymentDto) {
     try {
       const response = await axios.post(`${process.env.API_PAGARME_ENDPOINT}/orders`, paymentData, {
         headers: {
