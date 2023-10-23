@@ -14,6 +14,8 @@ import PaymentProcessUseCase from '../../usecase/payment/create/create.payment.u
 import UserService from '../../domain/user/service/user.service';
 import LoginUserUseCase from '../../usecase/user/login/login.user.usecase';
 import Auth from '../middleware/auth';
+import ForgotPasswordUseCase from '../../usecase/user/forgotPassword/forgotPassword.user.usecase';
+import SendEmail from '../../usecase/user/forgotPassword/transportEmail/sendEmail';
 
 class UserRoute {
   router: Router;
@@ -94,6 +96,19 @@ class UserRoute {
       const { id } = req.params;
       try {
         const userDto = { id };
+        const output = await useCase.execute(userDto);
+        res.send(output);
+      } catch (error) {
+        if (error instanceof Error) {
+          res.status(500).send({ error: error.message });
+        }
+      }
+    });
+    this.router.post('/forgotPassword', async (req: Request, res: Response) => {
+      const useCase = new ForgotPasswordUseCase(new UserRepository(), new SendEmail());
+      const { email } = req.body;
+      try {
+        const userDto = { email };
         const output = await useCase.execute(userDto);
         res.send(output);
       } catch (error) {
