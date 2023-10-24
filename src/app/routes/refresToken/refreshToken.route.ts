@@ -1,15 +1,16 @@
 import { Request, Response, Router } from 'express';
-import AuthTokenFactory from '../../usecase/authToken/factory/authtoken.factory';
+import AuthTokenFactory from '../../../usecase/authToken/factory/authtoken.factory';
+import RefreshTokenRouteInterface from './refreshToken.route.interface';
 
-class RefreshTokenRoute {
+class RefreshTokenRoute implements RefreshTokenRouteInterface {
   router: Router;
 
   constructor() {
     this.router = Router();
-    this.setupRoutes();
+    this.refreshToken();
   }
 
-  private setupRoutes() {
+  refreshToken() {
     this.router.post('/refreshToken', async (req: Request, res: Response) => {
       const { refreshToken } = req.body;
       try {

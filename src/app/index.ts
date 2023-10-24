@@ -1,11 +1,11 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import ServerOwnerRoute from './routes/serverOwner.route';
-import ServerRoute from './routes/server.route';
-import ProductRoute from './routes/product.route';
-import UserRoute from './routes/user.route';
-import RefreshTokenRoute from './routes/refreshToken.route';
+import ServerOwnerRoute from './routes/serverOwner/serverOwner.route';
+import ServerRoute from './routes/server/server.route';
+import ProductRoute from './routes/product/product.route';
+import UserRoute from './routes/user/user.route';
+import RefreshTokenRoute from './routes/refresToken/refreshToken.route';
 
 interface IServer {
   app: express.Application;

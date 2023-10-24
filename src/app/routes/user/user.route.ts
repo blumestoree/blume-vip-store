@@ -1,31 +1,38 @@
 import { Request, Response, Router } from 'express';
-import FindAllUserUseCase from '../../usecase/user/findAll/findAll.user.usecase';
-import UserRepository from '../../infrastructure/user/repositories/user.repository';
-import CreateUserUseCase from '../../usecase/user/create/create.user.usecase';
-import FindUserUseCase from '../../usecase/user/find/find.user.usecase';
-import UpdateUserUseCase from '../../usecase/user/update/update.user.usecase';
-import UserBuyProductUseCase from '../../usecase/user/buy/buy.user.usecase';
-import PaymentFacade from '../../domain/payment/facade/payment.facade';
-import ProductFacade from '../../domain/product/facade/product.facade';
-import productRepository from '../../infrastructure/product/repositories/product.repository';
-import FindProductUseCase from '../../usecase/product/find/find.product.usecase';
-import PaymentRepository from '../../infrastructure/payment/repositories/payment.repository';
-import PaymentProcessUseCase from '../../usecase/payment/create/create.payment.usecase';
-import ProcessPayment from '../../usecase/user/buy/processPayment/processPayment.service';
-import LoginUserUseCase from '../../usecase/user/login/login.user.usecase';
-import Auth from '../middleware/auth';
-import ForgotPasswordUseCase from '../../usecase/user/forgotPassword/forgotPassword.user.usecase';
-import SendEmail from '../../usecase/user/forgotPassword/transportEmail/sendEmail';
+import FindAllUserUseCase from '../../../usecase/user/findAll/findAll.user.usecase';
+import UserRepository from '../../../infrastructure/user/repositories/user.repository';
+import CreateUserUseCase from '../../../usecase/user/create/create.user.usecase';
+import FindUserUseCase from '../../../usecase/user/find/find.user.usecase';
+import UpdateUserUseCase from '../../../usecase/user/update/update.user.usecase';
+import UserBuyProductUseCase from '../../../usecase/user/buy/buy.user.usecase';
+import PaymentFacade from '../../../domain/payment/facade/payment.facade';
+import ProductFacade from '../../../domain/product/facade/product.facade';
+import productRepository from '../../../infrastructure/product/repositories/product.repository';
+import FindProductUseCase from '../../../usecase/product/find/find.product.usecase';
+import PaymentRepository from '../../../infrastructure/payment/repositories/payment.repository';
+import PaymentProcessUseCase from '../../../usecase/payment/create/create.payment.usecase';
+import ProcessPayment from '../../../usecase/user/buy/processPayment/processPayment.service';
+import LoginUserUseCase from '../../../usecase/user/login/login.user.usecase';
+import Auth from '../../middleware/auth';
+import ForgotPasswordUseCase from '../../../usecase/user/forgotPassword/forgotPassword.user.usecase';
+import SendEmail from '../../../usecase/user/forgotPassword/transportEmail/sendEmail';
+import UserRouteInterface from './user.route.interface';
 
-class UserRoute {
+class UserRoute implements UserRouteInterface {
   router: Router;
 
   constructor() {
     this.router = Router();
-    this.setupRoutes();
+    this.findAllUser();
+    this.createUser();
+    this.loginUser();
+    this.updateUser();
+    this.findUser();
+    this.forgotPassword();
+    this.buyProduct();
   }
 
-  private setupRoutes() {
+  findAllUser() {
     this.router.get('/findAllUser', async (req: Request, res: Response) => {
       const useCase = new FindAllUserUseCase(new UserRepository());
       try {
@@ -37,6 +44,9 @@ class UserRoute {
         }
       }
     });
+  }
+
+  createUser() {
     this.router.post('/createUser', async (req: Request, res: Response) => {
       const useCase = new CreateUserUseCase(new UserRepository());
       const { name, password, email } = req.body;
@@ -54,6 +64,9 @@ class UserRoute {
         }
       }
     });
+  }
+
+  loginUser() {
     this.router.post('/loginUser', async (req: Request, res: Response) => {
       const userUseCase = new LoginUserUseCase(new UserRepository());
 
@@ -72,6 +85,9 @@ class UserRoute {
         }
       }
     });
+  }
+
+  updateUser() {
     this.router.put('/updateUser/:id', async (req: Request, res: Response) => {
       const useCase = new UpdateUserUseCase(new UserRepository());
       const { name, password, email } = req.body;
@@ -91,6 +107,9 @@ class UserRoute {
         }
       }
     });
+  }
+
+  findUser() {
     this.router.get('/findUser/:id', async (req: Request, res: Response) => {
       const useCase = new FindUserUseCase(new UserRepository());
       const { id } = req.params;
@@ -104,6 +123,9 @@ class UserRoute {
         }
       }
     });
+  }
+
+  forgotPassword() {
     this.router.post('/forgotPassword', async (req: Request, res: Response) => {
       const useCase = new ForgotPasswordUseCase(new UserRepository(), new SendEmail());
       const { email } = req.body;
@@ -117,6 +139,9 @@ class UserRoute {
         }
       }
     });
+  }
+
+  buyProduct() {
     this.router.post(
       '/buyProduct/:productId',
       Auth.verifyToken,
