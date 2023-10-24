@@ -164,12 +164,18 @@ class UserRoute implements UserRouteInterface {
         );
 
         const { productId } = req.params;
-        const { userId } = req.body;
+        const { userId, installments, cardNumber, holderName, expMonth, expYear, cvv } = req.body;
 
         try {
           const userDto = {
-            userId: userId,
-            productId: productId,
+            userId,
+            productId,
+            installments,
+            cardNumber,
+            holderName,
+            expMonth,
+            expYear,
+            cvv,
           };
           const output = await useCase.execute(userDto);
           res.send(output);

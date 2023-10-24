@@ -40,20 +40,20 @@ export default class UserBuyProductUseCase
       ],
       customer: {
         name: user.name,
-        email: 'avengerstark@ligadajustica.com.br',
+        email: user.email,
       },
       payments: [
         {
           payment_method: PaymentMethod[paymentMethod],
           credit_card: {
             recurrence: false,
-            installments: 1,
+            installments: input.installments,
             card: {
-              number: '4000000000000010',
-              holder_name: user.name,
-              exp_month: 1,
-              exp_year: 30,
-              cvv: '3531',
+              number: input.cardNumber,
+              holder_name: input.holderName,
+              exp_month: input.expMonth,
+              exp_year: input.expYear,
+              cvv: input.cvv,
             },
           },
         },
