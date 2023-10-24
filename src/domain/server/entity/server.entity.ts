@@ -5,7 +5,10 @@ export default class Server {
   private _serverOwnerId: string;
 
   constructor(id: string, name: string, serverOwnerId: string) {
-    (this._name = name), (this._serverOwnerId = serverOwnerId), (this._id = id), this._validate();
+    this._name = name;
+    this._serverOwnerId = serverOwnerId;
+    this._id = id;
+    this._validate();
   }
 
   get id(): string {

@@ -8,11 +8,11 @@ export default class ServerOwner {
   private _serverId?: string;
 
   constructor(id: string, name: string, email: string, password: string, serverId?: string) {
-    (this._id = id),
-      (this._name = name),
-      (this._email = email),
-      (this._serverId = serverId),
-      (this._password = ServerOwnerCrypterFactory.create().crypter(password));
+    this._id = id;
+    this._name = name;
+    this._email = email;
+    this._serverId = serverId;
+    this._password = ServerOwnerCrypterFactory.create().crypter(password);
     this._validate();
   }
 

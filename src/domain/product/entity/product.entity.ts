@@ -6,11 +6,11 @@ export default class Product {
   private _serverId: string;
 
   constructor(id: string, name: string, price: number, serverId: string) {
-    (this._name = name),
-      (this._price = price),
-      (this._serverId = serverId),
-      (this._id = id),
-      this.validate();
+    this._name = name;
+    this._price = price;
+    this._serverId = serverId;
+    this._id = id;
+    this.validate();
   }
 
   get id(): string {
