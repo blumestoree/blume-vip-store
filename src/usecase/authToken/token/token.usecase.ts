@@ -1,8 +1,8 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import dayjs from 'dayjs';
-import AuthTokenInterface from '../repositories/authToken.interface';
-import AuthToken from '../entity/authToken.entity';
-import AuthTokenRepositoryInterface from '../repositories/authToken.repository.interface';
+import AuthTokenInterface from '../../../domain/authToken/repositories/authToken.interface';
+import AuthToken from '../../../domain/authToken/entity/authToken.entity';
+import AuthTokenRepositoryInterface from '../../../domain/authToken/repositories/authToken.repository.interface';
 
 export default class UserAuthTokenUsecase implements AuthTokenInterface<JwtPayload> {
   constructor(private authTokenRepository: AuthTokenRepositoryInterface<AuthToken>) {}
@@ -26,8 +26,15 @@ export default class UserAuthTokenUsecase implements AuthTokenInterface<JwtPaylo
 
     return refreshTokenInfo;
   }
+
   async createRefreshToken(userId: string): Promise<{ id: string; expiresIn: number }> {
-    const expiresIn = dayjs().add(5, 'minutes').unix();
+    const refreshTokenExpireMinutes = process.env.REFRESH_TOKEN_EXPIRE_TIME_MINUTES;
+    let expiresIn;
+    if (refreshTokenExpireMinutes !== undefined) {
+      expiresIn = dayjs().add(+refreshTokenExpireMinutes, 'minutes').unix();
+    } else {
+      expiresIn = dayjs().add(5, 'minutes').unix();
+    }
 
     const refreshToken = await this.authTokenRepository.create(userId, expiresIn);
     return {

@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
-import AuthTokenFactory from '../../../usecase/authToken/factory/authtoken.factory';
 import RefreshTokenRouteInterface from './refreshToken.route.interface';
+import AuthTokenUsecaseFactory from '../../../usecase/authToken/factory/authToken.usecase.factory';
 
 class RefreshTokenRoute implements RefreshTokenRouteInterface {
   router: Router;
@@ -14,7 +14,7 @@ class RefreshTokenRoute implements RefreshTokenRouteInterface {
     this.router.post('/refreshToken', async (req: Request, res: Response) => {
       const { refreshToken } = req.body;
       try {
-        const token = await AuthTokenFactory.create().verifyRefreshToken(refreshToken);
+        const token = await AuthTokenUsecaseFactory.create().verifyRefreshToken(refreshToken);
         res.send({ token });
       } catch (error) {
         if (error instanceof Error) {

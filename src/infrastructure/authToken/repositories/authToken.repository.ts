@@ -1,7 +1,9 @@
 import { PrismaClient } from '@prisma/client';
-import AuthToken from '../../../usecase/authToken/entity/authToken.entity';
+import AuthToken from '../../../domain/authToken/entity/authToken.entity';
+import AuthTokenFactory from '../../../domain/authToken/factory/authtoken.factory';
+import AuthTokenRepositoryInterface from '../../../domain/authToken/repositories/authToken.repository.interface';
 
-export default class AuthTokenRepository {
+export default class AuthTokenRepository implements AuthTokenRepositoryInterface<AuthToken> {
   prisma: PrismaClient;
 
   constructor() {
@@ -16,7 +18,7 @@ export default class AuthTokenRepository {
       },
     });
 
-    return new AuthToken(token.id, token.expiresIn, token.userId);
+    return AuthTokenFactory.create(token.id, token.expiresIn, token.userId);
   }
 
   async delete(userId: string): Promise<void> {
@@ -36,7 +38,7 @@ export default class AuthTokenRepository {
       throw new Error('Refresh token invalid');
     }
 
-    return new AuthToken(token.id, token.expiresIn, token.userId);
+    return AuthTokenFactory.create(token.id, token.expiresIn, token.userId);
   }
 
   async findByUser(userId: string): Promise<AuthToken> {
@@ -50,6 +52,6 @@ export default class AuthTokenRepository {
       throw new Error('Token not found');
     }
 
-    return new AuthToken(token.id, token.expiresIn, token.userId);
+    return AuthTokenFactory.create(token.id, token.expiresIn, token.userId);
   }
 }
