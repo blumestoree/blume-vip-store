@@ -11,14 +11,22 @@ export default class PaymentRepository implements PaymentRepositoryInterface {
   }
 
   async create(entity: Payment): Promise<void> {
-    await this.prisma.payment.create({
+    const createdPayment = await this.prisma.payment.create({
       data: {
         paymentId: entity.id,
         amount: entity.amount,
         userId: entity.userId,
-        productId: entity.productId,
       },
     });
+
+    for (const productId of entity.productId) {
+      await this.prisma.product.update({
+        where: { productId },
+        data: {
+          payments: { connect: { paymentId: createdPayment.paymentId } },
+        },
+      });
+    }
   }
 
   async find(paymentId: string): Promise<Payment> {
@@ -26,6 +34,7 @@ export default class PaymentRepository implements PaymentRepositoryInterface {
 
     try {
       payment = await this.prisma.payment.findUniqueOrThrow({
+        include: { products: true },
         where: { paymentId },
       });
     } catch (error) {
@@ -34,7 +43,9 @@ export default class PaymentRepository implements PaymentRepositoryInterface {
 
     return PaymentFactory.create(
       payment.userId,
-      payment.productId,
+      payment.products.map((product) => {
+        return product.productId;
+      }),
       payment.amount,
       payment.paymentId,
     );
