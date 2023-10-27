@@ -18,7 +18,7 @@ class RefreshTokenRoute implements RefreshTokenRouteInterface {
         res.send({ token });
       } catch (error) {
         if (error instanceof Error) {
-          res.status(500).send({ error: error.message });
+          res.status(401).send({ error: error.message });
         }
       }
     });

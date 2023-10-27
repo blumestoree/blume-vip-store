@@ -6,7 +6,7 @@ export default class Auth {
     const tokenHeader = req.headers.authorization;
 
     if (!tokenHeader) {
-      res.status(400).send('Token missing');
+      res.status(401).send('Token missing');
     }
 
     const token = (tokenHeader && tokenHeader.split(' ')[1]) || '';
