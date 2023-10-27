@@ -45,6 +45,22 @@ export default class ProductRepository implements ProductRepositoryInterface {
     });
   }
 
+  async findProductsByIds(productIds: string[]): Promise<Product[]> {
+    let products;
+
+    try {
+      products = await this.prisma.product.findMany({
+        where: { productId: { in: productIds } },
+      });
+    } catch (error) {
+      throw new Error('Products not found');
+    }
+
+    return products.map((product) =>
+      ProductFactory.create(product.name, product.price, product.serverId, product.productId),
+    );
+  }
+
   async find(productId: string): Promise<Product> {
     let product;
 

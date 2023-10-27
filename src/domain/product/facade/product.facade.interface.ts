@@ -1,7 +1,7 @@
-export interface InputFindProductFacadeDto {
-  id: string;
+export interface InputFindProductsFacadeDto {
+  id: string[];
 }
-export interface OutputFindProductFacadeDto {
+export interface OutputFindProductsFacadeDto {
   id: string;
   name: string;
   price: number;
@@ -9,5 +9,5 @@ export interface OutputFindProductFacadeDto {
 }
 
 export default interface ProductFacadeInterface {
-  findProduct(input: InputFindProductFacadeDto): Promise<OutputFindProductFacadeDto>;
+  findProductsByIds(input: InputFindProductsFacadeDto): Promise<OutputFindProductsFacadeDto[]>;
 }

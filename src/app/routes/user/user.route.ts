@@ -8,7 +8,6 @@ import UserBuyProductUseCase from '../../../usecase/user/buy/buy.user.usecase';
 import PaymentFacade from '../../../domain/payment/facade/payment.facade';
 import ProductFacade from '../../../domain/product/facade/product.facade';
 import productRepository from '../../../infrastructure/product/repositories/product.repository';
-import FindProductUseCase from '../../../usecase/product/find/find.product.usecase';
 import PaymentRepository from '../../../infrastructure/payment/repositories/payment.repository';
 import PaymentProcessUseCase from '../../../usecase/payment/create/create.payment.usecase';
 import ProcessPayment from '../../../usecase/user/buy/processPayment/processPayment.service';
@@ -17,6 +16,7 @@ import Auth from '../../middleware/auth';
 import ForgotPasswordUseCase from '../../../usecase/user/forgotPassword/forgotPassword.user.usecase';
 import SendEmail from '../../../usecase/user/forgotPassword/transportEmail/sendEmail';
 import UserRouteInterface from './user.route.interface';
+import FindProductsByIdsUseCase from '../../../usecase/product/findByIds/findProductsByIds.product.usecase';
 
 class UserRoute implements UserRouteInterface {
   router: Router;
@@ -143,12 +143,11 @@ class UserRoute implements UserRouteInterface {
 
   buyProduct() {
     this.router.post(
-      '/buyProduct/:productId',
+      '/buyProduct/:userId',
       Auth.verifyToken,
       async (req: Request, res: Response) => {
         const userRepository = new UserRepository();
-        const productUseCase = new FindProductUseCase(new productRepository());
-
+        const productUseCase = new FindProductsByIdsUseCase(new productRepository());
         const paymentUseCase = new PaymentProcessUseCase(new PaymentRepository());
 
         const facadePayment = new PaymentFacade(paymentUseCase);
@@ -163,19 +162,22 @@ class UserRoute implements UserRouteInterface {
           processPayment,
         );
 
-        const { productId } = req.params;
-        const { userId, installments, cardNumber, holderName, expMonth, expYear, cvv } = req.body;
+        const { userId } = req.params;
+        const { productId, installments, cardNumber, holderName, expMonth, expYear, cvv } =
+          req.body;
 
         try {
           const userDto = {
             userId,
             productId,
             installments,
-            cardNumber,
-            holderName,
-            expMonth,
-            expYear,
-            cvv,
+            cardInfos: {
+              cardNumber,
+              holderName,
+              expMonth,
+              expYear,
+              cvv,
+            },
           };
           const output = await useCase.execute(userDto);
           res.send(output);

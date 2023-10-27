@@ -23,21 +23,24 @@ export default class UserBuyProductUseCase
 
   async execute(input: InputCreatePaymentDto): Promise<OutputCreatePaymentDto> {
     const user = await this.userRepository.find(input.userId);
-    const product = await this.productFacade.findProduct({ id: input.productId });
+    const products = await this.productFacade.findProductsByIds({ id: input.productId });
 
-    const payment = PaymentFactory.create(input.userId, input.productId, product.price);
+    const sumOfProductsPrices = products.reduce(
+      (accumulator, product) => accumulator + product.price,
+      0,
+    );
 
     const paymentMethod = 'credit_card';
 
     const paymentDto = {
-      items: [
-        {
+      items: products.map((product) => {
+        return {
           amount: product.price,
           description: product.name,
           quantity: 1,
           code: product.id,
-        },
-      ],
+        };
+      }),
       customer: {
         name: user.name,
         email: user.email,
@@ -49,11 +52,11 @@ export default class UserBuyProductUseCase
             recurrence: false,
             installments: input.installments,
             card: {
-              number: input.cardNumber,
-              holder_name: input.holderName,
-              exp_month: input.expMonth,
-              exp_year: input.expYear,
-              cvv: input.cvv,
+              number: input.cardInfos.cardNumber,
+              holder_name: input.cardInfos.holderName,
+              exp_month: input.cardInfos.expMonth,
+              exp_year: input.cardInfos.expYear,
+              cvv: input.cardInfos.cvv,
             },
           },
         },
@@ -61,6 +64,8 @@ export default class UserBuyProductUseCase
     };
 
     await this.processPayment.userPurchase(paymentDto);
+
+    const payment = PaymentFactory.create(input.userId, input.productId, sumOfProductsPrices);
 
     await this.paymentFacade.createPayment(payment);
 

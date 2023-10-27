@@ -5,5 +5,5 @@ export interface OutputFindPaymentDto {
   id: string;
   amount: number;
   userId: string;
-  productId: string;
+  productId: string[];
 }

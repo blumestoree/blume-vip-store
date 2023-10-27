@@ -1,15 +1,18 @@
 import UseCaseInterface from '../../../shared/usecase.interface';
 import ProductFacadeInterface, {
-  InputFindProductFacadeDto,
-  OutputFindProductFacadeDto,
+  InputFindProductsFacadeDto,
+  OutputFindProductsFacadeDto,
 } from './product.facade.interface';
 
 export default class ProductFacade implements ProductFacadeInterface {
   constructor(
-    private productUseCase: UseCaseInterface<InputFindProductFacadeDto, OutputFindProductFacadeDto>,
+    private productUseCase: UseCaseInterface<
+      InputFindProductsFacadeDto,
+      OutputFindProductsFacadeDto[]
+    >,
   ) {}
 
-  findProduct(input: InputFindProductFacadeDto): Promise<OutputFindProductFacadeDto> {
+  findProductsByIds(input: InputFindProductsFacadeDto): Promise<OutputFindProductsFacadeDto[]> {
     return this.productUseCase.execute(input);
   }
 }

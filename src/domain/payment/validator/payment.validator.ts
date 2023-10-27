@@ -8,7 +8,7 @@ export default class PaymentValidator implements ValidatorInterface<Payment> {
     const productSchema = z.object({
       _amount: z.number(),
       _userId: z.string(),
-      _productId: z.string(),
+      _productId: z.array(z.string()),
     });
     try {
       productSchema.parse(entity);

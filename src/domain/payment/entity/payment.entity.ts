@@ -4,9 +4,9 @@ export default class Payment {
   private _id: string;
   private _amount: number;
   private _userId: string;
-  private _productId: string;
+  private _productId: string[];
 
-  constructor(id: string, amount: number, userId: string, productId: string) {
+  constructor(id: string, amount: number, userId: string, productId: string[]) {
     this._id = id;
     this._amount = amount;
     this._userId = userId;
@@ -26,7 +26,7 @@ export default class Payment {
     return this._userId;
   }
 
-  get productId(): string {
+  get productId(): string[] {
     return this._productId;
   }
 
