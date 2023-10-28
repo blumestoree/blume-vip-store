@@ -1,10 +1,9 @@
 import { Request, Response, Router } from 'express';
-import FindAllServerOwnerUseCase from '../../../usecase/serverOwner/findAll/findAll.serverOwner.usecase';
-import ServerOwnerRepository from '../../../infrastructure/serverOwner/repositories/serverOwner.repository';
-import CreateServerOwnerUseCase from '../../../usecase/serverOwner/create/create.serverOwner.usecase';
-import FindServerOwnerUseCase from '../../../usecase/serverOwner/find/find.serverOwner.usecase';
-import UpdateServerOwnerUseCase from '../../../usecase/serverOwner/update/update.serverOwner.usecase';
 import ServerOwnerRouteInterface from './serverOwner.route.interface';
+import CreateServerOwnerUsecaseFactory from '../../../usecase/serverOwner/create/create.serverOwner.usecase.factory';
+import FindAllServerOwnerUsecaseFactory from '../../../usecase/serverOwner/findAll/findAll.serverOwner.usecase.factory';
+import UpdateServerOwnerUsecaseFactory from '../../../usecase/serverOwner/update/update.serverOwner.usecase.factory';
+import FindServerOwnerUsecaseFactory from '../../../usecase/serverOwner/find/find.serverOwner.usecase.factory';
 
 class ServerOwnerRoute implements ServerOwnerRouteInterface {
   router: Router;
@@ -19,7 +18,7 @@ class ServerOwnerRoute implements ServerOwnerRouteInterface {
 
   findAllServerOwner() {
     this.router.get('/findAllServerOwner', async (req: Request, res: Response) => {
-      const useCase = new FindAllServerOwnerUseCase(new ServerOwnerRepository());
+      const useCase = FindAllServerOwnerUsecaseFactory.create();
       try {
         const output = await useCase.execute();
         res.send(output);
@@ -33,7 +32,7 @@ class ServerOwnerRoute implements ServerOwnerRouteInterface {
 
   createServerOwner() {
     this.router.post('/createServerOwner', async (req: Request, res: Response) => {
-      const useCase = new CreateServerOwnerUseCase(new ServerOwnerRepository());
+      const useCase = CreateServerOwnerUsecaseFactory.create();
       const { name, email, password } = req.body;
       try {
         const serverOwnerDto = {
@@ -53,7 +52,7 @@ class ServerOwnerRoute implements ServerOwnerRouteInterface {
 
   updateServerOwner() {
     this.router.put('/updateServerOwner/:id', async (req: Request, res: Response) => {
-      const useCase = new UpdateServerOwnerUseCase(new ServerOwnerRepository());
+      const useCase = UpdateServerOwnerUsecaseFactory.create();
       const { name, email, password, serverId } = req.body;
       const { id } = req.params;
       try {
@@ -76,7 +75,7 @@ class ServerOwnerRoute implements ServerOwnerRouteInterface {
 
   findServerOwner() {
     this.router.get('/findServerOwner/:id', async (req: Request, res: Response) => {
-      const useCase = new FindServerOwnerUseCase(new ServerOwnerRepository());
+      const useCase = FindServerOwnerUsecaseFactory.create();
       const { id } = req.params;
       try {
         const serverOwnerDto = { id };
