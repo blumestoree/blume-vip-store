@@ -1,9 +1,6 @@
 import ProductRepositoryInterface from '../../../domain/product/repositories/product.repository.interface';
 import UseCaseInterface from '../../../shared/usecase.interface';
-import {
-  InputFindProductsByIdsDto,
-  OutpuFfindProductsByIdsDto,
-} from './findProductsByIds.product.dto';
+import { InputFindProductsByIdsDto, OutpuFfindProductsByIdsDto } from './findByIds.product.dto';
 
 export default class FindProductsByIdsUseCase
   implements UseCaseInterface<InputFindProductsByIdsDto, OutpuFfindProductsByIdsDto[]>
