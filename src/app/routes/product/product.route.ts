@@ -1,7 +1,7 @@
 import { Request, Response, Router } from 'express';
 import ProductRouteInterface from './product.route.interface';
 import CreateProductUsecaseFactory from '../../../usecase/product/create/create.product.usecase.factory';
-import UpdateProductUsecaseFactory from '../../../usecase/product/update/update.usecase.factory';
+import UpdateProductUsecaseFactory from '../../../usecase/product/update/update.product.usecase.factory';
 import FindAllProductUsecaseFactory from '../../../usecase/product/findAll/findAll.product.usecase.factory';
 import FindByIdProductUsecaseFactory from '../../../usecase/product/find/find.product.usecase.factory';
 

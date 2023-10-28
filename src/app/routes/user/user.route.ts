@@ -16,7 +16,7 @@ import Auth from '../../middleware/auth';
 import ForgotPasswordUseCase from '../../../usecase/user/forgotPassword/forgotPassword.user.usecase';
 import SendEmail from '../../../usecase/user/forgotPassword/transportEmail/sendEmail';
 import UserRouteInterface from './user.route.interface';
-import FindProductsByIdsUseCase from '../../../usecase/product/findByIds/findProductsByIds.product.usecase';
+import FindProductsByIdsUseCase from '../../../usecase/product/findByIds/findByIds.product.usecase';
 
 class UserRoute implements UserRouteInterface {
   router: Router;

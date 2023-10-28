@@ -1,10 +1,9 @@
 import { Request, Response, Router } from 'express';
-import FindAllServerUseCase from '../../../usecase/server/findAll/findAll.server.usecase';
-import ServerRepository from '../../../infrastructure/server/repositories/server.repository';
-import CreateServerUseCase from '../../../usecase/server/create/create.server.usecase';
-import FindServerUseCase from '../../../usecase/server/find/find.server.usecase';
-import UpdateServerUseCase from '../../../usecase/server/update/update.server.usecase';
 import ServerRouteInterface from './server.route.interface';
+import FindAllServertUsecaseFactory from '../../../usecase/server/findAll/findAll.server.usecase.factory';
+import CreateServertUsecaseFactory from '../../../usecase/server/create/create.server.usecase.factory';
+import UpdateServertUsecaseFactory from '../../../usecase/server/update/update.server.usecase.factory';
+import FindServertUsecaseFactory from '../../../usecase/server/find/find.server.usecase.factory';
 
 class ServerRoute implements ServerRouteInterface {
   router: Router;
@@ -19,7 +18,7 @@ class ServerRoute implements ServerRouteInterface {
 
   findAllServer() {
     this.router.get('/findAllServer', async (req: Request, res: Response) => {
-      const useCase = new FindAllServerUseCase(new ServerRepository());
+      const useCase = FindAllServertUsecaseFactory.create();
       try {
         const output = await useCase.execute();
         res.send(output);
@@ -33,7 +32,7 @@ class ServerRoute implements ServerRouteInterface {
 
   createServer() {
     this.router.post('/createServer', async (req: Request, res: Response) => {
-      const useCase = new CreateServerUseCase(new ServerRepository());
+      const useCase = CreateServertUsecaseFactory.create();
       const { name, serverOwnerId } = req.body;
       try {
         const serverDto = {
@@ -52,7 +51,7 @@ class ServerRoute implements ServerRouteInterface {
 
   updateServer() {
     this.router.put('/updateServer/:id', async (req: Request, res: Response) => {
-      const useCase = new UpdateServerUseCase(new ServerRepository());
+      const useCase = UpdateServertUsecaseFactory.create();
       const { name, serverOwnerId } = req.body;
       const { id } = req.params;
       try {
@@ -73,7 +72,7 @@ class ServerRoute implements ServerRouteInterface {
 
   findServer() {
     this.router.get('/findServer/:id', async (req: Request, res: Response) => {
-      const useCase = new FindServerUseCase(new ServerRepository());
+      const useCase = FindServertUsecaseFactory.create();
       const { id } = req.params;
       try {
         const serverDto = { id };
