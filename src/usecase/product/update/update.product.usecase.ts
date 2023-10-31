@@ -16,6 +16,7 @@ export default class UpdateproductUseCase
     return {
       id: product.id,
       name: product.name,
+      image: product.image,
       price: product.price,
       serverId: product.serverId,
     };

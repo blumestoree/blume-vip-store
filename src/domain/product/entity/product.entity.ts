@@ -3,11 +3,13 @@ export default class Product {
   private _id: string;
   private _price: number;
   private _name: string;
+  private _image: string;
   private _serverId: string;
 
-  constructor(id: string, name: string, price: number, serverId: string) {
+  constructor(id: string, name: string, image: string, price: number, serverId: string) {
     this._name = name;
     this._price = price;
+    this._image = image;
     this._serverId = serverId;
     this._id = id;
     this.validate();
@@ -19,6 +21,10 @@ export default class Product {
 
   get serverId(): string {
     return this._serverId;
+  }
+
+  get image(): string {
+    return this._image;
   }
 
   get name(): string {

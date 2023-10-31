@@ -33,10 +33,11 @@ class ProductRoute implements ProductRouteInterface {
   createProduct() {
     this.router.post('/createProduct', async (req: Request, res: Response) => {
       const useCase = CreateProductUsecaseFactory.create();
-      const { name, price, serverId } = req.body;
+      const { name, image, price, serverId } = req.body;
       try {
         const productDto = {
           name,
+          image,
           price,
           serverId,
         };
@@ -53,12 +54,13 @@ class ProductRoute implements ProductRouteInterface {
   updateProduct() {
     this.router.put('/updateProduct/:id', async (req: Request, res: Response) => {
       const useCase = UpdateProductUsecaseFactory.create();
-      const { name, price, serverId } = req.body;
+      const { name, image, price, serverId } = req.body;
       const { id } = req.params;
       try {
         const productDto = {
           id,
           name,
+          image,
           price,
           serverId,
         };

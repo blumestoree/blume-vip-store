@@ -4,6 +4,7 @@ export interface InputFindProductsFacadeDto {
 export interface OutputFindProductsFacadeDto {
   id: string;
   name: string;
+  image: string;
   price: number;
   serverId: string;
 }

@@ -15,6 +15,7 @@ export default class ProductRepository implements ProductRepositoryInterface {
       data: {
         productId: entity.id,
         name: entity.name,
+        image: entity.image,
         price: entity.price,
         serverId: entity.serverId,
       },
@@ -27,6 +28,7 @@ export default class ProductRepository implements ProductRepositoryInterface {
       data: {
         productId: entity.id,
         name: entity.name,
+        image: entity.image,
         price: entity.price,
         serverId: entity.serverId,
       },
@@ -38,6 +40,7 @@ export default class ProductRepository implements ProductRepositoryInterface {
     return products.map((product) => {
       return ProductFactory.create(
         product.name,
+        product.image,
         product.price,
         product.serverId,
         product.productId,
@@ -57,7 +60,13 @@ export default class ProductRepository implements ProductRepositoryInterface {
     }
 
     return products.map((product) =>
-      ProductFactory.create(product.name, product.price, product.serverId, product.productId),
+      ProductFactory.create(
+        product.name,
+        product.image,
+        product.price,
+        product.serverId,
+        product.productId,
+      ),
     );
   }
 
@@ -72,6 +81,12 @@ export default class ProductRepository implements ProductRepositoryInterface {
       throw new Error('Product not found');
     }
 
-    return ProductFactory.create(product.name, product.price, product.serverId, product.productId);
+    return ProductFactory.create(
+      product.name,
+      product.image,
+      product.price,
+      product.serverId,
+      product.productId,
+    );
   }
 }
