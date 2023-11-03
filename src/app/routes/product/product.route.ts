@@ -4,6 +4,8 @@ import CreateProductUsecaseFactory from '../../../usecase/product/create/create.
 import UpdateProductUsecaseFactory from '../../../usecase/product/update/update.product.usecase.factory';
 import FindAllProductUsecaseFactory from '../../../usecase/product/findAll/findAll.product.usecase.factory';
 import FindByIdProductUsecaseFactory from '../../../usecase/product/find/find.product.usecase.factory';
+import multer from 'multer';
+import path from 'path';
 
 class ProductRoute implements ProductRouteInterface {
   router: Router;
@@ -31,24 +33,47 @@ class ProductRoute implements ProductRouteInterface {
   }
 
   createProduct() {
-    this.router.post('/createProduct', async (req: Request, res: Response) => {
-      const useCase = CreateProductUsecaseFactory.create();
-      const { name, image, price, serverId } = req.body;
-      try {
-        const productDto = {
-          name,
-          image,
-          price,
-          serverId,
-        };
-        const output = await useCase.execute(productDto);
-        res.send(output);
-      } catch (error) {
-        if (error instanceof Error) {
-          res.status(500).send({ error: error.message });
+    this.router.post(
+      '/createProduct',
+
+      multer({
+        dest: path.resolve(__dirname, '..', '..', '..', '..', 'tpm'),
+        storage: multer.diskStorage({
+          destination: path.resolve(__dirname, '..', '..', '..', '..', 'tpm'),
+          filename: (req, file, cb) => {
+            const fileName = Date.now() + '-' + file.originalname;
+            cb(null, fileName);
+          },
+        }),
+        limits: { fileSize: 2 * 1024 * 1024 },
+        fileFilter: (req, file, cb) => {
+          const allowedMines = ['image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'];
+          allowedMines.includes(file.mimetype)
+            ? cb(null, true)
+            : cb(new Error('Invalid file type'));
+        },
+      }).single('file'),
+
+      async (req: Request, res: Response) => {
+        const useCase = CreateProductUsecaseFactory.create();
+        const { name, price, serverId } = req.body;
+        const size = req.file;
+        try {
+          const productDto = {
+            name,
+            image: size?.filename || '',
+            price: +price,
+            serverId,
+          };
+          const output = await useCase.execute(productDto);
+          res.send(output);
+        } catch (error) {
+          if (error instanceof Error) {
+            res.status(500).send({ error: error.message });
+          }
         }
-      }
-    });
+      },
+    );
   }
 
   updateProduct() {
