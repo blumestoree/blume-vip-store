@@ -9,6 +9,21 @@ import path from 'path';
 
 class ProductRoute implements ProductRouteInterface {
   router: Router;
+  multer = multer({
+    dest: path.resolve(__dirname, '..', '..', '..', '..', 'tpm'),
+    storage: multer.diskStorage({
+      destination: path.resolve(__dirname, '..', '..', '..', '..', 'tpm'),
+      filename: (req, file, cb) => {
+        const fileName = Date.now() + '-' + file.originalname;
+        cb(null, fileName);
+      },
+    }),
+    limits: { fileSize: 2 * 1024 * 1024 },
+    fileFilter: (req, file, cb) => {
+      const allowedMines = ['image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'];
+      allowedMines.includes(file.mimetype) ? cb(null, true) : cb(new Error('Invalid file type'));
+    },
+  });
 
   constructor() {
     this.router = Router();
@@ -35,25 +50,7 @@ class ProductRoute implements ProductRouteInterface {
   createProduct() {
     this.router.post(
       '/createProduct',
-
-      multer({
-        dest: path.resolve(__dirname, '..', '..', '..', '..', 'tpm'),
-        storage: multer.diskStorage({
-          destination: path.resolve(__dirname, '..', '..', '..', '..', 'tpm'),
-          filename: (req, file, cb) => {
-            const fileName = Date.now() + '-' + file.originalname;
-            cb(null, fileName);
-          },
-        }),
-        limits: { fileSize: 2 * 1024 * 1024 },
-        fileFilter: (req, file, cb) => {
-          const allowedMines = ['image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'];
-          allowedMines.includes(file.mimetype)
-            ? cb(null, true)
-            : cb(new Error('Invalid file type'));
-        },
-      }).single('file'),
-
+      multer().single('file'),
       async (req: Request, res: Response) => {
         const useCase = CreateProductUsecaseFactory.create();
         const { name, price, serverId } = req.body;
