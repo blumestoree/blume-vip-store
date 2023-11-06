@@ -14,7 +14,7 @@ export default class SaveImageCloud implements UploadImageInterface {
 
   async sendImage(image: string): Promise<void> {
     try {
-      const originalPath = path.resolve(__dirname, '..', '..', '..', '..', '..', 'tpm', image);
+      const originalPath = path.resolve(__dirname, '..', '..', '..', '..', 'tpm', image);
       const fileContent = await fs.promises.readFile(originalPath);
 
       await this.s3Client.send(
