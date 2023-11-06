@@ -3,7 +3,7 @@ import ProductFacade from '../../../domain/product/facade/product.facade';
 import UserRepository from '../../../infrastructure/user/repositories/user.repository';
 import CreatePaymentUsecaseFactory from '../../payment/create/create.payment.usecase.factory';
 import FindByIdsAllProductUsecaseFactory from '../../product/findByIds/findByIds.product.usecase.factory';
-import ProcessPayment from './processPayment/processPayment.service';
+import ProcessPayment from '../../../infrastructure/user/processPayment/processPayment.service';
 import UserBuyProductUseCase from './buy.user.usecase';
 
 export default class BuyUserUsecaseFactory {

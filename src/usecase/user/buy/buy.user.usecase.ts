@@ -3,7 +3,7 @@ import { InputCreatePaymentDto, OutputCreatePaymentDto } from './buy.user.dto';
 import PaymentFactory from '../../../domain/payment/factory/payment.factory';
 import ProductFacadeInterface from '../../../domain/product/facade/product.facade.interface';
 import PaymentFacadeInterface from '../../../domain/payment/facade/payment.facade.interface';
-import ProcessPaymentInterface from './processPayment/processPayment.interface';
+import ProcessPaymentInterface from '../../../infrastructure/user/processPayment/processPayment.interface';
 import UserRepositoryInterface from '../../../domain/user/repositories/user.repository';
 
 enum PaymentMethod {
