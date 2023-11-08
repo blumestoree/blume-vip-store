@@ -25,19 +25,21 @@ model Server {
   product       Product[]
   user          User?       @relation(fields: [userId], references: [userId])
   userId        String?
+  category      Category[]
 }
 
 model Product {
-  id        Int       @default(autoincrement())
-  productId String    @id @unique
-  name      String    @unique
+  id        Int        @default(autoincrement())
+  productId String     @id @unique
+  name      String     @unique
   image     String
   price     Float
-  server    Server    @relation(fields: [serverId], references: [serverId])
+  server    Server     @relation(fields: [serverId], references: [serverId])
   serverId  String
-  user      User?     @relation(fields: [userId], references: [userId])
+  user      User?      @relation(fields: [userId], references: [userId])
   userId    String?
   payments  Payment[]
+  category  Category[]
 }
 
 model User {
@@ -68,10 +70,11 @@ model RefreshToken {
   userId    String @unique
 }
 
-// model Category {
-//   id       Int       @id @default(autoincrement())
-//   name     String    @unique
-//   categoty String
-//   Product  Product[]
-//   Server   Server[]
-// }
+model Category {
+  id               Int      @id @default(autoincrement())
+  name             String   @unique
+  Server           Server?  @relation(fields: [serverServerId], references: [serverId])
+  serverServerId   String?
+  Product          Product? @relation(fields: [productProductId], references: [productId])
+  productProductId String?
+}
