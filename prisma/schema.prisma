@@ -39,8 +39,8 @@ model Product {
   user       User?     @relation(fields: [userId], references: [userId])
   userId     String?
   payments   Payment[]
-  category   Category? @relation(fields: [categoryId], references: [id])
-  categoryId Int?
+  category   Category  @relation(fields: [categoryId], references: [categoryId])
+  categoryId String
 }
 
 model User {
@@ -72,7 +72,8 @@ model RefreshToken {
 }
 
 model Category {
-  id             Int       @id @default(autoincrement())
+  id             Int       @default(autoincrement())
+  categoryId     String    @id @unique
   name           String    @unique
   Server         Server?   @relation(fields: [serverServerId], references: [serverId])
   serverServerId String?
