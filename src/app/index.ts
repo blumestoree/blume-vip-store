@@ -6,6 +6,7 @@ import ServerRoute from './routes/server/server.route';
 import ProductRoute from './routes/product/product.route';
 import UserRoute from './routes/user/user.route';
 import RefreshTokenRoute from './routes/refresToken/refreshToken.route';
+import categoryRoute from './routes/category/category.route';
 
 interface IServer {
   app: express.Application;
@@ -36,6 +37,7 @@ class Server implements IServer {
     this.app.use(ProductRoute);
     this.app.use(UserRoute);
     this.app.use(RefreshTokenRoute);
+    this.app.use(categoryRoute);
   }
 
   middlewares() {

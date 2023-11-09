@@ -5,7 +5,7 @@ import FindCategoryUsecaseFactory from '../../../usecase/category/find/find.cate
 import FindAllCategoryUsecaseFactory from '../../../usecase/category/findAll/findAll.category.usecase.factory';
 import UpdateCategoryUsecaseFactory from '../../../usecase/category/update/update.category.usecase.factory';
 
-class ServerRoute implements CategoryRouteInterface {
+class CategoryRoute implements CategoryRouteInterface {
   router: Router;
 
   constructor() {
@@ -85,4 +85,4 @@ class ServerRoute implements CategoryRouteInterface {
   }
 }
 
-export default new ServerRoute().router;
+export default new CategoryRoute().router;
