@@ -11,4 +11,9 @@ export interface OutputCreateProductDto {
   name: string;
   image: string;
   price: number;
+  categoryId: string;
+  category: {
+    id: string;
+    name: string;
+  } | null;
 }

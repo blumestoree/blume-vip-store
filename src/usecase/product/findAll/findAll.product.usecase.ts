@@ -16,6 +16,13 @@ export default class FindAllProductUseCase
         image: product.image,
         price: product.price,
         serverId: product.serverId,
+        categoryId: product.categoryId,
+        category: product.category
+          ? {
+              id: product.category.id,
+              name: product.category.name,
+            }
+          : null,
       };
     });
   }

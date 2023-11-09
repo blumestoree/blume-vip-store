@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import ProductRepositoryInterface from '../../../domain/product/repositories/product.repository.interface';
 import Product from '../../../domain/product/entity/product.entity';
 import ProductFactory from '../../../domain/product/factory/product.factory';
+import CategoryFactory from '../../../domain/category/factory/category.factory';
 
 export default class ProductRepository implements ProductRepositoryInterface {
   prisma: PrismaClient;
@@ -38,8 +39,13 @@ export default class ProductRepository implements ProductRepositoryInterface {
   }
 
   async findAll(): Promise<Product[]> {
-    const products = await this.prisma.product.findMany();
+    const products = await this.prisma.product.findMany({
+      include: {
+        category: true,
+      },
+    });
     return products.map((product) => {
+      const category = CategoryFactory.create(product.category.name, product.category.categoryId);
       return ProductFactory.create(
         product.name,
         product.categoryId,
@@ -47,6 +53,7 @@ export default class ProductRepository implements ProductRepositoryInterface {
         product.price,
         product.serverId,
         product.productId,
+        category,
       );
     });
   }
@@ -56,6 +63,9 @@ export default class ProductRepository implements ProductRepositoryInterface {
 
     try {
       products = await this.prisma.product.findMany({
+        include: {
+          category: true,
+        },
         where: { productId: { in: productIds } },
       });
     } catch (error) {
@@ -63,6 +73,7 @@ export default class ProductRepository implements ProductRepositoryInterface {
     }
 
     return products.map((product) => {
+      const category = CategoryFactory.create(product.category.name, product.category.categoryId);
       return ProductFactory.create(
         product.name,
         product.categoryId,
@@ -70,6 +81,7 @@ export default class ProductRepository implements ProductRepositoryInterface {
         product.price,
         product.serverId,
         product.productId,
+        category,
       );
     });
   }
@@ -79,12 +91,16 @@ export default class ProductRepository implements ProductRepositoryInterface {
 
     try {
       product = await this.prisma.product.findUniqueOrThrow({
+        include: {
+          category: true,
+        },
         where: { productId },
       });
     } catch (error) {
       throw new Error('Product not found');
     }
 
+    const category = CategoryFactory.create(product.category.name, product.category.categoryId);
     return ProductFactory.create(
       product.name,
       product.categoryId,
@@ -92,6 +108,7 @@ export default class ProductRepository implements ProductRepositoryInterface {
       product.price,
       product.serverId,
       product.productId,
+      category,
     );
   }
 }

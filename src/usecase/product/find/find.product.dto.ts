@@ -6,5 +6,10 @@ export interface OutputFindProductDto {
   name: string;
   image: string;
   price: number;
+  categoryId: string;
   serverId: string;
+  category: {
+    id: string;
+    name: string;
+  } | null;
 }

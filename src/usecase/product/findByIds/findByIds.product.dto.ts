@@ -7,4 +7,9 @@ export interface OutpuFfindProductsByIdsDto {
   image: string;
   price: number;
   serverId: string;
+  categoryId: string;
+  category: {
+    id: string;
+    name: string;
+  } | null;
 }

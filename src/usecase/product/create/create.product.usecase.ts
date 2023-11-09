@@ -22,6 +22,7 @@ export default class CreateProductUseCase
     );
 
     await this.productRepository.create(product);
+    const productData = await this.productRepository.find(product.id);
     await this.uploadImage.sendImage(input.image);
 
     return {
@@ -31,6 +32,12 @@ export default class CreateProductUseCase
       image: product.image,
       price: product.price,
       serverId: product.serverId,
+      category: productData.category
+        ? {
+            id: productData.category.id,
+            name: productData.category.name,
+          }
+        : null,
     };
   }
 }
