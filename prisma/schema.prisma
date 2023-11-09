@@ -31,7 +31,7 @@ model Server {
 model Product {
   id         Int       @default(autoincrement())
   productId  String    @id @unique
-  name       String    @unique
+  name       String    
   image      String
   price      Float
   server     Server    @relation(fields: [serverId], references: [serverId])
@@ -74,7 +74,7 @@ model RefreshToken {
 model Category {
   id             Int       @default(autoincrement())
   categoryId     String    @id @unique
-  name           String    @unique
+  name           String    
   Server         Server?   @relation(fields: [serverServerId], references: [serverId])
   serverServerId String?
   product        Product[]
