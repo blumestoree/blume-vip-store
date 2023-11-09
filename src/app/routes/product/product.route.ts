@@ -53,11 +53,12 @@ class ProductRoute implements ProductRouteInterface {
       multer().single('file'),
       async (req: Request, res: Response) => {
         const useCase = CreateProductUsecaseFactory.create();
-        const { name, price, serverId } = req.body;
+        const { name, price, serverId, categoryId } = req.body;
         const size = req.file;
         try {
           const productDto = {
             name,
+            categoryId,
             image: size?.filename || '',
             price: +price,
             serverId,

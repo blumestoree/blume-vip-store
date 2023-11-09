@@ -3,14 +3,23 @@ export default class Product {
   private _id: string;
   private _price: number;
   private _name: string;
+  private _categoryId: string;
   private _image: string;
   private _serverId: string;
 
-  constructor(id: string, name: string, image: string, price: number, serverId: string) {
+  constructor(
+    id: string,
+    name: string,
+    categoryId: string,
+    image: string,
+    price: number,
+    serverId: string,
+  ) {
     this._name = name;
     this._price = price;
     this._image = image;
     this._serverId = serverId;
+    this._categoryId = categoryId;
     this._id = id;
     this.validate();
   }
@@ -29,6 +38,10 @@ export default class Product {
 
   get name(): string {
     return this._name;
+  }
+
+  get categoryId(): string {
+    return this._categoryId;
   }
 
   get price(): number {

@@ -15,6 +15,7 @@ export default class ProductRepository implements ProductRepositoryInterface {
       data: {
         productId: entity.id,
         name: entity.name,
+        categoryId: entity.categoryId,
         image: entity.image,
         price: entity.price,
         serverId: entity.serverId,
@@ -28,6 +29,7 @@ export default class ProductRepository implements ProductRepositoryInterface {
       data: {
         productId: entity.id,
         name: entity.name,
+        categoryId: entity.categoryId,
         image: entity.image,
         price: entity.price,
         serverId: entity.serverId,
@@ -40,6 +42,7 @@ export default class ProductRepository implements ProductRepositoryInterface {
     return products.map((product) => {
       return ProductFactory.create(
         product.name,
+        product.categoryId,
         product.image,
         product.price,
         product.serverId,
@@ -59,15 +62,16 @@ export default class ProductRepository implements ProductRepositoryInterface {
       throw new Error('Products not found');
     }
 
-    return products.map((product) =>
-      ProductFactory.create(
+    return products.map((product) => {
+      return ProductFactory.create(
         product.name,
+        product.categoryId,
         product.image,
         product.price,
         product.serverId,
         product.productId,
-      ),
-    );
+      );
+    });
   }
 
   async find(productId: string): Promise<Product> {
@@ -83,6 +87,7 @@ export default class ProductRepository implements ProductRepositoryInterface {
 
     return ProductFactory.create(
       product.name,
+      product.categoryId,
       product.image,
       product.price,
       product.serverId,

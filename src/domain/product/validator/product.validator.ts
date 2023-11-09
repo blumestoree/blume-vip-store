@@ -7,6 +7,7 @@ export default class ProductValidator implements ValidatorInterface<Product> {
   validate(entity: Product): ValidationError[] | void {
     const productSchema = z.object({
       _name: z.string().min(2, 'Nome inválido'),
+      _categoryId: z.string(),
       _image: z.string(),
       _price: z.number(),
       _serverId: z.string(),

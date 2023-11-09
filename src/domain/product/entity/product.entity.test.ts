@@ -3,9 +3,10 @@ import Product from './product.entity';
 
 describe('Product unit tests', () => {
   it('should create a product', () => {
-    const server = new Product('id', 'name', 'image', 100, 'serverId');
+    const server = new Product('id', 'name', 'categoryId', 'image', 100, 'serverId');
     expect(server.id).toBe('id');
     expect(server.name).toBe('name');
+    expect(server.categoryId).toBe('categoryId');
     expect(server.image).toBe('image');
     expect(server.price).toBe(100);
     expect(server.serverId).toBe('serverId');
@@ -13,7 +14,7 @@ describe('Product unit tests', () => {
 
   it('should give an invalid name error', () => {
     try {
-      new Product('id', 'X', 'image', 100, 'serverId');
+      new Product('id', 'X', 'categoryId', 'image', 100, 'serverId');
     } catch (error) {
       if (error instanceof Error) {
         expect(error.message).toEqual('Nome inválido');
