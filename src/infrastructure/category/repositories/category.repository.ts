@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import CategoryRepositoryInterface from '../../../domain/category/repositories/category.repository.interface';
 import CategoryFactory from '../../../domain/category/factory/category.factory';
 import Category from '../../../domain/category/entity/category.entity';
+import ProductFactory from '../../../domain/product/factory/product.factory';
 
 export default class CategoryRepository implements CategoryRepositoryInterface {
   prisma: PrismaClient;
@@ -30,10 +31,25 @@ export default class CategoryRepository implements CategoryRepositoryInterface {
   }
 
   async findAll(): Promise<Category[]> {
-    const categories = await this.prisma.category.findMany();
+    const categories = await this.prisma.category.findMany({
+      include: {
+        product: true,
+      },
+    });
 
     return categories.map((category) => {
-      return CategoryFactory.create(category.name, category.categoryId);
+      const products = category.product.map((product) => {
+        return ProductFactory.create(
+          product.name,
+          product.categoryId,
+          product.image,
+          product.price,
+          product.serverId,
+          product.productId,
+        );
+      });
+
+      return CategoryFactory.create(category.name, category.categoryId, products);
     });
   }
 
@@ -42,12 +58,26 @@ export default class CategoryRepository implements CategoryRepositoryInterface {
 
     try {
       category = await this.prisma.category.findUniqueOrThrow({
+        include: {
+          product: true,
+        },
         where: { categoryId },
       });
     } catch (error) {
       throw new Error('Category not found');
     }
 
-    return CategoryFactory.create(category.name, category.categoryId);
+    const products = category.product.map((product) => {
+      return ProductFactory.create(
+        product.name,
+        product.categoryId,
+        product.image,
+        product.price,
+        product.serverId,
+        product.productId,
+      );
+    });
+
+    return CategoryFactory.create(category.name, category.categoryId, products);
   }
 }

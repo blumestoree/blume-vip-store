@@ -12,6 +12,13 @@ export default class FindCategoryUseCase
     return {
       id: category.id,
       name: category.name,
+      products:
+        category.products?.map((product) => ({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          image: product.image,
+        })) || [],
     };
   }
 }
