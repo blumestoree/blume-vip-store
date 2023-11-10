@@ -9,12 +9,13 @@ export default class CreateCategoryUseCase
   constructor(private CategoryRepository: CategoryRepositoryInterface) {}
 
   async execute(input: InputCategoryDto): Promise<OutputCategoryDto> {
-    const category = CategoryFactory.create(input.name);
+    const category = CategoryFactory.create(input.name, input.serverId);
     await this.CategoryRepository.create(category);
 
     return {
       id: category.id,
       name: category.name,
+      serverId: category.serverId,
     };
   }
 }

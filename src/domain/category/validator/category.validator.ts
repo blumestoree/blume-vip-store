@@ -7,6 +7,7 @@ export default class CategoryValidator implements ValidatorInterface<Category> {
   validate(entity: Category): ValidationError[] | void {
     const productSchema = z.object({
       _name: z.string().min(2, 'Nome inválido'),
+      _serverId: z.string(),
     });
     try {
       productSchema.parse(entity);

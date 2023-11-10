@@ -16,6 +16,7 @@ export default class UpdateCategoryUseCase
     return {
       id: category.id,
       name: category.name,
+      serverId: category.serverId,
       products:
         category.products?.map((product) => ({
           id: product.id,
