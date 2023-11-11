@@ -9,7 +9,7 @@ export default class Auth {
       res.status(401).send('Token missing');
     }
 
-    const token = (tokenHeader && tokenHeader.split(' ')[1]) || '';
+    const token = tokenHeader?.split(' ')[1] || '';
 
     try {
       AuthTokenUsecaseFactory.create().verifyToken(token);
