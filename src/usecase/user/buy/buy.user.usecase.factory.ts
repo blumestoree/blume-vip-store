@@ -5,6 +5,7 @@ import CreatePaymentUsecaseFactory from '../../payment/create/create.payment.use
 import FindByIdsAllProductUsecaseFactory from '../../product/findByIds/findByIds.product.usecase.factory';
 import ProcessPayment from '../../../infrastructure/user/processPayment/processPayment.service';
 import UserBuyProductUseCase from './buy.user.usecase';
+import AddItemToPlayer from '../../../infrastructure/server/addItemGame/addItemToPlayer.service';
 
 export default class BuyUserUsecaseFactory {
   static create() {
@@ -18,6 +19,14 @@ export default class BuyUserUsecaseFactory {
 
     const processPayment = new ProcessPayment();
 
-    return new UserBuyProductUseCase(facadePayment, facadeProduct, userRepository, processPayment);
+    const addItemToPlayer = new AddItemToPlayer();
+
+    return new UserBuyProductUseCase(
+      facadePayment,
+      facadeProduct,
+      userRepository,
+      processPayment,
+      addItemToPlayer,
+    );
   }
 }

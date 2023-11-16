@@ -5,6 +5,7 @@ import ProductFacadeInterface from '../../../domain/product/facade/product.facad
 import PaymentFacadeInterface from '../../../domain/payment/facade/payment.facade.interface';
 import ProcessPaymentInterface from '../../../infrastructure/user/processPayment/processPayment.interface';
 import UserRepositoryInterface from '../../../domain/user/repositories/user.repository';
+import AddItemToPlayerInterface from '../../../infrastructure/server/addItemGame/addItemToPlayer.interface';
 
 enum PaymentMethod {
   credit_card = 'credit_card',
@@ -19,6 +20,7 @@ export default class UserBuyProductUseCase
     private productFacade: ProductFacadeInterface,
     private userRepository: UserRepositoryInterface,
     private processPayment: ProcessPaymentInterface,
+    private addItemToPlayer: AddItemToPlayerInterface,
   ) {}
 
   async execute(input: InputCreatePaymentDto): Promise<OutputCreatePaymentDto> {
@@ -68,6 +70,13 @@ export default class UserBuyProductUseCase
     const payment = PaymentFactory.create(input.userId, input.productId, sumOfProductsPrices);
 
     await this.paymentFacade.createPayment(payment);
+
+    await this.addItemToPlayer.addItem({
+      token: input.token,
+      function: input.function,
+      gameUserId: input.gameUserId,
+      gameItemName: input.gameItemName,
+    });
 
     return {
       id: payment.id,

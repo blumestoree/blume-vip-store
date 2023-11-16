@@ -9,6 +9,10 @@ export interface InputCreatePaymentDto {
     expYear: number;
     cvv: string;
   };
+  token: string;
+  function: string;
+  gameUserId: string;
+  gameItemName: string;
 }
 
 export interface OutputCreatePaymentDto {

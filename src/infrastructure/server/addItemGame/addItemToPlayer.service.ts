@@ -2,15 +2,15 @@ import axios from 'axios';
 import AddItemToPlayerInterface, { InputAddItemToPlayertDto } from './addItemToPlayer.interface';
 
 export default class AddItemToPlayer implements AddItemToPlayerInterface {
-  async addItemToPlayer(data: InputAddItemToPlayertDto) {
+  async addItem(data: InputAddItemToPlayertDto) {
     try {
       const response = await axios.post(
         `${process.env.GAME_URL}/acquireBenefit`,
         {
-          func: data.func,
+          func: data.function,
           params: {
-            user_id: data.params.user_id,
-            item: data.params.item,
+            user_id: data.gameUserId,
+            item: data.gameItemName,
           },
         },
         {
