@@ -50,7 +50,7 @@ class ProductRoute implements ProductRouteInterface {
   createProduct() {
     this.router.post(
       '/createProduct',
-      multer().single('file'),
+      this.multer.single('file'),
       async (req: Request, res: Response) => {
         const useCase = CreateProductUsecaseFactory.create();
         const { name, price, serverId, categoryId } = req.body;
