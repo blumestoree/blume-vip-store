@@ -35,9 +35,11 @@ class ProductRoute implements ProductRouteInterface {
 
   findAllProduct() {
     this.router.get('/findAllProduct', async (req: Request, res: Response) => {
+      const { serverId } = req.query;
       const useCase = FindAllProductUsecaseFactory.create();
+      const serverDto = { serverId: serverId as string };
       try {
-        const output = await useCase.execute();
+        const output = await useCase.execute(serverDto);
         res.send(output);
       } catch (error) {
         if (error instanceof Error) {
@@ -99,9 +101,9 @@ class ProductRoute implements ProductRouteInterface {
 
   findProduct() {
     this.router.get('/findProduct/:id', async (req: Request, res: Response) => {
-      const useCase = FindByIdProductUsecaseFactory.create();
       const { id } = req.params;
       const productDto = { id };
+      const useCase = FindByIdProductUsecaseFactory.create();
       try {
         const output = await useCase.execute(productDto);
         res.send(output);

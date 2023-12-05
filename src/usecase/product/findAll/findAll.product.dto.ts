@@ -1,3 +1,6 @@
+export interface InputFindAllProductDto {
+  serverId: string;
+}
 export interface OutputFindAllProductDto {
   id: string;
   name: string;

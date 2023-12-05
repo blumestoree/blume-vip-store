@@ -1,6 +1,9 @@
-import RepositoryInterface from '../../../shared/repository.interface';
 import Product from '../entity/product.entity';
 
-export default interface ProductRepositoryInterface extends RepositoryInterface<Product> {
+export default interface ProductRepositoryInterface {
   findProductsByIds(id: string[]): Promise<Product[]>;
+  create(entity: Product): Promise<void>;
+  update(entity: Product): Promise<void>;
+  find(id: string): Promise<Product>;
+  findAll(serverId: string): Promise<Product[]>;
 }

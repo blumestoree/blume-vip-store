@@ -1,14 +1,14 @@
 import ProductRepositoryInterface from '../../../domain/product/repositories/product.repository.interface';
 import UseCaseInterface from '../../../shared/usecase.interface';
-import { OutputFindAllProductDto } from './findAll.product.dto';
+import { InputFindAllProductDto, OutputFindAllProductDto } from './findAll.product.dto';
 
 export default class FindAllProductUseCase
-  implements UseCaseInterface<undefined, OutputFindAllProductDto[]>
+  implements UseCaseInterface<InputFindAllProductDto, OutputFindAllProductDto[]>
 {
   constructor(private productRepository: ProductRepositoryInterface) {}
 
-  async execute(): Promise<OutputFindAllProductDto[]> {
-    const allProducts = await this.productRepository.findAll();
+  async execute(input: InputFindAllProductDto): Promise<OutputFindAllProductDto[]> {
+    const allProducts = await this.productRepository.findAll(input.serverId);
     return allProducts.map((product) => {
       return {
         id: product.id,
