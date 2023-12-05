@@ -18,9 +18,11 @@ class CategoryRoute implements CategoryRouteInterface {
 
   findAllCategory() {
     this.router.get('/findAllCategory', async (req: Request, res: Response) => {
+      const { serverId } = req.query;
       const useCase = FindAllCategoryUsecaseFactory.create();
+      const serverDto = { serverId: serverId as string };
       try {
-        const output = await useCase.execute();
+        const output = await useCase.execute(serverDto);
         res.send(output);
       } catch (error) {
         if (error instanceof Error) {

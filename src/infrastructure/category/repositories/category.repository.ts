@@ -32,8 +32,9 @@ export default class CategoryRepository implements CategoryRepositoryInterface {
     });
   }
 
-  async findAll(): Promise<Category[]> {
+  async findAll(serverId: string): Promise<Category[]> {
     const categories = await this.prisma.category.findMany({
+      where: { serverId },
       include: {
         product: true,
       },

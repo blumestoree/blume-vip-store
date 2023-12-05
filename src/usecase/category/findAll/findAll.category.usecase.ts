@@ -1,14 +1,14 @@
 import CategoryRepositoryInterface from '../../../domain/category/repositories/category.repository.interface';
 import UseCaseInterface from '../../../shared/usecase.interface';
-import { OutputFindAllCategoryDto } from './findAll.category.dto';
+import { InputFindAllCategoryDto, OutputFindAllCategoryDto } from './findAll.category.dto';
 
 export default class FindAllCategoryUseCase
-  implements UseCaseInterface<undefined, OutputFindAllCategoryDto[]>
+  implements UseCaseInterface<InputFindAllCategoryDto, OutputFindAllCategoryDto[]>
 {
   constructor(private categoryRepository: CategoryRepositoryInterface) {}
 
-  async execute(): Promise<OutputFindAllCategoryDto[]> {
-    const allCategories = await this.categoryRepository.findAll();
+  async execute(input: InputFindAllCategoryDto): Promise<OutputFindAllCategoryDto[]> {
+    const allCategories = await this.categoryRepository.findAll(input.serverId);
     return allCategories.map((category) => {
       return {
         id: category.id,

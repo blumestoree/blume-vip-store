@@ -1,3 +1,6 @@
+export interface InputFindAllCategoryDto {
+  serverId: string;
+}
 export interface OutputFindAllCategoryDto {
   id: string;
   name: string;
