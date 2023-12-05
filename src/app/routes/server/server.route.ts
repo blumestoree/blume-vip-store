@@ -34,11 +34,11 @@ class ServerRoute implements ServerRouteInterface {
     this.router.post('/createServer', async (req: Request, res: Response) => {
       const useCase = CreateServerUsecaseFactory.create();
       const { name, serverOwnerId } = req.body;
+      const serverDto = {
+        name,
+        serverOwnerId,
+      };
       try {
-        const serverDto = {
-          name,
-          serverOwnerId,
-        };
         const output = await useCase.execute(serverDto);
         res.send(output);
       } catch (error) {
@@ -54,12 +54,12 @@ class ServerRoute implements ServerRouteInterface {
       const useCase = UpdateServerUsecaseFactory.create();
       const { name, serverOwnerId } = req.body;
       const { id } = req.params;
+      const serverDto = {
+        id,
+        name,
+        serverOwnerId,
+      };
       try {
-        const serverDto = {
-          id,
-          name,
-          serverOwnerId,
-        };
         const output = await useCase.execute(serverDto);
         res.send(output);
       } catch (error) {
@@ -74,8 +74,8 @@ class ServerRoute implements ServerRouteInterface {
     this.router.get('/findServer/:id', async (req: Request, res: Response) => {
       const useCase = FindServerUsecaseFactory.create();
       const { id } = req.params;
+      const serverDto = { id };
       try {
-        const serverDto = { id };
         const output = await useCase.execute(serverDto);
         res.send(output);
       } catch (error) {

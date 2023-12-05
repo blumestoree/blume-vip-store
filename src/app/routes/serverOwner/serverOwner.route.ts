@@ -34,12 +34,12 @@ class ServerOwnerRoute implements ServerOwnerRouteInterface {
     this.router.post('/createServerOwner', async (req: Request, res: Response) => {
       const useCase = CreateServerOwnerUsecaseFactory.create();
       const { name, email, password } = req.body;
+      const serverOwnerDto = {
+        name,
+        email,
+        password,
+      };
       try {
-        const serverOwnerDto = {
-          name,
-          email,
-          password,
-        };
         const output = await useCase.execute(serverOwnerDto);
         res.send(output);
       } catch (error) {
@@ -55,14 +55,14 @@ class ServerOwnerRoute implements ServerOwnerRouteInterface {
       const useCase = UpdateServerOwnerUsecaseFactory.create();
       const { name, email, password, serverId } = req.body;
       const { id } = req.params;
+      const serverOwnerDto = {
+        id,
+        name,
+        email,
+        password,
+        serverId,
+      };
       try {
-        const serverOwnerDto = {
-          id,
-          name,
-          email,
-          password,
-          serverId,
-        };
         const output = await useCase.execute(serverOwnerDto);
         res.send(output);
       } catch (error) {
@@ -77,8 +77,8 @@ class ServerOwnerRoute implements ServerOwnerRouteInterface {
     this.router.get('/findServerOwner/:id', async (req: Request, res: Response) => {
       const useCase = FindServerOwnerUsecaseFactory.create();
       const { id } = req.params;
+      const serverOwnerDto = { id };
       try {
-        const serverOwnerDto = { id };
         const output = await useCase.execute(serverOwnerDto);
         res.send(output);
       } catch (error) {

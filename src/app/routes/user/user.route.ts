@@ -41,12 +41,12 @@ class UserRoute implements UserRouteInterface {
     this.router.post('/createUser', async (req: Request, res: Response) => {
       const useCase = CreateUserUsecaseFactory.create();
       const { name, password, email } = req.body;
+      const userDto = {
+        name,
+        password,
+        email,
+      };
       try {
-        const userDto = {
-          name,
-          password,
-          email,
-        };
         const output = await useCase.execute(userDto);
         res.send(output);
       } catch (error) {
@@ -60,14 +60,12 @@ class UserRoute implements UserRouteInterface {
   loginUser() {
     this.router.post('/loginUser', async (req: Request, res: Response) => {
       const userUseCase = LoginUserUsecaseFactory.create();
-
       const { password, email } = req.body;
+      const userDto = {
+        password,
+        email,
+      };
       try {
-        const userDto = {
-          password,
-          email,
-        };
-
         const output = await userUseCase.execute(userDto);
         res.send(output);
       } catch (error) {
@@ -83,13 +81,13 @@ class UserRoute implements UserRouteInterface {
       const useCase = UpdateUserUsecaseFactory.create();
       const { name, password, email } = req.body;
       const { id } = req.params;
+      const userDto = {
+        id,
+        name,
+        password,
+        email,
+      };
       try {
-        const userDto = {
-          id,
-          name,
-          password,
-          email,
-        };
         const output = await useCase.execute(userDto);
         res.send(output);
       } catch (error) {
@@ -104,8 +102,8 @@ class UserRoute implements UserRouteInterface {
     this.router.get('/findUser/:id', async (req: Request, res: Response) => {
       const useCase = FindUserUsecaseFactory.create();
       const { id } = req.params;
+      const userDto = { id };
       try {
-        const userDto = { id };
         const output = await useCase.execute(userDto);
         res.send(output);
       } catch (error) {
@@ -120,8 +118,8 @@ class UserRoute implements UserRouteInterface {
     this.router.post('/forgotPassword', async (req: Request, res: Response) => {
       const useCase = ForgotPasswordUserUsecaseFactory.create();
       const { email } = req.body;
+      const userDto = { email };
       try {
-        const userDto = { email };
         const output = await useCase.execute(userDto);
         res.send(output);
       } catch (error) {
@@ -146,19 +144,20 @@ class UserRoute implements UserRouteInterface {
           cardInfos: { cardNumber, holderName, expMonth, expYear, cvv },
         } = req.body;
 
+        const userDto = {
+          userId,
+          productId,
+          installments,
+          cardInfos: {
+            cardNumber: cardNumber,
+            holderName: holderName,
+            expMonth: expMonth,
+            expYear: expYear,
+            cvv: cvv,
+          },
+        };
+
         try {
-          const userDto = {
-            userId,
-            productId,
-            installments,
-            cardInfos: {
-              cardNumber: cardNumber,
-              holderName: holderName,
-              expMonth: expMonth,
-              expYear: expYear,
-              cvv: cvv,
-            },
-          };
           const output = await useCase.execute(userDto);
           res.send(output);
         } catch (error) {

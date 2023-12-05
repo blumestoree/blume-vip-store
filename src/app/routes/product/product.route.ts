@@ -55,14 +55,14 @@ class ProductRoute implements ProductRouteInterface {
         const useCase = CreateProductUsecaseFactory.create();
         const { name, price, serverId, categoryId } = req.body;
         const size = req.file;
+        const productDto = {
+          name,
+          categoryId,
+          image: size?.filename || '',
+          price: +price,
+          serverId,
+        };
         try {
-          const productDto = {
-            name,
-            categoryId,
-            image: size?.filename || '',
-            price: +price,
-            serverId,
-          };
           const output = await useCase.execute(productDto);
           res.send(output);
         } catch (error) {
@@ -79,14 +79,14 @@ class ProductRoute implements ProductRouteInterface {
       const useCase = UpdateProductUsecaseFactory.create();
       const { name, image, price, serverId } = req.body;
       const { id } = req.params;
+      const productDto = {
+        id,
+        name,
+        image,
+        price,
+        serverId,
+      };
       try {
-        const productDto = {
-          id,
-          name,
-          image,
-          price,
-          serverId,
-        };
         const output = await useCase.execute(productDto);
         res.send(output);
       } catch (error) {
@@ -101,8 +101,8 @@ class ProductRoute implements ProductRouteInterface {
     this.router.get('/findProduct/:id', async (req: Request, res: Response) => {
       const useCase = FindByIdProductUsecaseFactory.create();
       const { id } = req.params;
+      const productDto = { id };
       try {
-        const productDto = { id };
         const output = await useCase.execute(productDto);
         res.send(output);
       } catch (error) {

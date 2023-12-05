@@ -34,11 +34,11 @@ class CategoryRoute implements CategoryRouteInterface {
     this.router.post('/createCategory', async (req: Request, res: Response) => {
       const useCase = CreateCategoryUsecaseFactory.create();
       const { name, serverId } = req.body;
+      const serverDto = {
+        name,
+        serverId,
+      };
       try {
-        const serverDto = {
-          name,
-          serverId,
-        };
         const output = await useCase.execute(serverDto);
         res.send(output);
       } catch (error) {
@@ -54,12 +54,12 @@ class CategoryRoute implements CategoryRouteInterface {
       const useCase = UpdateCategoryUsecaseFactory.create();
       const { name, serverId } = req.body;
       const { id } = req.params;
+      const serverDto = {
+        id,
+        name,
+        serverId,
+      };
       try {
-        const serverDto = {
-          id,
-          name,
-          serverId,
-        };
         const output = await useCase.execute(serverDto);
         res.send(output);
       } catch (error) {
@@ -74,8 +74,8 @@ class CategoryRoute implements CategoryRouteInterface {
     this.router.get('/findCategory/:id', async (req: Request, res: Response) => {
       const useCase = FindCategoryUsecaseFactory.create();
       const { id } = req.params;
+      const serverDto = { id };
       try {
-        const serverDto = { id };
         const output = await useCase.execute(serverDto);
         res.send(output);
       } catch (error) {
