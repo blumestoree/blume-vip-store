@@ -8,7 +8,9 @@ export interface OutputFindAllCategoryDto {
   products: {
     id: string;
     name: string;
-    price: number;
+    categoryId: string;
     image: string;
+    price: number;
+    serverId: string;
   }[];
 }
