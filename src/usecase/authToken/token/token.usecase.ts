@@ -28,14 +28,10 @@ export default class UserAuthTokenUsecase implements AuthTokenInterface<JwtPaylo
   }
 
   async createRefreshToken(userId: string): Promise<{ id: string; expiresIn: number }> {
-    const refreshTokenExpireMinutes = process.env.REFRESH_TOKEN_EXPIRE_TIME_MINUTES;
-    let expiresIn;
-    if (refreshTokenExpireMinutes !== undefined) {
-      expiresIn = dayjs().add(+refreshTokenExpireMinutes, 'minutes').unix();
-    } else {
-      expiresIn = dayjs().add(5, 'minutes').unix();
-    }
-
+    const refreshTokenExpireMinutes = process.env.REFRESH_TOKEN_EXPIRE_TIME_MINUTES as string;
+    const expiresIn = dayjs()
+      .add(+refreshTokenExpireMinutes || 5, 'minutes')
+      .unix();
     const refreshToken = await this.authTokenRepository.create(userId, expiresIn);
     return {
       id: refreshToken.id,
