@@ -1,5 +1,6 @@
 export interface InputFindAllProductDto {
   serverId: string;
+  sort?: 'desc' | 'asc';
 }
 export interface OutputFindAllProductDto {
   id: string;

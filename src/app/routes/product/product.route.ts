@@ -35,9 +35,9 @@ class ProductRoute implements ProductRouteInterface {
 
   findAllProduct() {
     this.router.get('/findAllProduct', async (req: Request, res: Response) => {
-      const { serverId } = req.query;
+      const { serverId, sort } = req.query;
       const useCase = FindAllProductUsecaseFactory.create();
-      const serverDto = { serverId: serverId as string };
+      const serverDto = { serverId: serverId as string, sort: sort as 'desc' | 'asc' | undefined };
       try {
         const output = await useCase.execute(serverDto);
         res.send(output);
