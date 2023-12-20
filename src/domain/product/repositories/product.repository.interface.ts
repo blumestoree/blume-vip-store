@@ -5,5 +5,9 @@ export default interface ProductRepositoryInterface {
   create(entity: Product): Promise<void>;
   update(entity: Product): Promise<void>;
   find(id: string): Promise<Product>;
-  findAll(serverId: string, sort?: 'desc' | 'asc'): Promise<Product[]>;
+  findAll(
+    serverId: string,
+    categoryId: string | undefined,
+    sort: 'desc' | 'asc' | undefined,
+  ): Promise<Product[]>;
 }

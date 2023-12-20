@@ -8,7 +8,11 @@ export default class FindAllProductUseCase
   constructor(private productRepository: ProductRepositoryInterface) {}
 
   async execute(input: InputFindAllProductDto): Promise<OutputFindAllProductDto[]> {
-    const allProducts = await this.productRepository.findAll(input.serverId, input.sort);
+    const allProducts = await this.productRepository.findAll(
+      input.serverId,
+      input.categoryId,
+      input.sort,
+    );
     return allProducts.map((product) => {
       return {
         id: product.id,
