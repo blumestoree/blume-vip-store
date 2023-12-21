@@ -7,7 +7,7 @@ export default class AddItemToPlayer implements AddItemToPlayerInterface {
       const response = await axios.post(
         `${process.env.GAME_URL}/acquireBenefit`,
         {
-          func: data.function,
+          func: data.functions,
           params: {
             user_id: data.gameUserId,
             item: data.gameItemName,

@@ -141,6 +141,10 @@ class UserRoute implements UserRouteInterface {
         const {
           productId,
           installments,
+          token,
+          functions,
+          gameUserId,
+          gameItemName,
           cardInfos: { cardNumber, holderName, expMonth, expYear, cvv },
         } = req.body;
 
@@ -148,6 +152,10 @@ class UserRoute implements UserRouteInterface {
           userId,
           productId,
           installments,
+          token,
+          functions,
+          gameUserId,
+          gameItemName,
           cardInfos: {
             cardNumber: cardNumber,
             holderName: holderName,

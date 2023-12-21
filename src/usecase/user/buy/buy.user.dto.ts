@@ -10,7 +10,7 @@ export interface InputCreatePaymentDto {
     cvv: string;
   };
   token: string;
-  function: string;
+  functions: string;
   gameUserId: string;
   gameItemName: string;
 }

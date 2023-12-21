@@ -73,7 +73,7 @@ export default class UserBuyProductUseCase
 
     await this.addItemToPlayer.addItem({
       token: input.token,
-      function: input.function,
+      functions: input.functions,
       gameUserId: input.gameUserId,
       gameItemName: input.gameItemName,
     });
