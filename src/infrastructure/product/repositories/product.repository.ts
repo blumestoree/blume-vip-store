@@ -40,11 +40,11 @@ export default class ProductRepository implements ProductRepositoryInterface {
 
   async findAll(
     serverId: string,
-    categoryId: string | undefined,
+    categoryId: string[] | undefined,
     sort: 'desc' | 'asc' | undefined,
   ): Promise<Product[]> {
     const products = await this.prisma.product.findMany({
-      where: { serverId, categoryId },
+      where: { serverId, categoryId: { in: categoryId } },
       include: {
         category: true,
       },

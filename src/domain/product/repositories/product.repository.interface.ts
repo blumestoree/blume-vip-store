@@ -7,7 +7,7 @@ export default interface ProductRepositoryInterface {
   find(id: string): Promise<Product>;
   findAll(
     serverId: string,
-    categoryId: string | undefined,
+    categoryId: string[] | undefined,
     sort: 'desc' | 'asc' | undefined,
   ): Promise<Product[]>;
 }

@@ -1,7 +1,7 @@
 export interface InputFindAllProductDto {
   serverId: string;
   sort: 'desc' | 'asc' | undefined;
-  categoryId: string | undefined;
+  categoryId: string[] | undefined;
 }
 export interface OutputFindAllProductDto {
   id: string;
