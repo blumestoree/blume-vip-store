@@ -4,6 +4,7 @@ import FindAllServerUsecaseFactory from '../../../usecase/server/findAll/findAll
 import CreateServerUsecaseFactory from '../../../usecase/server/create/create.server.usecase.factory';
 import UpdateServerUsecaseFactory from '../../../usecase/server/update/update.server.usecase.factory';
 import FindServerUsecaseFactory from '../../../usecase/server/find/find.server.usecase.factory';
+import AddItemToUserUsecaseFactory from '../../../usecase/server/addItemToUser/addProductToUser.server.usecase.factory';
 
 class ServerRoute implements ServerRouteInterface {
   router: Router;
@@ -14,6 +15,7 @@ class ServerRoute implements ServerRouteInterface {
     this.createServer();
     this.updateServer();
     this.findServer();
+    this.addItemToUser();
   }
 
   findAllServer() {
@@ -21,6 +23,27 @@ class ServerRoute implements ServerRouteInterface {
       const useCase = FindAllServerUsecaseFactory.create();
       try {
         const output = await useCase.execute();
+        res.send(output);
+      } catch (error) {
+        if (error instanceof Error) {
+          res.status(500).send({ error: error.message });
+        }
+      }
+    });
+  }
+
+  addItemToUser() {
+    this.router.get('/addItemToUser', async (req: Request, res: Response) => {
+      const useCase = AddItemToUserUsecaseFactory.create();
+      const { token, functions, gameUserId, gameItemName } = req.body;
+      const serverDto = {
+        token,
+        functions,
+        gameUserId,
+        gameItemName,
+      };
+      try {
+        const output = await useCase.execute(serverDto);
         res.send(output);
       } catch (error) {
         if (error instanceof Error) {

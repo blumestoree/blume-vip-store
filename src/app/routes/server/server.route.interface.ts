@@ -3,4 +3,5 @@ export default interface ServerRouteInterface {
   createServer(): void;
   updateServer(): void;
   findServer(): void;
+  addItemToUser(): void;
 }
