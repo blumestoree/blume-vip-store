@@ -33,7 +33,7 @@ class ServerRoute implements ServerRouteInterface {
   }
 
   addItemToUser() {
-    this.router.get('/addItemToUser', async (req: Request, res: Response) => {
+    this.router.post('/addItemToUser', async (req: Request, res: Response) => {
       const useCase = AddItemToUserUsecaseFactory.create();
       const { token, functions, gameUserId, gameItemName } = req.body;
       const serverDto = {
