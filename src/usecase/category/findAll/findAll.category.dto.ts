@@ -4,6 +4,7 @@ export interface InputFindAllCategoryDto {
 export interface OutputFindAllCategoryDto {
   id: string;
   name: string;
+  functionInGame: string;
   serverId: string;
   products: {
     id: string;

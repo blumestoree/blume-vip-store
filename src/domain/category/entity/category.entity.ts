@@ -4,12 +4,20 @@ import CategoryValidatorFactory from '../factory/category.factory.validator';
 export default class Category {
   private _id: string;
   private _name: string;
+  private _functionInGame: string;
   private _serverId: string;
   private _products?: Product[];
 
-  constructor(id: string, name: string, serverId: string, products?: Product[]) {
+  constructor(
+    id: string,
+    name: string,
+    functionInGame: string,
+    serverId: string,
+    products?: Product[],
+  ) {
     this._id = id;
     this._name = name;
+    this._functionInGame = functionInGame;
     this._products = products;
     this._serverId = serverId;
     this.validate();
@@ -21,6 +29,10 @@ export default class Category {
 
   get name(): string {
     return this._name;
+  }
+
+  get functionInGame(): string {
+    return this._functionInGame;
   }
 
   get serverId(): string {

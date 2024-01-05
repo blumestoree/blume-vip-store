@@ -13,6 +13,7 @@ export default class FindAllCategoryUseCase
       return {
         id: category.id,
         name: category.name,
+        functionInGame: category.functionInGame,
         serverId: category.serverId,
         products:
           category.products?.map((product) => ({

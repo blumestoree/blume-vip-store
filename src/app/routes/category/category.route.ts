@@ -35,9 +35,10 @@ class CategoryRoute implements CategoryRouteInterface {
   createCategory() {
     this.router.post('/createCategory', async (req: Request, res: Response) => {
       const useCase = CreateCategoryUsecaseFactory.create();
-      const { name, serverId } = req.body;
+      const { name, serverId, functionInGame } = req.body;
       const serverDto = {
         name,
+        functionInGame,
         serverId,
       };
       try {
@@ -54,11 +55,12 @@ class CategoryRoute implements CategoryRouteInterface {
   updateCategory() {
     this.router.put('/updateCategory/:id', async (req: Request, res: Response) => {
       const useCase = UpdateCategoryUsecaseFactory.create();
-      const { name, serverId } = req.body;
+      const { name, serverId, functionInGame } = req.body;
       const { id } = req.params;
       const serverDto = {
         id,
         name,
+        functionInGame,
         serverId,
       };
       try {

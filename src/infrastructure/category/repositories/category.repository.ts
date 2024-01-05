@@ -16,6 +16,7 @@ export default class CategoryRepository implements CategoryRepositoryInterface {
       data: {
         categoryId: entity.id,
         name: entity.name,
+        functionInGame: entity.functionInGame,
         serverId: entity.serverId,
       },
     });
@@ -27,6 +28,7 @@ export default class CategoryRepository implements CategoryRepositoryInterface {
       data: {
         categoryId: entity.id,
         name: entity.name,
+        functionInGame: entity.functionInGame,
         serverId: entity.serverId,
       },
     });
@@ -54,6 +56,7 @@ export default class CategoryRepository implements CategoryRepositoryInterface {
 
       return CategoryFactory.create(
         category.name,
+        category.functionInGame,
         category.serverId,
         category.categoryId,
         products,
@@ -86,6 +89,12 @@ export default class CategoryRepository implements CategoryRepositoryInterface {
       );
     });
 
-    return CategoryFactory.create(category.name, category.serverId, category.categoryId, products);
+    return CategoryFactory.create(
+      category.name,
+      category.functionInGame,
+      category.serverId,
+      category.categoryId,
+      products,
+    );
   }
 }
