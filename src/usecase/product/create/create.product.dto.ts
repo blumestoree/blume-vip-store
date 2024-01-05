@@ -1,5 +1,6 @@
 export interface InputCreateProductDto {
   name: string;
+  gameItemName: string;
   image: string;
   categoryId: string;
   price: number;
@@ -8,6 +9,7 @@ export interface InputCreateProductDto {
 export interface OutputCreateProductDto {
   id: string;
   name: string;
+  gameItemName: string;
   categoryId: string;
   image: string;
   price: number;

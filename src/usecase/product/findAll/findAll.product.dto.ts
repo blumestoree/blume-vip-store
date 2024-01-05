@@ -6,6 +6,7 @@ export interface InputFindAllProductDto {
 export interface OutputFindAllProductDto {
   id: string;
   name: string;
+  gameItemName: string;
   categoryId: string;
   image: string;
   price: number;

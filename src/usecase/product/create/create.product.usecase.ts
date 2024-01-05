@@ -15,6 +15,7 @@ export default class CreateProductUseCase
   async execute(input: InputCreateProductDto): Promise<OutputCreateProductDto> {
     const product = ProductFactory.create(
       input.name,
+      input.gameItemName,
       input.categoryId,
       input.image,
       input.price,
@@ -28,6 +29,7 @@ export default class CreateProductUseCase
     return {
       id: product.id,
       name: product.name,
+      gameItemName: product.gameItemName,
       categoryId: product.categoryId,
       image: product.image,
       price: product.price,

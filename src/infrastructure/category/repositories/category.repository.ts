@@ -46,6 +46,7 @@ export default class CategoryRepository implements CategoryRepositoryInterface {
       const products = category.product.map((product) => {
         return ProductFactory.create(
           product.name,
+          product.gameItemName,
           product.categoryId,
           product.image,
           product.price,
@@ -81,6 +82,7 @@ export default class CategoryRepository implements CategoryRepositoryInterface {
     const products = category.product.map((product) => {
       return ProductFactory.create(
         product.name,
+        product.gameItemName,
         product.categoryId,
         product.image,
         product.price,

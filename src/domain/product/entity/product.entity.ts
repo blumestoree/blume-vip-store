@@ -8,10 +8,12 @@ export default class Product {
   private _category?: Category;
   private _image: string;
   private _serverId: string;
+  private _gameItemName: string;
 
   constructor(
     id: string,
     name: string,
+    gameItemName: string,
     categoryId: string,
     image: string,
     price: number,
@@ -19,6 +21,7 @@ export default class Product {
     category?: Category,
   ) {
     this._name = name;
+    this._gameItemName = gameItemName;
     this._price = price;
     this._image = image;
     this._serverId = serverId;
@@ -38,6 +41,10 @@ export default class Product {
 
   get image(): string {
     return this._image;
+  }
+
+  get gameItemName(): string {
+    return this._gameItemName;
   }
 
   get name(): string {

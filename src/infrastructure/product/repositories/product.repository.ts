@@ -16,6 +16,7 @@ export default class ProductRepository implements ProductRepositoryInterface {
       data: {
         productId: entity.id,
         name: entity.name,
+        gameItemName: entity.gameItemName,
         categoryId: entity.categoryId,
         image: entity.image,
         price: entity.price,
@@ -30,6 +31,7 @@ export default class ProductRepository implements ProductRepositoryInterface {
       data: {
         productId: entity.id,
         name: entity.name,
+        gameItemName: entity.gameItemName,
         categoryId: entity.categoryId,
         image: entity.image,
         price: entity.price,
@@ -53,9 +55,14 @@ export default class ProductRepository implements ProductRepositoryInterface {
       },
     });
     return products.map((product) => {
-      const category = CategoryFactory.create(product.category.name, product.category.categoryId);
+      const category = CategoryFactory.create(
+        product.category.name,
+        product.category.functionInGame,
+        product.category.categoryId,
+      );
       return ProductFactory.create(
         product.name,
+        product.gameItemName,
         product.categoryId,
         product.image,
         product.price,
@@ -81,9 +88,14 @@ export default class ProductRepository implements ProductRepositoryInterface {
     }
 
     return products.map((product) => {
-      const category = CategoryFactory.create(product.category.name, product.category.categoryId);
+      const category = CategoryFactory.create(
+        product.category.name,
+        product.category.functionInGame,
+        product.category.categoryId,
+      );
       return ProductFactory.create(
         product.name,
+        product.gameItemName,
         product.categoryId,
         product.image,
         product.price,
@@ -108,9 +120,14 @@ export default class ProductRepository implements ProductRepositoryInterface {
       throw new Error('Product not found');
     }
 
-    const category = CategoryFactory.create(product.category.name, product.category.categoryId);
+    const category = CategoryFactory.create(
+      product.category.name,
+      product.category.functionInGame,
+      product.category.categoryId,
+    );
     return ProductFactory.create(
       product.name,
+      product.gameItemName,
       product.categoryId,
       product.image,
       product.price,

@@ -69,10 +69,11 @@ class ProductRoute implements ProductRouteInterface {
       this.multer.single('file'),
       async (req: Request, res: Response) => {
         const useCase = CreateProductUsecaseFactory.create();
-        const { name, price, serverId, categoryId } = req.body;
+        const { name, price, serverId, categoryId, gameItemName } = req.body;
         const size = req.file;
         const productDto = {
           name,
+          gameItemName,
           categoryId,
           image: size?.filename || '',
           price: +price,
@@ -93,11 +94,12 @@ class ProductRoute implements ProductRouteInterface {
   updateProduct() {
     this.router.put('/updateProduct/:id', async (req: Request, res: Response) => {
       const useCase = UpdateProductUsecaseFactory.create();
-      const { name, image, price, serverId } = req.body;
+      const { name, image, price, serverId, gameItemName } = req.body;
       const { id } = req.params;
       const productDto = {
         id,
         name,
+        gameItemName,
         image,
         price,
         serverId,

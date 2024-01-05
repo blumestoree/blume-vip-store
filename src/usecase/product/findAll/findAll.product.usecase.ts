@@ -17,6 +17,7 @@ export default class FindAllProductUseCase
       return {
         id: product.id,
         name: product.name,
+        gameItemName: product.gameItemName,
         image: product.image,
         price: product.price,
         serverId: product.serverId,

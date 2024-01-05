@@ -5,6 +5,7 @@ import { v4 as uuid } from 'uuid';
 export default class ProductFactory {
   static create(
     name: string,
+    gameItemName: string,
     categoryId: string,
     image: string,
     price: number,
@@ -12,6 +13,15 @@ export default class ProductFactory {
     id?: string,
     category?: Category,
   ): Product {
-    return new Product(id || uuid(), name, categoryId, image, price, serverId, category);
+    return new Product(
+      id || uuid(),
+      name,
+      gameItemName,
+      categoryId,
+      image,
+      price,
+      serverId,
+      category,
+    );
   }
 }
