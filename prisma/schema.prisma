@@ -29,23 +29,25 @@ model Server {
 }
 
 model Product {
-  id         Int       @default(autoincrement())
-  productId  String    @id @unique
-  name       String
-  image      String
-  price      Float
-  server     Server    @relation(fields: [serverId], references: [serverId])
-  serverId   String
-  user       User?     @relation(fields: [userId], references: [userId])
-  userId     String?
-  payments   Payment[]
-  category   Category  @relation(fields: [categoryId], references: [categoryId])
-  categoryId String
+  id           Int       @default(autoincrement())
+  productId    String    @id @unique
+  name         String
+  gameItemName String
+  image        String
+  price        Float
+  server       Server    @relation(fields: [serverId], references: [serverId])
+  serverId     String
+  user         User?     @relation(fields: [userId], references: [userId])
+  userId       String?
+  payments     Payment[]
+  category     Category  @relation(fields: [categoryId], references: [categoryId])
+  categoryId   String
 }
 
 model User {
   id           Int           @default(autoincrement())
   userId       String        @id @unique
+  userGameId   String
   name         String
   email        String        @unique
   password     String
@@ -72,10 +74,11 @@ model RefreshToken {
 }
 
 model Category {
-  id         Int       @default(autoincrement())
-  categoryId String    @id @unique
-  name       String
-  server     Server    @relation(fields: [serverId], references: [serverId])
-  serverId   String
-  product    Product[]
+  id             Int       @default(autoincrement())
+  categoryId     String    @id @unique
+  functionInGame String
+  name           String
+  server         Server    @relation(fields: [serverId], references: [serverId])
+  serverId       String
+  product        Product[]
 }
