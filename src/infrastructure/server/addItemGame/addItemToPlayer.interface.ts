@@ -1,6 +1,6 @@
 export interface InputAddItemToPlayertDto {
   token: string;
-  functions: string;
+  functionInGame: string;
   gameUserId: string;
   gameItemName: string;
 }
