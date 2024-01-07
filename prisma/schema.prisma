@@ -47,7 +47,7 @@ model Product {
 model User {
   id           Int           @default(autoincrement())
   userId       String        @id @unique
-  userGameId   String
+  gameUserId   String
   name         String
   email        String        @unique
   password     String
