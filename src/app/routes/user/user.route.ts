@@ -40,9 +40,10 @@ class UserRoute implements UserRouteInterface {
   createUser() {
     this.router.post('/createUser', async (req: Request, res: Response) => {
       const useCase = CreateUserUsecaseFactory.create();
-      const { name, password, email } = req.body;
+      const { name, password, email, gameUserId } = req.body;
       const userDto = {
         name,
+        gameUserId,
         password,
         email,
       };
@@ -79,11 +80,12 @@ class UserRoute implements UserRouteInterface {
   updateUser() {
     this.router.put('/updateUser/:id', async (req: Request, res: Response) => {
       const useCase = UpdateUserUsecaseFactory.create();
-      const { name, password, email } = req.body;
+      const { name, password, email, gameUserId } = req.body;
       const { id } = req.params;
       const userDto = {
         id,
         name,
+        gameUserId,
         password,
         email,
       };

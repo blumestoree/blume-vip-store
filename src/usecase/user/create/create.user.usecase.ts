@@ -10,7 +10,7 @@ export default class CreateUserUseCase
   constructor(private userRepository: UserRepositoryInterface) {}
 
   async execute(input: InputCreateUserDto): Promise<OutputCreateUserDto> {
-    const user = UserFactory.create(input.name, input.email, input.password);
+    const user = UserFactory.create(input.name, input.gameUserId, input.email, input.password);
     user.encryptPassword(input.password);
     await this.userRepository.create(user);
 
@@ -20,6 +20,7 @@ export default class CreateUserUseCase
     return {
       id: user.id,
       name: user.name,
+      gameUserId: user.gameUserId,
       email: user.email,
       token,
       refreshToken,

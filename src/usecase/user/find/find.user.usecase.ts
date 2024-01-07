@@ -8,11 +8,12 @@ export default class FindUserUseCase
   constructor(private userRepository: UserRepositoryInterface) {}
 
   async execute(input: InputFindUserDto): Promise<OutputFindUserDto> {
-    const server = await this.userRepository.find(input.id);
+    const user = await this.userRepository.find(input.id);
     return {
-      id: server.id,
-      name: server.name,
-      email: server.email,
+      id: user.id,
+      name: user.name,
+      gameUserId: user.gameUserId,
+      email: user.email,
     };
   }
 }

@@ -24,6 +24,7 @@ export default class LoginUserUseCase
     return {
       id: findUser.id,
       name: findUser.name,
+      gameUserId: findUser.gameUserId,
       email: findUser.email,
       token,
       refreshToken,

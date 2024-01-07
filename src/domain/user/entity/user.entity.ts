@@ -4,12 +4,14 @@ import UserValidatorFactory from '../factory/user.factory.validator';
 export default class User {
   private _id: string;
   private _name: string;
+  private _gameUserId: string;
   private _password: string;
   private _email: string;
 
-  constructor(id: string, name: string, email: string, password: string) {
+  constructor(id: string, gameUserId: string, name: string, email: string, password: string) {
     this._id = id;
     this._name = name;
+    this._gameUserId = gameUserId;
     this._password = password;
     this._email = email;
     this._validate();
@@ -21,6 +23,10 @@ export default class User {
 
   get name(): string {
     return this._name;
+  }
+
+  get gameUserId(): string {
+    return this._gameUserId;
   }
 
   get password(): string {
