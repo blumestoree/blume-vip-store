@@ -15,6 +15,7 @@ export interface OutputCreateProductDto {
   price: number;
   categoryId: string;
   category: {
+    functionInGame: string;
     id: string;
     name: string;
   } | null;

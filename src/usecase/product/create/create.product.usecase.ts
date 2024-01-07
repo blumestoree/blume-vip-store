@@ -38,6 +38,7 @@ export default class CreateProductUseCase
         ? {
             id: productData.category.id,
             name: productData.category.name,
+            functionInGame: productData.category.functionInGame,
           }
         : null,
     };

@@ -10,6 +10,7 @@ export interface OutpuFfindProductsByIdsDto {
   serverId: string;
   categoryId: string;
   category: {
+    functionInGame: string;
     id: string;
     name: string;
   } | null;

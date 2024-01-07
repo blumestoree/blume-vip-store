@@ -25,6 +25,7 @@ export default class UpdateproductUseCase
         ? {
             id: product.category.id,
             name: product.category.name,
+            functionInGame: product.category.functionInGame,
           }
         : null,
     };

@@ -12,6 +12,7 @@ export interface OutputFindAllProductDto {
   price: number;
   serverId: string;
   category: {
+    functionInGame: string;
     id: string;
     name: string;
   } | null;

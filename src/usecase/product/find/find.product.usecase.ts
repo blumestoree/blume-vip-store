@@ -21,6 +21,7 @@ export default class FindProductUseCase
         ? {
             id: product.category.id,
             name: product.category.name,
+            functionInGame: product.category.functionInGame,
           }
         : null,
     };

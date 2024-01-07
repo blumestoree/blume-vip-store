@@ -12,5 +12,6 @@ export interface OutputFindProductDto {
   category: {
     id: string;
     name: string;
+    functionInGame: string;
   } | null;
 }

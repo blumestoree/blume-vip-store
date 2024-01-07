@@ -23,6 +23,7 @@ export default class FindProductsByIdsUseCase
           ? {
               id: product.category.id,
               name: product.category.name,
+              functionInGame: product.category.functionInGame,
             }
           : null,
       };
