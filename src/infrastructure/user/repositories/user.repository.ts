@@ -14,6 +14,7 @@ export default class UserRepository implements UserRepositoryInterface {
     await this.prisma.user.create({
       data: {
         userId: entity.id,
+        gameUserId: entity.gameUserId,
         name: entity.name,
         email: entity.email,
         password: entity.password,
@@ -27,6 +28,7 @@ export default class UserRepository implements UserRepositoryInterface {
       data: {
         userId: entity.id,
         name: entity.name,
+        gameUserId: entity.gameUserId,
         email: entity.email,
         password: entity.password,
       },
@@ -36,7 +38,7 @@ export default class UserRepository implements UserRepositoryInterface {
   async findAll(): Promise<User[]> {
     const users = await this.prisma.user.findMany();
     return users.map((user) => {
-      return UserFactory.create(user.name, user.email, user.password, user.userId);
+      return UserFactory.create(user.name, user.gameUserId, user.email, user.password, user.userId);
     });
   }
 
@@ -51,7 +53,7 @@ export default class UserRepository implements UserRepositoryInterface {
       throw new Error('User not found');
     }
 
-    return UserFactory.create(user.name, user.email, user.password, user.userId);
+    return UserFactory.create(user.name, user.gameUserId, user.email, user.password, user.userId);
   }
 
   async findUserByEmail(email: string): Promise<User> {
@@ -65,6 +67,6 @@ export default class UserRepository implements UserRepositoryInterface {
       throw new Error('User not found');
     }
 
-    return UserFactory.create(user.name, user.email, user.password, user.userId);
+    return UserFactory.create(user.name, user.gameUserId, user.email, user.password, user.userId);
   }
 }

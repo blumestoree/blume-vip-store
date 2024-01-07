@@ -8,7 +8,7 @@ export default class User {
   private _password: string;
   private _email: string;
 
-  constructor(id: string, gameUserId: string, name: string, email: string, password: string) {
+  constructor(id: string, name: string, gameUserId: string, email: string, password: string) {
     this._id = id;
     this._name = name;
     this._gameUserId = gameUserId;
