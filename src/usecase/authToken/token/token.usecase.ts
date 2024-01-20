@@ -3,18 +3,19 @@ import dayjs from 'dayjs';
 import AuthTokenInterface from '../../../domain/authToken/repositories/authToken.interface';
 import AuthToken from '../../../domain/authToken/entity/authToken.entity';
 import AuthTokenRepositoryInterface from '../../../domain/authToken/repositories/authToken.repository.interface';
+import { env } from '../../../app/env';
 
 export default class UserAuthTokenUsecase implements AuthTokenInterface<JwtPayload> {
   constructor(private authTokenRepository: AuthTokenRepositoryInterface<AuthToken>) {}
 
   createToken(text: string): string {
-    return jwt.sign({ data: text }, process.env.JWT_TOKEN as string, {
-      expiresIn: process.env.TOKEN_EXPIRE_TIME,
+    return jwt.sign({ data: text }, env.JWT_TOKEN as string, {
+      expiresIn: env.TOKEN_EXPIRE_TIME,
     });
   }
 
   verifyToken(token: string): JwtPayload {
-    return jwt.verify(token, process.env.JWT_TOKEN as string) as JwtPayload;
+    return jwt.verify(token, env.JWT_TOKEN as string) as JwtPayload;
   }
 
   async updateRefreshToken(userId: string): Promise<{ id: string; expiresIn: number }> {
@@ -28,7 +29,7 @@ export default class UserAuthTokenUsecase implements AuthTokenInterface<JwtPaylo
   }
 
   async createRefreshToken(userId: string): Promise<{ id: string; expiresIn: number }> {
-    const refreshTokenExpireMinutes = process.env.REFRESH_TOKEN_EXPIRE_TIME_MINUTES as string;
+    const refreshTokenExpireMinutes = env.REFRESH_TOKEN_EXPIRE_TIME_MINUTES as string;
     const expiresIn = dayjs()
       .add(+refreshTokenExpireMinutes || 5, 'minutes')
       .unix();

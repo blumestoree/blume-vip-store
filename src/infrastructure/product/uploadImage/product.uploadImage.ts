@@ -2,13 +2,14 @@ import { DeleteObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client
 import UploadImageInterface from './product.uploadImage.interface';
 import path from 'path';
 import fs from 'fs';
+import { env } from '../../../app/env';
 
 export default class SaveImageCloud implements UploadImageInterface {
   s3Client = new S3Client({
-    region: process.env.AWS_DEFAULT_REGION,
+    region: env.AWS_DEFAULT_REGION,
     credentials: {
-      accessKeyId: process.env.AWS_ACCESSKEY as string,
-      secretAccessKey: process.env.AWS_SECRETKEY as string,
+      accessKeyId: env.AWS_ACCESSKEY as string,
+      secretAccessKey: env.AWS_SECRETKEY as string,
     },
   });
 
@@ -19,7 +20,7 @@ export default class SaveImageCloud implements UploadImageInterface {
 
       await this.s3Client.send(
         new PutObjectCommand({
-          Bucket: process.env.AWS_BUCKETNAME,
+          Bucket: env.AWS_BUCKETNAME,
           Key: `products/${image}`,
           Body: fileContent,
           ACL: 'public-read',
@@ -37,7 +38,7 @@ export default class SaveImageCloud implements UploadImageInterface {
     try {
       await this.s3Client.send(
         new DeleteObjectCommand({
-          Bucket: process.env.AWS_BUCKETNAME,
+          Bucket: env.AWS_BUCKETNAME,
           Key: `products/${image}`,
         }),
       );

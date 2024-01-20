@@ -7,6 +7,7 @@ import ProductRoute from './routes/product/product.route';
 import UserRoute from './routes/user/user.route';
 import RefreshTokenRoute from './routes/refresToken/refreshToken.route';
 import categoryRoute from './routes/category/category.route';
+import { env } from './env';
 
 interface IServer {
   app: express.Application;
@@ -19,7 +20,7 @@ class Server implements IServer {
 
   constructor() {
     this.app = express();
-    this.port = process.env.SERVER_PORT || 4000;
+    this.port = env.SERVER_PORT || 4000;
     this.middlewares();
     this.routes();
     this.startServer();
