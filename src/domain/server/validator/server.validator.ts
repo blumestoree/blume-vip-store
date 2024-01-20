@@ -6,6 +6,7 @@ import * as z from 'zod';
 export default class ServerValidator implements ValidatorInterface<Server> {
   validate(entity: Server): ValidationError[] | void {
     const serverSchema = z.object({
+      _id: z.string(),
       _name: z.string().min(1, 'Nome inválido'),
       _serverOwnerId: z.string(),
     });

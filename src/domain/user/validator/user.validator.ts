@@ -5,9 +5,11 @@ import { ValidationError } from '../../../shared/types/IValidationError';
 export default class UserValidator implements ValidatorInterface<User> {
   validate(entity: User): ValidationError[] | void {
     const userSchema = z.object({
+      _id: z.string(),
       _name: z.string().min(2, 'Nome inválido'),
-      _email: z.string().email('Email inválido'),
+      _gameUserId: z.string(),
       _password: z.string().min(2, 'Senha inválida'),
+      _email: z.string().email('Email inválido'),
     });
     try {
       userSchema.parse(entity);

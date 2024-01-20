@@ -10,6 +10,7 @@ interface ValidationError {
 export default class ServerOwnerValidator implements ValidatorInterface<ServerOwner> {
   validate(entity: ServerOwner): ValidationError[] | void {
     const serverOwnerSchema = z.object({
+      _id: z.string(),
       _name: z.string().min(2, 'Nome inválido'),
       _email: z.string().email('Email inválido'),
       _password: z.string().min(2, 'Senha inválida'),

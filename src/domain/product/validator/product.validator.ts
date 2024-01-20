@@ -6,11 +6,14 @@ import * as z from 'zod';
 export default class ProductValidator implements ValidatorInterface<Product> {
   validate(entity: Product): ValidationError[] | void {
     const productSchema = z.object({
+      _id: z.string(),
+      _price: z.number(),
       _name: z.string().min(2, 'Nome inválido'),
       _categoryId: z.string(),
+      _category: z.string(),
       _image: z.string(),
-      _price: z.number(),
       _serverId: z.string(),
+      _gameItemName: z.string()
     });
     try {
       productSchema.parse(entity);

@@ -6,8 +6,11 @@ import * as z from 'zod';
 export default class CategoryValidator implements ValidatorInterface<Category> {
   validate(entity: Category): ValidationError[] | void {
     const productSchema = z.object({
+      _id: z.string(),
       _name: z.string().min(2, 'Nome inválido'),
+      _functionInGame: z.string(),
       _serverId: z.string(),
+      _products: z.any()
     });
     try {
       productSchema.parse(entity);
