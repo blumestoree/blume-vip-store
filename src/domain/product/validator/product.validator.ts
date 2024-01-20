@@ -10,7 +10,7 @@ export default class ProductValidator implements ValidatorInterface<Product> {
       _price: z.number(),
       _name: z.string().min(2, 'Nome inválido'),
       _categoryId: z.string(),
-      _category: z.string(),
+      _category: z.any(),
       _image: z.string(),
       _serverId: z.string(),
       _gameItemName: z.string()

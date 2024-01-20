@@ -3,9 +3,10 @@ import ProductFactory from './product.factory';
 
 describe('Product factory unit test', () => {
   it('should create a product', () => {
-    const server = ProductFactory.create('name', 'categoryId', 'image', 100, 'serverId');
+    const server = ProductFactory.create('name', 'gameItemName', 'categoryId', 'image', 100, 'serverId');
     expect(server.id).not.toBeNull();
     expect(server.name).toBe('name');
+    expect(server.gameItemName).toBe('gameItemName');
     expect(server.categoryId).toBe('categoryId');
     expect(server.image).toBe('image');
     expect(server.price).toBe(100);
@@ -13,9 +14,10 @@ describe('Product factory unit test', () => {
   });
 
   it('should create a server with id', () => {
-    const server = ProductFactory.create('name', 'categoryId', 'image', 100, 'serverId', 'id');
+    const server = ProductFactory.create('name', 'gameItemName', 'categoryId', 'image', 100, 'serverId', 'id');
     expect(server.id).toEqual('id');
     expect(server.name).toBe('name');
+    expect(server.gameItemName).toBe('gameItemName');
     expect(server.categoryId).toBe('categoryId');
     expect(server.image).toBe('image');
     expect(server.price).toBe(100);
