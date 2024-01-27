@@ -1,7 +1,7 @@
 import { Request, Response, Router } from 'express';
-import Auth from '../../middleware/auth';
+// import Auth from '../../middleware/auth';
 import UserRouteInterface from './user.route.interface';
-import BuyUserUsecaseFactory from '../../../usecase/user/buy/buy.user.usecase.factory';
+// import BuyUserUsecaseFactory from '../../../usecase/user/buy/buy.user.usecase.factory';
 import ForgotPasswordUserUsecaseFactory from '../../../usecase/user/forgotPassword/forgotPassword.user.usecase.factory';
 import FindUserUsecaseFactory from '../../../usecase/user/find/find.user.usecase.factory';
 import UpdateUserUsecaseFactory from '../../../usecase/user/update/update.user.usecase.factory';
@@ -20,7 +20,7 @@ class UserRoute implements UserRouteInterface {
     this.updateUser();
     this.findUser();
     this.forgotPassword();
-    this.buyProduct();
+    // this.buyProduct();
   }
 
   findAllUser() {
@@ -132,52 +132,52 @@ class UserRoute implements UserRouteInterface {
     });
   }
 
-  buyProduct() {
-    this.router.post(
-      '/buyProduct/:userId',
-      Auth.verifyToken,
-      async (req: Request, res: Response) => {
-        const useCase = BuyUserUsecaseFactory.create();
+  // buyProduct() {
+  //   this.router.post(
+  //     '/buyProduct/:userId',
+  //     Auth.verifyToken,
+  //     async (req: Request, res: Response) => {
+  //       const useCase = BuyUserUsecaseFactory.create();
 
-        const { userId } = req.params;
-        const {
-          productId,
-          installments,
-          token,
-          functions,
-          gameUserId,
-          gameItemName,
-          cardInfos: { cardNumber, holderName, expMonth, expYear, cvv },
-        } = req.body;
+  //       const { userId } = req.params;
+  //       const {
+  //         productId,
+  //         installments,
+  //         token,
+  //         functions,
+  //         gameUserId,
+  //         gameItemName,
+  //         cardInfos: { cardNumber, holderName, expMonth, expYear, cvv },
+  //       } = req.body;
 
-        const userDto = {
-          userId,
-          productId,
-          installments,
-          token,
-          functions,
-          gameUserId,
-          gameItemName,
-          cardInfos: {
-            cardNumber: cardNumber,
-            holderName: holderName,
-            expMonth: expMonth,
-            expYear: expYear,
-            cvv: cvv,
-          },
-        };
+  //       const userDto = {
+  //         userId,
+  //         productId,
+  //         installments,
+  //         token,
+  //         functions,
+  //         gameUserId,
+  //         gameItemName,
+  //         cardInfos: {
+  //           cardNumber: cardNumber,
+  //           holderName: holderName,
+  //           expMonth: expMonth,
+  //           expYear: expYear,
+  //           cvv: cvv,
+  //         },
+  //       };
 
-        try {
-          const output = await useCase.execute(userDto);
-          res.send(output);
-        } catch (error) {
-          if (error instanceof Error) {
-            res.status(500).send({ error: error.message });
-          }
-        }
-      },
-    );
-  }
+  //       try {
+  //         const output = await useCase.execute(userDto);
+  //         res.send(output);
+  //       } catch (error) {
+  //         if (error instanceof Error) {
+  //           res.status(500).send({ error: error.message });
+  //         }
+  //       }
+  //     },
+  //   );
+  // }
 }
 
 export default new UserRoute().router;

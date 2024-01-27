@@ -5,5 +5,5 @@ export default interface UserRouteInterface {
   updateUser(): void;
   findUser(): void;
   forgotPassword(): void;
-  buyProduct(): void;
+  // buyProduct(): void;
 }
