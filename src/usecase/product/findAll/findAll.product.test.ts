@@ -12,12 +12,11 @@ describe('FindAllProductUseCase', () => {
 
   beforeEach(() => {
     findAllProductUseCase = new FindAllProductUseCase(
-      productRepositoryMock as unknown as ProductRepositoryInterface
+      productRepositoryMock as unknown as ProductRepositoryInterface,
     );
   });
 
   it('should retrieve all products and return them', async () => {
-
     const input: InputFindAllProductDto = {
       serverId: 'server1',
       sort: 'asc',
@@ -46,22 +45,28 @@ describe('FindAllProductUseCase', () => {
     const result = await findAllProductUseCase.execute(input);
 
     expect(productRepositoryMock.findAll).toHaveBeenCalledWith(
-      input.serverId, input.categoryId, input.sort
+      input.serverId,
+      input.categoryId,
+      input.sort,
     );
 
-    expect(result).toEqual(mockProducts.map(product => ({
-      id: product.id,
-      name: product.name,
-      gameItemName: product.gameItemName,
-      categoryId: product.categoryId,
-      image: product.image,
-      price: product.price,
-      serverId: product.serverId,
-      category: product.category ? {
-        id: product.category.id,
-        name: product.category.name,
-        functionInGame: product.category.functionInGame,
-      } : null,
-    })));
+    expect(result).toEqual(
+      mockProducts.map((product) => ({
+        id: product.id,
+        name: product.name,
+        gameItemName: product.gameItemName,
+        categoryId: product.categoryId,
+        image: product.image,
+        price: product.price,
+        serverId: product.serverId,
+        category: product.category
+          ? {
+              id: product.category.id,
+              name: product.category.name,
+              functionInGame: product.category.functionInGame,
+            }
+          : null,
+      })),
+    );
   });
 });

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import User from './user.entity';
 
-describe('User unit tests', () => {
+describe('User entity unit tests', () => {
   it('should create a user', () => {
     const user = new User('id', 'name', 'gameUserId', 'email@gmail.com', 'password');
     expect(user.id).toBe('id');

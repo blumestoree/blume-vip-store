@@ -15,7 +15,6 @@ vi.mock('@prisma/client', () => {
   return { PrismaClient: vi.fn(() => prismaMock) };
 });
 
-
 describe('Product repository unit tests', () => {
   let productRepository: ProductRepository;
   let prisma: PrismaClient;
@@ -27,12 +26,12 @@ describe('Product repository unit tests', () => {
 
   it('should create a product', async () => {
     const productMock = ProductFactory.create(
-        'name',
-        'gameItemName',
-        'categoryId',
-        'image',
-        100,
-        'serverId',
+      'name',
+      'gameItemName',
+      'categoryId',
+      'image',
+      100,
+      'serverId',
     );
 
     await productRepository.create(productMock);
@@ -49,5 +48,4 @@ describe('Product repository unit tests', () => {
       },
     });
   });
-
 });

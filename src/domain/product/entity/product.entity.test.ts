@@ -3,7 +3,15 @@ import Product from './product.entity';
 
 describe('Product unit tests', () => {
   it('should create a product', () => {
-    const server = new Product('id', 'name', 'gameItemName', 'categoryId', 'image', 100, 'serverId');
+    const server = new Product(
+      'id',
+      'name',
+      'gameItemName',
+      'categoryId',
+      'image',
+      100,
+      'serverId',
+    );
     expect(server.id).toBe('id');
     expect(server.name).toBe('name');
     expect(server.gameItemName).toBe('gameItemName');

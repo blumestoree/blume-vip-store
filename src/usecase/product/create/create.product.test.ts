@@ -14,20 +14,20 @@ const uploadImageMock = {
 };
 
 vi.mock('../../../domain/product/factory/product.factory', async () => {
-	return {
-	  default: {
-		create: () => ({
-		  id: '123',
-		  name: "Produto Teste",
-		  gameItemName: "Item de Jogo",
-		  categoryId: "cat123",
-		  image: "imagem.jpg",
-		  price: 100,
-		  serverId: "server1",
-		}),
-	  },
-	};
-  });
+  return {
+    default: {
+      create: () => ({
+        id: '123',
+        name: 'Produto Teste',
+        gameItemName: 'Item de Jogo',
+        categoryId: 'cat123',
+        image: 'imagem.jpg',
+        price: 100,
+        serverId: 'server1',
+      }),
+    },
+  };
+});
 
 describe('CreateProductUseCase', () => {
   let createProductUseCase: CreateProductUseCase;
@@ -35,52 +35,52 @@ describe('CreateProductUseCase', () => {
   beforeEach(() => {
     createProductUseCase = new CreateProductUseCase(
       productRepositoryMock as unknown as ProductRepositoryInterface,
-      uploadImageMock as unknown as UploadImageInterface
+      uploadImageMock as unknown as UploadImageInterface,
     );
   });
 
   it('should create a product and return it`s data', async () => {
-	const input: InputCreateProductDto = {
-		name: "Produto Teste",
-		gameItemName: "Item de Jogo",
-		image: "imagem.jpg",
-		categoryId: "cat123",
-		price: 100,
-		serverId: "server1",
-	  };
+    const input: InputCreateProductDto = {
+      name: 'Produto Teste',
+      gameItemName: 'Item de Jogo',
+      image: 'imagem.jpg',
+      categoryId: 'cat123',
+      price: 100,
+      serverId: 'server1',
+    };
 
-	productRepositoryMock.find.mockResolvedValueOnce({
-		id: '123',
-		name: input.name,
-		gameItemName: input.gameItemName,
-		categoryId: input.categoryId,
-		image: input.image,
-		price: input.price,
-		serverId: input.serverId,
-		category: {
-		  id: "cat123",
-		  name: "Categoria Teste",
-		  functionInGame: "Função no Jogo",
-		},
-	  });
+    productRepositoryMock.find.mockResolvedValueOnce({
+      id: '123',
+      name: input.name,
+      gameItemName: input.gameItemName,
+      categoryId: input.categoryId,
+      image: input.image,
+      price: input.price,
+      serverId: input.serverId,
+      category: {
+        id: 'cat123',
+        name: 'Categoria Teste',
+        functionInGame: 'Função no Jogo',
+      },
+    });
 
     const result = await createProductUseCase.execute(input);
 
     expect(productRepositoryMock.create).toHaveBeenCalled();
-	expect(uploadImageMock.sendImage).toHaveBeenCalledWith(input.image);
+    expect(uploadImageMock.sendImage).toHaveBeenCalledWith(input.image);
     expect(result).toEqual({
-		id: "123",
-		name: input.name,
-		gameItemName: input.gameItemName,
-		categoryId: input.categoryId,
-		image: input.image,
-		price: input.price,
-		serverId: input.serverId,
-		category: {
-		  id: "cat123",
-		  name: "Categoria Teste",
-		  functionInGame: "Função no Jogo",
-		},
-	  });
+      id: '123',
+      name: input.name,
+      gameItemName: input.gameItemName,
+      categoryId: input.categoryId,
+      image: input.image,
+      price: input.price,
+      serverId: input.serverId,
+      category: {
+        id: 'cat123',
+        name: 'Categoria Teste',
+        functionInGame: 'Função no Jogo',
+      },
+    });
   });
 });
