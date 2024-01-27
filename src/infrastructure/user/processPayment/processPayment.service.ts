@@ -7,8 +7,7 @@ export default class ProcessPayment implements ProcessPaymentInterface {
     try {
       const response = await axios.post(`${env.API_PAGARME_ENDPOINT}/orders`, paymentData, {
         headers: {
-          Authorization:
-            'Basic ' + Buffer.from(env.API_KEY_PAGARME + ':').toString('base64'),
+          Authorization: 'Basic ' + Buffer.from(env.API_KEY_PAGARME + ':').toString('base64'),
           'Content-Type': 'application/json',
         },
       });

@@ -13,7 +13,7 @@ export default class ProductValidator implements ValidatorInterface<Product> {
       _category: z.any(),
       _image: z.string(),
       _serverId: z.string(),
-      _gameItemName: z.string()
+      _gameItemName: z.string(),
     });
     try {
       productSchema.parse(entity);

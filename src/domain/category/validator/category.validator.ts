@@ -10,7 +10,7 @@ export default class CategoryValidator implements ValidatorInterface<Category> {
       _name: z.string().min(2, 'Nome inválido'),
       _functionInGame: z.string(),
       _serverId: z.string(),
-      _products: z.any()
+      _products: z.any(),
     });
     try {
       categorySchema.parse(entity);
