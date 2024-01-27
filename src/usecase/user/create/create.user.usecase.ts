@@ -15,7 +15,7 @@ export default class CreateUserUseCase
     await this.userRepository.create(user);
 
     const token = AuthTokenUsecaseFactory.create().createToken(user.name);
-    // const refreshToken = await AuthTokenUsecaseFactory.create().createRefreshToken(user.id);
+    const refreshToken = await AuthTokenUsecaseFactory.create().createRefreshToken(user.id);
 
     return {
       id: user.id,
@@ -23,7 +23,7 @@ export default class CreateUserUseCase
       gameUserId: user.gameUserId,
       email: user.email,
       token,
-      // refreshToken,
+      refreshToken,
     };
   }
 }

@@ -29,7 +29,7 @@ vi.mock('../../../domain/product/factory/product.factory', async () => {
   };
 });
 
-describe('CreateProductUseCase', () => {
+describe('Create product usecase entity unit tests', () => {
   let createProductUseCase: CreateProductUseCase;
 
   beforeEach(() => {
