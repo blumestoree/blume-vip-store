@@ -1,7 +1,7 @@
 import CrypterInterface from '../../../shared/crypter.interface';
 import bcrypt from 'bcrypt';
 
-export default class UserOwnerCrypter implements CrypterInterface {
+export default class UserCrypter implements CrypterInterface {
   private _saltRounds = 10;
 
   crypter(text: string): string {

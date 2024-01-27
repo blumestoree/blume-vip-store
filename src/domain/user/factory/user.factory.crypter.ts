@@ -1,5 +1,5 @@
 import CrypterInterface from '../../../shared/crypter.interface';
-import UserCrypter from '../../serverOwner/crypter/serverOwner.crypter';
+import UserCrypter from '../crypter/user.crypter';
 
 export default class UserCrypterFactory {
   static create(): CrypterInterface {
