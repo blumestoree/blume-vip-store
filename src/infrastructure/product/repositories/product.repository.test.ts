@@ -1,27 +1,23 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { PrismaClient } from '@prisma/client';
 import ProductRepository from './product.repository';
 import ProductFactory from '../../../domain/product/factory/product.factory';
 
-vi.mock('@prisma/client', () => {
-  const prismaMock = {
+vi.mock('@prisma/client', () => ({
+  PrismaClient: vi.fn().mockImplementation(() => ({
     product: {
-      create: vi.fn(),
-      update: vi.fn(),
-      findMany: vi.fn(),
-      findUniqueOrThrow: vi.fn(),
+      create: vi.fn().mockResolvedValue({}),
+      update: vi.fn().mockResolvedValue({}),
+      findMany: vi.fn().mockResolvedValue([]),
+      findUniqueOrThrow: vi.fn().mockResolvedValue({}),
     },
-  };
-  return { PrismaClient: vi.fn(() => prismaMock) };
-});
+  })),
+}));
 
 describe('Product repository unit tests', () => {
   let productRepository: ProductRepository;
-  let prisma: PrismaClient;
 
   beforeEach(() => {
     productRepository = new ProductRepository();
-    prisma = new PrismaClient();
   });
 
   it('should create a product', async () => {
@@ -36,7 +32,7 @@ describe('Product repository unit tests', () => {
 
     await productRepository.create(productMock);
 
-    expect(prisma.product.create).toHaveBeenCalledWith({
+    expect(productRepository.prisma.product.create).toHaveBeenCalledWith({
       data: {
         productId: productMock.id,
         name: productMock.name,
