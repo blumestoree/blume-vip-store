@@ -8,6 +8,8 @@ export default class ServerValidator implements ValidatorInterface<Server> {
     const serverSchema = z.object({
       _id: z.string(),
       _name: z.string().min(1, 'Nome inválido'),
+      _image: z.string(),
+      _banner: z.string().array(),
       _serverOwnerId: z.string(),
     });
     try {
