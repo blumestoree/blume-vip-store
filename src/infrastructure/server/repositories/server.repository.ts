@@ -15,6 +15,8 @@ export default class ServerRepository implements ServerRepositoryInterface {
       data: {
         serverId: entity.id,
         name: entity.name,
+        image: entity.image,
+        banner: entity.banner,
         serverOwnerId: entity.serverOwnerId,
       },
     });
@@ -26,6 +28,8 @@ export default class ServerRepository implements ServerRepositoryInterface {
       data: {
         serverId: entity.id,
         name: entity.name,
+        image: entity.image,
+        banner: entity.banner,
         serverOwnerId: entity.serverOwnerId,
       },
     });
@@ -34,7 +38,13 @@ export default class ServerRepository implements ServerRepositoryInterface {
   async findAll(): Promise<Server[]> {
     const servers = await this.prisma.server.findMany();
     return servers.map((server) => {
-      return ServerFactory.create(server.name, server.serverOwnerId, server.serverId);
+      return ServerFactory.create(
+        server.name,
+        server.image,
+        server.banner,
+        server.serverOwnerId,
+        server.serverId,
+      );
     });
   }
 
@@ -49,6 +59,12 @@ export default class ServerRepository implements ServerRepositoryInterface {
       throw new Error('Server not found');
     }
 
-    return ServerFactory.create(server.name, server.serverOwnerId, server.serverId);
+    return ServerFactory.create(
+      server.name,
+      server.image,
+      server.banner,
+      server.serverOwnerId,
+      server.serverId,
+    );
   }
 }
