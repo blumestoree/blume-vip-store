@@ -20,6 +20,8 @@ model Server {
   id            Int         @default(autoincrement())
   serverId      String      @id @unique
   name          String      @unique
+  banner        String
+  image         String[]
   serverOwner   ServerOwner @relation(fields: [serverOwnerId], references: [serverOwnerId])
   serverOwnerId String      @unique
   product       Product[]
