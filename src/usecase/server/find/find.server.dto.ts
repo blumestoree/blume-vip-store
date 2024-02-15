@@ -4,5 +4,7 @@ export interface InputFindServerDto {
 export interface OutputFindServerDto {
   id: string;
   name: string;
+  image: string;
+  banner: string[];
   serverOwnerId: string;
 }

@@ -12,6 +12,8 @@ export default class FindServerUseCase
     return {
       id: server.id,
       name: server.name,
+      image: server.image,
+      banner: server.banner,
       serverOwnerId: server.serverOwnerId,
     };
   }
