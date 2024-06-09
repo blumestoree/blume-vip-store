@@ -8,26 +8,25 @@ datasource db {
 }
 
 model ServerOwner {
-  id            Int     @default(autoincrement())
-  serverOwnerId String  @id @unique
+  id            Int      @default(autoincrement())
+  serverOwnerId String   @id @unique
   name          String
-  email         String  @unique
+  email         String   @unique
   password      String
-  serverId      Server?
+  server        Server[]
 }
 
 model Server {
-  id            Int         @default(autoincrement())
-  serverId      String      @id @unique
-  name          String      @unique
+  id            Int            @default(autoincrement())
+  serverId      String         @id @unique
+  name          String         @unique
   banner        String[]
   image         String
-  serverOwner   ServerOwner @relation(fields: [serverOwnerId], references: [serverOwnerId])
-  serverOwnerId String      @unique
+  serverOwner   ServerOwner    @relation(fields: [serverOwnerId], references: [serverOwnerId])
+  serverOwnerId String         @unique
   product       Product[]
-  user          User?       @relation(fields: [userId], references: [userId])
-  userId        String?
   category      Category[]
+  userOnServer  UserOnServer[]
 }
 
 model Product {
@@ -39,22 +38,18 @@ model Product {
   price        Float
   server       Server    @relation(fields: [serverId], references: [serverId])
   serverId     String
-  user         User?     @relation(fields: [userId], references: [userId])
-  userId       String?
-  payments     Payment[]
+  payment      Payment[]
   category     Category  @relation(fields: [categoryId], references: [categoryId])
   categoryId   String
 }
 
 model User {
-  id           Int           @default(autoincrement())
-  userId       String        @id @unique
-  gameUserId   String
+  id           Int            @default(autoincrement())
+  userId       String         @id @unique
   name         String
-  email        String        @unique
+  email        String         @unique
   password     String
-  product      Product[]
-  server       Server[]
+  userOnServer UserOnServer[]
   payment      Payment[]
   refreshToken RefreshToken?
 }
@@ -63,9 +58,10 @@ model Payment {
   id        Int       @default(autoincrement())
   paymentId String    @id @unique
   amount    Int
+  total     Int
+  product   Product[]
   user      User      @relation(fields: [userId], references: [userId])
   userId    String
-  products  Product[]
 }
 
 model RefreshToken {
@@ -83,4 +79,15 @@ model Category {
   server         Server    @relation(fields: [serverId], references: [serverId])
   serverId       String
   product        Product[]
+}
+
+model UserOnServer {
+  id         Int    @id @default(autoincrement())
+  user       User   @relation(fields: [userId], references: [userId])
+  userId     String
+  server     Server @relation(fields: [serverId], references: [serverId])
+  serverId   String
+  gameUserId String
+
+  @@unique([userId, serverId])
 }
