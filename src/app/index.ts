@@ -16,7 +16,7 @@ interface IServer {
 
 class Server implements IServer {
   app: express.Application;
-  port: string | number;
+  port: number | string;
 
   constructor() {
     this.app = express();
