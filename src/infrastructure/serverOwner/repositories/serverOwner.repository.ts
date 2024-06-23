@@ -17,6 +17,9 @@ export default class ServerOwnerRepository implements ServerOwnerRepositoryInter
         name: entity.name,
         email: entity.email,
         password: entity.password,
+        server: {
+          create: []
+        },
       },
     });
   }
