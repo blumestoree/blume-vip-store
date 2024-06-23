@@ -7,8 +7,8 @@ export default class ServerOwnerFactory {
     email: string,
     password: string,
     id?: string,
-    serverId?: string,
+    servers?: string[],
   ): ServerOwner {
-    return new ServerOwner(id || uuid(), name, email, password, serverId);
+    return new ServerOwner(id || uuid(), name, email, password, servers || []);
   }
 }

@@ -7,11 +7,11 @@ export default class ServerOwner {
   private _password: string;
   private _servers: string[];
 
-  constructor(id: string, name: string, email: string, password: string, _servers: []) {
+  constructor(id: string, name: string, email: string, password: string, servers: string[]) {
     this._id = id;
     this._name = name;
     this._email = email;
-    this._servers = _servers;
+    this._servers = servers;
     this._password = ServerOwnerCrypterFactory.create().crypter(password);
     this._validate();
   }
