@@ -5,5 +5,5 @@ export interface OutputFindServerOwnerDto {
   id: string;
   name: string;
   email: string;
-  serverId?: string;
+  servers: string[];
 }
