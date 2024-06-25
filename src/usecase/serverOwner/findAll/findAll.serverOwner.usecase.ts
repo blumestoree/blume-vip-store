@@ -14,7 +14,7 @@ export default class FindAllServerOwnerUseCase
         id: serverOwner.id,
         name: serverOwner.name,
         email: serverOwner.email,
-        serverId: serverOwner.serverId,
+        server: serverOwner.servers,
       };
     });
   }

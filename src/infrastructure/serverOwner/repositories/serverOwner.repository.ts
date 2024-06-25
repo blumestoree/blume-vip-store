@@ -39,7 +39,7 @@ export default class ServerOwnerRepository implements ServerOwnerRepositoryInter
   async findAll(): Promise<ServerOwner[]> {
     const serverOwners = await this.prisma.serverOwner.findMany({
       include: {
-        serverId: true,
+        server: true,
       },
     });
 
