@@ -17,7 +17,7 @@ export default class UpdateServerOwnerUseCase
       id: serverOwner.id,
       name: serverOwner.name,
       email: serverOwner.email,
-      serverId: serverOwner.serverId,
+      server: serverOwner.servers,
     };
   }
 }

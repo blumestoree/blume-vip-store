@@ -49,7 +49,7 @@ export default class ServerOwnerRepository implements ServerOwnerRepositoryInter
         serverOwner.email,
         serverOwner.password,
         serverOwner.serverOwnerId,
-        serverOwner.serverId?.serverId,
+        serverOwner.server.map((server) => server.serverId),
       );
     });
   }
