@@ -51,14 +51,14 @@ class ServerOwnerRoute {
 
   async updateServerOwner(req: Request, res: Response) {
     const useCase = UpdateServerOwnerUsecaseFactory.create();
-    const { name, email, password, serverId } = req.body;
+    const { name, email, password, server } = req.body;
     const { id } = req.params;
     const serverOwnerDto = {
       id,
       name,
       email,
       password,
-      serverId,
+      server,
     };
     try {
       const output = await useCase.execute(serverOwnerDto);
