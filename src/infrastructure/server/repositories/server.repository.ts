@@ -45,14 +45,20 @@ export default class ServerRepository implements ServerRepositoryInterface {
   }
 
   async findAll(): Promise<Server[]> {
-    const servers = await this.prisma.server.findMany();
+    const servers = await this.prisma.server.findMany({
+      include: {
+        product: true,
+        category: true,
+      }
+    });
     return servers.map((server) => {
       return ServerFactory.create(
         server.name,
         server.image,
         server.banner,
         server.serverOwnerId,
-        server.serverId,
+        server.product.map((product) => product.productId),
+        server.category.map((category) => category.categoryId),
       );
     });
   }

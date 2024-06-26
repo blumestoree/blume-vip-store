@@ -15,6 +15,8 @@ export default class FindServerUseCase
       image: server.image,
       banner: server.banner,
       serverOwnerId: server.serverOwnerId,
+      product: server.product,
+      category: server.category,
     };
   }
 }

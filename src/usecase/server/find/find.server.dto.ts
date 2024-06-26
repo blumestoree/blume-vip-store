@@ -7,4 +7,6 @@ export interface OutputFindServerDto {
   image: string;
   banner: string[];
   serverOwnerId: string;
+  product: string[];
+  category: string[];
 }
