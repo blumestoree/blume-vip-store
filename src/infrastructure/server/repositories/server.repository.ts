@@ -18,6 +18,15 @@ export default class ServerRepository implements ServerRepositoryInterface {
         image: entity.image,
         banner: entity.banner,
         serverOwnerId: entity.serverOwnerId,
+        product: {
+          create: [],
+        },
+        category: {
+          create: [],
+        },
+        userOnServer: {
+          create: [],
+        },
       },
     });
   }

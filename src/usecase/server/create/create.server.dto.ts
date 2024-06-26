@@ -3,6 +3,8 @@ export interface InputCreateServerDto {
   image: string;
   banner: string[];
   serverOwnerId: string;
+  product: string[];
+  category: string[];
 }
 export interface OutputCreateServerDto {
   id: string;
@@ -10,4 +12,6 @@ export interface OutputCreateServerDto {
   image: string;
   banner: string[];
   serverOwnerId: string;
+  product: string[];
+  category: string[];
 }
