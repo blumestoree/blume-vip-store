@@ -69,6 +69,10 @@ export default class ServerRepository implements ServerRepositoryInterface {
     try {
       server = await this.prisma.server.findUniqueOrThrow({
         where: { serverId },
+        include: {
+          product: true,
+          category: true,
+        }
       });
     } catch (error) {
       throw new Error('Server not found');
@@ -79,7 +83,8 @@ export default class ServerRepository implements ServerRepositoryInterface {
       server.image,
       server.banner,
       server.serverOwnerId,
-      server.serverId,
+      server.product.map((product) => product.productId),
+      server.category.map((category) => category.categoryId),
     );
   }
 }

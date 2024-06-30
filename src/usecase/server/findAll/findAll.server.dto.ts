@@ -4,4 +4,6 @@ export interface OutputFindAllServerDto {
   image: string;
   banner: string[];
   serverOwnerId: string;
+  product: string[];
+  category: string[];
 }

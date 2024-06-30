@@ -16,6 +16,8 @@ export default class FindAllServerUseCase
         image: server.image,
         banner: server.banner,
         serverOwnerId: server.serverOwnerId,
+        product: server.product,
+        category: server.category,
       };
     });
   }
