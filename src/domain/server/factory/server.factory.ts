@@ -7,10 +7,10 @@ export default class ServerFactory {
     image: string,
     banner: string[],
     serverOwnerId: string,
-    product: string[],
-    category: string[],
     id?: string,
+    products?: string[],
+    categories?: string[],
   ): Server {
-    return new Server(id || uuid(), name, image, banner, serverOwnerId, product, category);
+    return new Server(id || uuid(), name, image, banner, serverOwnerId, products || [], categories || []);
   }
 }
