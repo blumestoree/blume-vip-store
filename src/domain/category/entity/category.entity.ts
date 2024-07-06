@@ -1,19 +1,17 @@
-import Product from '../../product/entity/product.entity';
 import CategoryValidatorFactory from '../factory/category.factory.validator';
-
 export default class Category {
   private _id: string;
   private _name: string;
   private _functionInGame: string;
   private _serverId: string;
-  private _products?: Product[];
+  private _products: string[];
 
   constructor(
     id: string,
     name: string,
     functionInGame: string,
     serverId: string,
-    products?: Product[],
+    products: string[],
   ) {
     this._id = id;
     this._name = name;
@@ -39,7 +37,7 @@ export default class Category {
     return this._serverId;
   }
 
-  get products(): Product[] | undefined {
+  get products(): string[] {
     return this._products;
   }
 
