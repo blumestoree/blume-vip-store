@@ -54,10 +54,13 @@ class ServerRoute {
 
   async createServer(req: Request, res: Response) {
       const useCase = CreateServerUsecaseFactory.create();
-      const { name, serverOwnerId } = req.body;
+      const { name, serverOwnerId, banner, image } = req.body;
+
       const serverDto = {
         name,
         serverOwnerId,
+        banner,
+        image
       };
       try {
         const output = await useCase.execute(serverDto);
@@ -71,12 +74,15 @@ class ServerRoute {
 
   async updateServer(req: Request, res: Response) {
     const useCase = UpdateServerUsecaseFactory.create();
-    const { name, serverOwnerId } = req.body;
+    const { name, serverOwnerId, banner, image } = req.body;
+
     const { id } = req.params;
     const serverDto = {
       id,
       name,
       serverOwnerId,
+      banner,
+      image
     };
     try {
       const output = await useCase.execute(serverDto);
