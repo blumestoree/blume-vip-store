@@ -19,6 +19,8 @@ export default class UpdateServerUseCase
       image: server.image,
       banner: server.banner,
       serverOwnerId: server.serverOwnerId,
+      products: server.products,
+      categories: server.categories,
     };
   }
 }

@@ -11,4 +11,6 @@ export interface OutputCreateServerDto {
   image: string;
   banner: string[];
   serverOwnerId: string;
+  products: string[];
+  categories: string[];
 }
