@@ -57,6 +57,7 @@ export default class ServerRepository implements ServerRepositoryInterface {
         server.image,
         server.banner,
         server.serverOwnerId,
+        server.serverId,
         server.product.map((product) => product.productId),
         server.category.map((category) => category.categoryId),
       );
@@ -83,6 +84,7 @@ export default class ServerRepository implements ServerRepositoryInterface {
       server.image,
       server.banner,
       server.serverOwnerId,
+      server.serverId,
       server.product.map((product) => product.productId),
       server.category.map((category) => category.categoryId),
     );
