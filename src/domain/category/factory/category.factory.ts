@@ -1,3 +1,4 @@
+import Product from '../../product/entity/product.entity';
 import Category from '../entity/category.entity';
 import { v4 as uuid } from 'uuid';
 export default class CategoryFactory {
@@ -6,7 +7,7 @@ export default class CategoryFactory {
     functionInGame: string,
     serverId: string,
     id?: string,
-    products?: string[],
+    products?: Product[],
   ): Category {
     return new Category(id || uuid(), name, functionInGame, serverId, products || []);
   }
