@@ -6,22 +6,22 @@ export default class ProductFactory {
   static create(
     name: string,
     gameItemName: string,
-    categoryId: string,
     image: string,
     price: number,
     serverId: string,
+    category: Category,
+    paymentsId: string[],
     id?: string,
-    category?: Category,
   ): Product {
     return new Product(
       id || uuid(),
       name,
       gameItemName,
-      categoryId,
       image,
       price,
       serverId,
       category,
+      paymentsId
     );
   }
 }
