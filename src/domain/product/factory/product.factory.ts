@@ -10,7 +10,7 @@ export default class ProductFactory {
     price: number,
     serverId: string,
     category: Category,
-    paymentsId: string[],
+    paymentsId?: string[],
     id?: string,
   ): Product {
     return new Product(
@@ -21,7 +21,7 @@ export default class ProductFactory {
       price,
       serverId,
       category,
-      paymentsId
+      paymentsId || []
     );
   }
 }
