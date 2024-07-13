@@ -10,8 +10,8 @@ export default class ProductFactory {
     price: number,
     serverId: string,
     category: Category,
-    paymentsId?: string[],
     id?: string,
+    paymentsId?: string[],
   ): Product {
     return new Product(
       id || uuid(),

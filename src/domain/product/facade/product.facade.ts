@@ -12,7 +12,7 @@ export default class ProductFacade implements ProductFacadeInterface {
     >,
   ) {}
 
-  findProductsByIds(input: InputFindProductsFacadeDto): Promise<OutputFindProductsFacadeDto[]> {
+  findProductsByIds(input: InputFindProductsFacadeDto) {
     return this.productUseCase.execute(input);
   }
 }
