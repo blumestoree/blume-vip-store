@@ -4,29 +4,29 @@ export default class Product {
   private _id: string;
   private _price: number;
   private _name: string;
-  private _categoryId: string;
-  private _category?: Category;
+  private _category: Category;
   private _image: string;
   private _serverId: string;
   private _gameItemName: string;
+  private _paymentsId: string[];
 
   constructor(
     id: string,
     name: string,
     gameItemName: string,
-    categoryId: string,
     image: string,
     price: number,
     serverId: string,
-    category?: Category,
+    category: Category,
+    paymentsId: string[]
   ) {
     this._name = name;
     this._gameItemName = gameItemName;
     this._price = price;
     this._image = image;
     this._serverId = serverId;
-    this._categoryId = categoryId;
     this._category = category;
+    this._paymentsId = paymentsId;
     this._id = id;
     this.validate();
   }
@@ -51,8 +51,8 @@ export default class Product {
     return this._name;
   }
 
-  get categoryId(): string {
-    return this._categoryId;
+  get paymentsId(): string[] {
+    return this._paymentsId;
   }
 
   get category(): Category | undefined {
