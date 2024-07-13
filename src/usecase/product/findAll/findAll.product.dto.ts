@@ -7,7 +7,6 @@ export interface OutputFindAllProductDto {
   id: string;
   name: string;
   gameItemName: string;
-  categoryId: string;
   image: string;
   price: number;
   serverId: string;
@@ -15,5 +14,5 @@ export interface OutputFindAllProductDto {
     functionInGame: string;
     id: string;
     name: string;
-  } | null;
+  };
 }

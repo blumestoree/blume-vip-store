@@ -13,7 +13,17 @@ export default class FindAllProductUseCase
       input.categoryId,
       input.sort,
     );
+
+    if (!allProducts) {
+      throw new Error('Product not found');
+    }
+
     return allProducts.map((product) => {
+      
+      if (!product.category) {
+        throw new Error(`Category not found for product with id ${product.id}`);
+      }
+
       return {
         id: product.id,
         name: product.name,
@@ -21,14 +31,11 @@ export default class FindAllProductUseCase
         image: product.image,
         price: product.price,
         serverId: product.serverId,
-        categoryId: product.categoryId,
-        category: product.category
-          ? {
-              id: product.category.id,
-              name: product.category.name,
-              functionInGame: product.category.functionInGame,
-            }
-          : null,
+        category: {
+          id: product.category.id,
+          name: product.category.name,
+          functionInGame: product.category.functionInGame,
+        }
       };
     });
   }

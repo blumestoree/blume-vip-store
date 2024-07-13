@@ -9,21 +9,27 @@ export default class FindProductUseCase
 
   async execute(input: InputFindProductDto): Promise<OutputFindProductDto> {
     const product = await this.productRepository.find(input.id);
+
+    if (!product) {
+      throw new Error('Product not found');
+    }
+
+    if (!product.category) {
+      throw new Error('Category not found for the product');
+    }
+
     return {
       id: product.id,
       name: product.name,
       gameItemName: product.gameItemName,
       image: product.image,
       price: product.price,
-      categoryId: product.categoryId,
       serverId: product.serverId,
-      category: product.category
-        ? {
+      category:  {
             id: product.category.id,
             name: product.category.name,
             functionInGame: product.category.functionInGame,
-          }
-        : null,
+          },
     };
   }
 }

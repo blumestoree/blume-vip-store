@@ -10,7 +10,6 @@ export interface OutputCreateProductDto {
   id: string;
   name: string;
   gameItemName: string;
-  categoryId: string;
   image: string;
   price: number;
   serverId: string;
@@ -18,5 +17,5 @@ export interface OutputCreateProductDto {
     id: string;
     name: string;
     functionInGame: string;
-  } | null;
+  };
 }
