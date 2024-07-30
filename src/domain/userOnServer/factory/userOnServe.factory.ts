@@ -3,12 +3,12 @@ import { v4 as uuid } from 'uuid';
 
 export default class UserOnServerFactory {
   static create(
-    userId: string[],
-    serverId: string[],
+    users: string[],
+    servers: string[],
     gameUserId: string,
     nickname: string,
     id?: string
   ): userOnServer {
-    return new userOnServer(id || uuid(), userId, serverId, gameUserId, nickname);
+    return new userOnServer(id || uuid(), users, servers, gameUserId, nickname);
   }
 }
