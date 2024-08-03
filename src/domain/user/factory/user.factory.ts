@@ -7,8 +7,11 @@ export default class UserFactory {
     gameUserId: string,
     email: string,
     password: string,
+    userOnServer: string[],
+    payment: string[],
     id?: string,
+    refreshToken?: string
   ): User {
-    return new User(id || uuid(), name, gameUserId, email, password);
+    return new User(id || uuid(), name, gameUserId, email, password, userOnServer || [], payment || [], refreshToken);
   }
 }

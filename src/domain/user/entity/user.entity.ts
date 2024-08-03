@@ -7,13 +7,19 @@ export default class User {
   private _gameUserId: string;
   private _password: string;
   private _email: string;
+  private _userOnServer: string[];
+  private _payment: string[];
+  private _refreshToken?: string;
 
-  constructor(id: string, name: string, gameUserId: string, email: string, password: string) {
+  constructor(id: string, name: string, gameUserId: string, email: string, password: string, userOnServer: string[], payment: string[], refreshToken?: string) {
     this._id = id;
     this._name = name;
     this._gameUserId = gameUserId;
     this._password = password;
     this._email = email;
+    this._userOnServer = userOnServer;
+    this._payment = payment;
+    this._refreshToken = refreshToken;
     this._validate();
   }
 
@@ -23,6 +29,18 @@ export default class User {
 
   get name(): string {
     return this._name;
+  }
+
+  get userOnServer(): string[] {
+    return this._userOnServer;
+  }
+
+  get payment(): string[] {
+    return this._payment;
+  }
+
+  get refreshToken(): string | undefined {
+    return this._refreshToken;
   }
 
   get gameUserId(): string {
