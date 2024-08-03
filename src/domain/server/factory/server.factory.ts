@@ -10,7 +10,8 @@ export default class ServerFactory {
     id?: string,
     products?: string[],
     categories?: string[],
+    userOnServer?: string[],
   ): Server {
-    return new Server(id || uuid(), name, image, banner, serverOwnerId, products || [], categories || []);
+    return new Server(id || uuid(), name, image, banner, serverOwnerId, products || [], categories || [], userOnServer || []);
   }
 }

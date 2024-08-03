@@ -7,8 +7,9 @@ export default class Server {
   private _serverOwnerId: string;
   private _products: string[];
   private _categories: string[];
+  private _userOnServer: string[];
 
-  constructor(id: string, name: string, image: string, banner: string[], serverOwnerId: string, products: string[], categories: string[]) {
+  constructor(id: string, name: string, image: string, banner: string[], serverOwnerId: string, products: string[], categories: string[], userOnServer: string[]) {
     this._id = id;
     this._name = name;
     this._image = image;
@@ -16,6 +17,7 @@ export default class Server {
     this._serverOwnerId = serverOwnerId;
     this._products = products
     this._categories = categories
+    this._userOnServer = userOnServer
     this._validate();
   }
 
@@ -41,6 +43,10 @@ export default class Server {
 
   get serverOwnerId(): string {
     return this._serverOwnerId;
+  }
+
+  get userOnServer(): string[] {
+    return this._userOnServer;
   }
 
   get name(): string {
