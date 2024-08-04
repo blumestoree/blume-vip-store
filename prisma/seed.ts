@@ -10,8 +10,30 @@ async function main() {
       name: 'blume',
       email: 'blume@gmail.com',
       password: '123',
+    }
+  });
+
+  await prisma.server.upsert({
+    where: { serverId: '1' },
+    update: {},
+    create: {
+      serverId: "1",
+      name: "Zeta Roleplay",
+      image: "123",
+      banner: ["123"],
+      serverOwnerId: "1",
+    }
+  });
+
+  await prisma.category.upsert({
+    where: { categoryId: '1' },
+    update: {},
+    create: {
+      categoryId: '1',
+      functionInGame: 'addCar',
+      name: 'Carros',
       server: {
-        create: []
+        connect: { serverId: '1' } 
       }
     }
   });
