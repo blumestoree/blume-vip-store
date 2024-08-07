@@ -63,14 +63,14 @@ export default class ProductRepository implements ProductRepositoryInterface {
 			return ProductFactory.create(
 				product.name,
 				product.gameItemName,
-				product.categoryId,
 				product.image,
 				product.price,
 				product.serverId,
-				product.productId,
 				category,
+				product.productId,
 			);
 		});
+
 	}
 
 	async findProductsByIds(productIds: string[]): Promise<Product[]> {
