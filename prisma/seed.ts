@@ -32,11 +32,24 @@ async function main() {
       categoryId: '1',
       functionInGame: 'addCar',
       name: 'Carros',
-      server: {
-        connect: { serverId: '1' } 
-      }
+      serverId: '1',
     }
   });
+
+  await prisma.product.upsert({
+    where: { productId: '1' },
+    update: {},
+    create: {
+      productId: '1',
+      name: 'Carro',
+      gameItemName: 'Panto',
+      image: '',
+      price: 100,
+      categoryId: '1',
+      serverId: '1' ,
+    }
+  });
+
 }
 
 main()
