@@ -39,10 +39,9 @@ class UserRoute {
 
   async createUser(req: Request, res: Response) {
     const useCase = CreateUserUsecaseFactory.create();
-    const { name, password, email, gameUserId } = req.body;
+    const { name, password, email } = req.body;
     const userDto = {
       name,
-      gameUserId,
       password,
       email,
     };

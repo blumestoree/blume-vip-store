@@ -13,7 +13,6 @@ export default class FindAllUserUseCase
       return {
         id: user.id,
         name: user.name,
-        gameUserId: user.gameUserId,
         email: user.email,
       };
     });
