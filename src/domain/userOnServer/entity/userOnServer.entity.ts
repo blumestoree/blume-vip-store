@@ -1,14 +1,14 @@
 export default class UserOnServer {
   private _id: string;
-  private _users: string[];
-  private _servers: string[];
+  private _user: string;
+  private _server: string;
   private _gameUserId: string;
   private _nickname: string;
 
-  constructor(id: string, users: string[], servers: string[], gameUserId: string, nickname: string) {
+  constructor(id: string, user: string, server: string, gameUserId: string, nickname: string) {
     this._id = id;
-    this._users = users;
-    this._servers = servers;
+    this._user = user;
+    this._server = server;
     this._gameUserId = gameUserId;
     this._nickname = nickname;
   }
@@ -17,12 +17,12 @@ export default class UserOnServer {
     return this._id;
   }
 
-  get users(): string[] {
-    return this._users;
+  get user(): string {
+    return this._user;
   }
 
-  get servers(): string[] {
-    return this._servers;
+  get server(): string {
+    return this._server;
   }
 
   get gameUserId(): string {
