@@ -2,6 +2,9 @@ export interface InputCreateUserDto {
   name: string;
   password: string;
   email: string;
+  serverId: string;
+  gameUserId: string;
+  nickname: string;
 }
 export interface OutputCreateUserDto {
   id: string;
