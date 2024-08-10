@@ -27,7 +27,6 @@ export default class CreateUserUseCase
 		user.encryptPassword(input.password);
 		await this.userRepository.create(user);
 
-		console.log("userOnServerFacadeDto", userOnServerFacadeDto);
 		await this.createUserOnServer.createUserOnServer(userOnServerFacadeDto);
 
 		const token = AuthTokenUsecaseFactory.create().createToken(user.name);

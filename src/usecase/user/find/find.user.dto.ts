@@ -1,9 +1,14 @@
 export interface InputFindUserDto {
-  id: string;
+	id: string;
 }
 export interface OutputFindUserDto {
-  id: string;
-  name: string;
-  gameUserId: string;
-  email: string;
+	id: string;
+	name: string;
+	email: string;
+	userOnServer: {
+		id: string;
+		server: string;
+		gameUserId: string;
+		nickname: string;
+	}[];
 }
