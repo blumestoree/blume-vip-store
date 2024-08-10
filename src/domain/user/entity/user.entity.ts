@@ -1,3 +1,4 @@
+import UserOnServer from '../../userOnServer/entity/userOnServer.entity';
 import UserCrypterFactory from '../factory/user.factory.crypter';
 import UserValidatorFactory from '../factory/user.factory.validator';
 
@@ -6,11 +7,11 @@ export default class User {
   private _name: string;
   private _password: string;
   private _email: string;
-  private _userOnServer: string[];
+  private _userOnServer: UserOnServer[];
   private _payment: string[];
   private _refreshToken?: string;
 
-  constructor(id: string, name: string, email: string, password: string, userOnServer: string[], payment: string[], refreshToken?: string) {
+  constructor(id: string, name: string, email: string, password: string, userOnServer: UserOnServer[], payment: string[], refreshToken?: string) {
     this._id = id;
     this._name = name;
     this._password = password;
@@ -29,7 +30,7 @@ export default class User {
     return this._name;
   }
 
-  get userOnServer(): string[] {
+  get userOnServer(): UserOnServer[] {
     return this._userOnServer;
   }
 
