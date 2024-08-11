@@ -7,7 +7,11 @@ export interface OutputFindUserDto {
 	email: string;
 	userOnServer: {
 		id: string;
-		server: string;
+		server: {
+			id: string;
+			name: string;
+			image: string;
+		};
 		gameUserId: string;
 		nickname: string;
 	}[];

@@ -7,6 +7,7 @@ export default class FindUserUseCase implements UseCaseInterface<InputFindUserDt
 
 	async execute(input: InputFindUserDto): Promise<OutputFindUserDto> {
 		const user = await this.userRepository.find(input.id);
+
 		return {
 			id: user.id,
 			name: user.name,
@@ -14,9 +15,13 @@ export default class FindUserUseCase implements UseCaseInterface<InputFindUserDt
 			userOnServer: user.userOnServer.map((userOnServer) => {
 				return {
 					id: userOnServer.id,
-					server: userOnServer.server,
 					gameUserId: userOnServer.gameUserId,
 					nickname: userOnServer.nickname,
+					server: {
+						id: userOnServer.server.id,
+						name: userOnServer.server.name,
+						image: userOnServer.server.image,
+					},
 				};
 			}),
 		};
