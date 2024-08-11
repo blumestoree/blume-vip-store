@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import ServerFactory from "../../../domain/server/factory/server.factory";
 import type User from "../../../domain/user/entity/user.entity";
 import UserFactory from "../../../domain/user/factory/user.factory";
 import type UserRepositoryInterface from "../../../domain/user/repositories/user.repository";
@@ -49,7 +50,11 @@ export default class UserRepository implements UserRepositoryInterface {
 			user = await this.prisma.user.findUniqueOrThrow({
 				where: { userId },
 				include: {
-					userOnServer: true,
+					userOnServer: {
+						include: {
+							server: true,
+						},
+					},
 				},
 			});
 		} catch (error) {
@@ -57,9 +62,17 @@ export default class UserRepository implements UserRepositoryInterface {
 		}
 
 		const userOnServers = user.userOnServer.map((userOnServer) => {
+			const server = ServerFactory.create(
+				userOnServer.server.name,
+				userOnServer.server.image,
+				userOnServer.server.banner,
+				userOnServer.server.serverOwnerId,
+				userOnServer.server.serverId,
+			);
+
 			return UserOnServerFactory.create(
 				userOnServer.userId,
-				userOnServer.serverId,
+				server,
 				userOnServer.gameUserId,
 				userOnServer.nickname,
 				userOnServer.userOnServerId,

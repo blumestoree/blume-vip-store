@@ -6,9 +6,7 @@ import type UseCaseInterface from "../../../shared/usecase.interface";
 import AuthTokenUsecaseFactory from "../../authToken/factory/authToken.usecase.factory";
 import type { InputCreateUserDto, OutputCreateUserDto } from "./create.user.dto";
 
-export default class CreateUserUseCase
-	implements UseCaseInterface<InputCreateUserDto, OutputCreateUserDto>
-{
+export default class CreateUserUseCase implements UseCaseInterface<InputCreateUserDto, OutputCreateUserDto> {
 	constructor(
 		private userRepository: UserRepositoryInterface,
 		private createUserOnServer: UserOnServerFacadeInterface,
