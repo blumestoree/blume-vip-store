@@ -83,13 +83,14 @@ model Category {
 }
 
 model UserOnServer {
-  id         Int    @id @default(autoincrement())
-  user       User   @relation(fields: [userId], references: [userId])
-  userId     String
-  server     Server @relation(fields: [serverId], references: [serverId])
-  serverId   String
-  gameUserId String
-  nickname   String
+  id             Int    @default(autoincrement())
+  userOnServerId String @id @unique
+  user           User   @relation(fields: [userId], references: [userId])
+  userId         String
+  server         Server @relation(fields: [serverId], references: [serverId])
+  serverId       String
+  gameUserId     String
+  nickname       String
 
   @@unique([userId, serverId])
 }
