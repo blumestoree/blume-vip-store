@@ -19,6 +19,7 @@ async function main() {
     create: {
       serverId: "1",
       name: "Zeta Roleplay",
+      slug: "zeta-roleplay",
       image: "123",
       banner: ["123"],
       serverOwnerId: "1",
