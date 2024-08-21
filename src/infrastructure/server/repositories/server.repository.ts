@@ -1,92 +1,131 @@
-import { PrismaClient } from '@prisma/client';
-import ServerRepositoryInterface from '../../../domain/server/repositories/server.repository.interface';
-import Server from '../../../domain/server/entity/server.entity';
-import ServerFactory from '../../../domain/server/factory/server.factory';
+import { PrismaClient } from "@prisma/client";
+import type Server from "../../../domain/server/entity/server.entity";
+import ServerFactory from "../../../domain/server/factory/server.factory";
+import type ServerRepositoryInterface from "../../../domain/server/repositories/server.repository.interface";
 
 export default class ServerRepository implements ServerRepositoryInterface {
-  prisma: PrismaClient;
+	prisma: PrismaClient;
 
-  constructor() {
-    this.prisma = new PrismaClient();
-  }
+	constructor() {
+		this.prisma = new PrismaClient();
+	}
 
-  async create(entity: Server): Promise<void> {
-    await this.prisma.server.create({
-      data: {
-        serverId: entity.id,
-        name: entity.name,
-        image: entity.image,
-        banner: entity.banner,
-        serverOwnerId: entity.serverOwnerId,
-        product: {
-          create: [],
-        },
-        category: {
-          create: [],
-        },
-        userOnServer: {
-          create: [],
-        },
-      },
-    });
-  }
+	async create(entity: Server): Promise<void> {
+		await this.prisma.server.create({
+			data: {
+				serverId: entity.id,
+				name: entity.name,
+				slug: entity.slug,
+				image: entity.image,
+				banner: entity.banner,
+				serverOwnerId: entity.serverOwnerId,
+				product: {
+					create: [],
+				},
+				category: {
+					create: [],
+				},
+				userOnServer: {
+					create: [],
+				},
+			},
+		});
+	}
 
-  async update(entity: Server): Promise<void> {
-    await this.prisma.server.update({
-      where: { serverId: entity.id },
-      data: {
-        serverId: entity.id,
-        name: entity.name,
-        image: entity.image,
-        banner: entity.banner,
-        serverOwnerId: entity.serverOwnerId,
-      },
-    });
-  }
+	async update(entity: Server): Promise<void> {
+		await this.prisma.server.update({
+			where: { serverId: entity.id },
+			data: {
+				serverId: entity.id,
+				name: entity.name,
+				slug: entity.slug,
+				image: entity.image,
+				banner: entity.banner,
+				serverOwnerId: entity.serverOwnerId,
+			},
+		});
+	}
 
-  async findAll(): Promise<Server[]> {
-    const servers = await this.prisma.server.findMany({
-      include: {
-        product: true,
-        category: true,
-      }
-    });
-    return servers.map((server) => {
-      return ServerFactory.create(
-        server.name,
-        server.image,
-        server.banner,
-        server.serverOwnerId,
-        server.serverId,
-        server.product.map((product) => product.productId),
-        server.category.map((category) => category.categoryId),
-      );
-    });
-  }
+	async findAll(): Promise<Server[]> {
+		const servers = await this.prisma.server.findMany({
+			include: {
+				product: true,
+				category: true,
+			},
+		});
+		return servers.map((server) => {
+			return ServerFactory.create(
+				server.name,
+				server.slug,
+				server.image,
+				server.banner,
+				server.serverOwnerId,
+				server.serverId,
+				server.product.map((product) => product.productId),
+				server.category.map((category) => category.categoryId),
+			);
+		});
+	}
 
-  async find(serverId: string): Promise<Server> {
-    let server;
+	async findWithParam(param: { name?: string; id?: string; slug?: string }) {
+		let servers;
 
-    try {
-      server = await this.prisma.server.findUniqueOrThrow({
-        where: { serverId },
-        include: {
-          product: true,
-          category: true,
-        }
-      });
-    } catch (error) {
-      throw new Error('Server not found');
-    }
+		try {
+			servers = await this.prisma.server.findMany({
+				where: {
+					AND: [
+						param.id ? { serverId: param.id } : {},
+						param.name ? { name: param.name } : {},
+						param.slug ? { slug: param.slug } : {},
+					],
+				},
+				include: {
+					product: true,
+					category: true,
+				},
+			});
+		} catch (error) {
+			throw new Error("Server not found");
+		}
 
-    return ServerFactory.create(
-      server.name,
-      server.image,
-      server.banner,
-      server.serverOwnerId,
-      server.serverId,
-      server.product.map((product) => product.productId),
-      server.category.map((category) => category.categoryId),
-    );
-  }
+		return servers.map((item) => {
+			return ServerFactory.create(
+				item.name,
+				item.slug,
+				item.image,
+				item.banner,
+				item.serverOwnerId,
+				item.serverId,
+				item.product.map((product) => product.productId),
+				item.category.map((category) => category.categoryId),
+			);
+		});
+	}
+
+	async find(serverId: string): Promise<Server> {
+		let server;
+
+		try {
+			server = await this.prisma.server.findUniqueOrThrow({
+				where: { serverId },
+				include: {
+					product: true,
+					category: true,
+				},
+			});
+		} catch (error) {
+			throw new Error("Server not found");
+		}
+
+		return ServerFactory.create(
+			server.name,
+			server.image,
+			server.slug,
+			server.banner,
+			server.serverOwnerId,
+			server.serverId,
+			server.product.map((product) => product.productId),
+			server.category.map((category) => category.categoryId),
+		);
+	}
 }
