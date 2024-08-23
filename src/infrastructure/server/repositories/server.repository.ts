@@ -71,7 +71,7 @@ export default class ServerRepository implements ServerRepositoryInterface {
 		let servers;
 
 		try {
-			servers = await this.prisma.server.findMany({
+			servers = await this.prisma.server.findFirstOrThrow({
 				where: {
 					AND: [
 						param.id ? { serverId: param.id } : {},
@@ -88,18 +88,16 @@ export default class ServerRepository implements ServerRepositoryInterface {
 			throw new Error("Server not found");
 		}
 
-		return servers.map((item) => {
-			return ServerFactory.create(
-				item.name,
-				item.slug,
-				item.image,
-				item.banner,
-				item.serverOwnerId,
-				item.serverId,
-				item.product.map((product) => product.productId),
-				item.category.map((category) => category.categoryId),
-			);
-		});
+		return ServerFactory.create(
+			servers.name,
+			servers.slug,
+			servers.image,
+			servers.banner,
+			servers.serverOwnerId,
+			servers.serverId,
+			servers.product.map((product) => product.productId),
+			servers.category.map((category) => category.categoryId),
+		);
 	}
 
 	async find(serverId: string): Promise<Server> {

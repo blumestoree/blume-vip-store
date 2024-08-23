@@ -3,23 +3,21 @@ import type UseCaseInterface from "../../../shared/usecase.interface";
 import type { InputFindWithParamServerDto, OutputFindWithParamServerDto } from "./findWithParam.server.dto";
 
 export default class FfndWithParamServerUseCase
-	implements UseCaseInterface<InputFindWithParamServerDto, OutputFindWithParamServerDto[]>
+	implements UseCaseInterface<InputFindWithParamServerDto, OutputFindWithParamServerDto>
 {
 	constructor(private serverRepository: ServerRepositoryInterface) {}
 
 	async execute(input: InputFindWithParamServerDto) {
 		const allServers = await this.serverRepository.findWithParam(input);
-		return allServers.map((server) => {
-			return {
-				id: server.id,
-				name: server.name,
-				slug: server.slug,
-				image: server.image,
-				banner: server.banner,
-				serverOwnerId: server.serverOwnerId,
-				products: server.products,
-				categories: server.categories,
-			};
-		});
+		return {
+			id: allServers.id,
+			name: allServers.name,
+			slug: allServers.slug,
+			image: allServers.image,
+			banner: allServers.banner,
+			serverOwnerId: allServers.serverOwnerId,
+			products: allServers.products,
+			categories: allServers.categories,
+		};
 	}
 }
