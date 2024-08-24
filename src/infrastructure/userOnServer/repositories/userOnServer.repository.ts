@@ -17,12 +17,12 @@ export default class UserOnServerRepository implements UserOnServerRepositoryInt
 				nickname: entity.nickname,
 				user: {
 					connect: {
-						userId: entity.user,
+						userId: entity.userId,
 					},
 				},
 				server: {
 					connect: {
-						serverId: entity.server,
+						serverId: entity.serverId,
 					},
 				},
 			},

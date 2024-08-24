@@ -7,9 +7,7 @@ export default class CreateUserUsecaseFactory {
 	static create() {
 		const useCaseUserOnServer = CreateUserOnServerUseCase.create();
 
-		const facadeCreateUserOnServer = new UserOnServerFacade({
-			createUserOnServerUseCase: useCaseUserOnServer,
-		});
+		const facadeCreateUserOnServer = new UserOnServerFacade({ createUserOnServerUseCase: useCaseUserOnServer });
 
 		return new CreateUserUseCase(new UserRepository(), facadeCreateUserOnServer);
 	}

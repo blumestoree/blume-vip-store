@@ -25,7 +25,8 @@ export default class CreateUserUseCase implements UseCaseInterface<InputCreateUs
 		user.encryptPassword(input.password);
 		await this.userRepository.create(user);
 
-		await this.createUserOnServer.createUserOnServer(userOnServerFacadeDto);
+		const userOnServer = await this.createUserOnServer.createUserOnServer(userOnServerFacadeDto);
+		// console.log("userOnServer", userOnServer);
 
 		const token = AuthTokenUsecaseFactory.create().createToken(user.name);
 		const refreshToken = await AuthTokenUsecaseFactory.create().createRefreshToken(user.id);
