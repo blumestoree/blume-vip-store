@@ -11,6 +11,8 @@ export interface OutputCreateUserDto {
 	name: string;
 	email: string;
 	token: string;
+	gameUserId: string;
+	nickname: string;
 	refreshToken: {
 		id: string;
 		expiresIn: number;
