@@ -1,17 +1,16 @@
 export interface InputFindCategoryDto {
-  id: string;
+	id: string;
 }
 export interface OutputFindCategoryDto {
-  id: string;
-  name: string;
-  functionInGame: string;
-  serverId: string;
-  products: {
-    id: string;
-    name: string;
-    categoryId: string;
-    image: string;
-    price: number;
-    serverId: string;
-  }[];
+	id: string;
+	name: string;
+	functionInGame: string;
+	serverId: string;
+	products: {
+		id: string;
+		name: string;
+		image: string;
+		price: number;
+		serverId: string;
+	}[];
 }
