@@ -4,7 +4,6 @@ export interface InputCreateUserOnServerDto {
 	gameUserId: string;
 	nickname: string;
 }
-
 export interface OutputCreateUserOnServerDto {
 	userId: string;
 	serverId: string;

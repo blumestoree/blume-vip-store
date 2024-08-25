@@ -22,7 +22,7 @@ export default class UserOnServerRepository implements UserOnServerRepositoryInt
 				},
 				server: {
 					connect: {
-						serverId: entity.serverId,
+						serverId: entity.server.id,
 					},
 				},
 			},
