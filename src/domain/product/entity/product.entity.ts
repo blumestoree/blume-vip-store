@@ -1,10 +1,9 @@
-import type Category from "../../category/entity/category.entity";
 import ProductValidatorFactory from "../factory/product.factory.validator";
 export default class Product {
 	private _id: string;
 	private _price: number;
 	private _name: string;
-	private _category: Category;
+	private _categoryId: string;
 	private _image: string;
 	private _serverId: string;
 	private _gameItemName: string;
@@ -17,7 +16,7 @@ export default class Product {
 		image: string,
 		price: number,
 		serverId: string,
-		category: Category,
+		categoryId: string,
 		paymentsId: string[],
 	) {
 		this._name = name;
@@ -25,7 +24,7 @@ export default class Product {
 		this._price = price;
 		this._image = image;
 		this._serverId = serverId;
-		this._category = category;
+		this._categoryId = categoryId;
 		this._paymentsId = paymentsId;
 		this._id = id;
 		// this.validate();
@@ -55,8 +54,8 @@ export default class Product {
 		return this._paymentsId;
 	}
 
-	get category(): Category {
-		return this._category;
+	get categoryId(): string {
+		return this._categoryId;
 	}
 
 	get price(): number {
