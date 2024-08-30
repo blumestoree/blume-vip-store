@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import CategoryFactory from "../../../domain/category/factory/category.factory";
 import type Product from "../../../domain/product/entity/product.entity";
 import ProductFactory from "../../../domain/product/factory/product.factory";
 import type ProductRepositoryInterface from "../../../domain/product/repositories/product.repository.interface";
@@ -20,7 +19,7 @@ export default class ProductRepository implements ProductRepositoryInterface {
 				image: entity.image,
 				price: entity.price,
 				serverId: entity.serverId,
-				categoryId: entity.category.id,
+				categoryId: entity.categoryId,
 			},
 		});
 	}
@@ -40,37 +39,24 @@ export default class ProductRepository implements ProductRepositoryInterface {
 		});
 	}
 
-	async findAll(
-		serverId: string,
-		categoryId: string[] | undefined,
-		sort: "desc" | "asc" | undefined,
-	): Promise<Product[]> {
+	async findAll(serverId: string, categoryId: string[] | undefined, sort: "desc" | "asc" | undefined): Promise<Product[]> {
 		const products = await this.prisma.product.findMany({
 			where: { serverId, categoryId: { in: categoryId } },
-			include: {
-				category: true,
-			},
 			orderBy: {
 				price: sort,
 			},
 		});
 		return products.map((product) => {
-			const category = CategoryFactory.create(
-				product.category.name,
-				product.category.functionInGame,
-				product.category.categoryId,
-			);
 			return ProductFactory.create(
 				product.name,
 				product.gameItemName,
 				product.image,
 				product.price,
 				product.serverId,
-				category,
+				product.categoryId,
 				product.productId,
 			);
 		});
-
 	}
 
 	async findProductsByIds(productIds: string[]): Promise<Product[]> {
@@ -78,9 +64,6 @@ export default class ProductRepository implements ProductRepositoryInterface {
 
 		try {
 			products = await this.prisma.product.findMany({
-				include: {
-					category: true,
-				},
 				where: { productId: { in: productIds } },
 			});
 		} catch (error) {
@@ -88,20 +71,14 @@ export default class ProductRepository implements ProductRepositoryInterface {
 		}
 
 		return products.map((product) => {
-			const category = CategoryFactory.create(
-				product.category.name,
-				product.category.functionInGame,
-				product.category.categoryId,
-			);
 			return ProductFactory.create(
 				product.name,
 				product.gameItemName,
-				product.categoryId,
 				product.image,
 				product.price,
 				product.serverId,
+				product.categoryId,
 				product.productId,
-				category,
 			);
 		});
 	}
@@ -111,29 +88,20 @@ export default class ProductRepository implements ProductRepositoryInterface {
 
 		try {
 			product = await this.prisma.product.findUniqueOrThrow({
-				include: {
-					category: true,
-				},
 				where: { productId },
 			});
 		} catch (error) {
 			throw new Error("Product not found");
 		}
 
-		const category = CategoryFactory.create(
-			product.category.name,
-			product.category.functionInGame,
-			product.category.categoryId,
-		);
 		return ProductFactory.create(
 			product.name,
 			product.gameItemName,
-			product.categoryId,
 			product.image,
 			product.price,
 			product.serverId,
+			product.categoryId,
 			product.productId,
-			category,
 		);
 	}
 }
