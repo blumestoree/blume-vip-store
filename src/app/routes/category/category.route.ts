@@ -74,7 +74,8 @@ class CategoryRoute {
 	async findCategory(req: Request, res: Response) {
 		const useCase = FindCategoryUsecaseFactory.create();
 		const { id } = req.params;
-		const serverDto = { id };
+		const { serverId } = req.query;
+		const serverDto = { id, serverId: serverId as string };
 		try {
 			const output = await useCase.execute(serverDto);
 			res.send(output);

@@ -6,7 +6,7 @@ export default class FindCategoryUseCase implements UseCaseInterface<InputFindCa
 	constructor(private CategoryRepository: CategoryRepositoryInterface) {}
 
 	async execute(input: InputFindCategoryDto): Promise<OutputFindCategoryDto> {
-		const category = await this.CategoryRepository.find(input.id);
+		const category = await this.CategoryRepository.find(input.id, input.serverId);
 		return {
 			id: category.id,
 			name: category.name,
@@ -18,6 +18,7 @@ export default class FindCategoryUseCase implements UseCaseInterface<InputFindCa
 				image: product.image,
 				price: product.price,
 				serverId: product.serverId,
+				gameItemName: product?.gameItemName,
 			})),
 		};
 	}

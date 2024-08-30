@@ -59,7 +59,7 @@ export default class CategoryRepository implements CategoryRepositoryInterface {
 		});
 	}
 
-	async find(categoryId: string): Promise<Category> {
+	async find(categoryId: string, serverId: string): Promise<Category> {
 		let category;
 
 		try {
@@ -67,7 +67,7 @@ export default class CategoryRepository implements CategoryRepositoryInterface {
 				include: {
 					product: true,
 				},
-				where: { categoryId },
+				where: { categoryId, serverId },
 			});
 		} catch (error) {
 			throw new Error("Category not found");

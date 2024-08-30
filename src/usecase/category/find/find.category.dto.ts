@@ -1,5 +1,6 @@
 export interface InputFindCategoryDto {
 	id: string;
+	serverId: string;
 }
 export interface OutputFindCategoryDto {
 	id: string;
@@ -12,5 +13,6 @@ export interface OutputFindCategoryDto {
 		image: string;
 		price: number;
 		serverId: string;
+		gameItemName: string;
 	}[];
 }
